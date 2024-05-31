@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         inputManager = GetComponent<InputManager>();
-        cameraManager = GetComponent<CameraManager>();
+        cameraManager = FindAnyObjectByType<CameraManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
     }
 
@@ -29,6 +29,4 @@ public class PlayerManager : MonoBehaviour
     {
         cameraManager.HandleAllcameraMovement();
     }
-
-
 }

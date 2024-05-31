@@ -7,49 +7,49 @@ public class CameraManager : MonoBehaviour
     InputManager inputManager;
 
     public Transform targetTransform;
-    /*public Transform cameraPivot;
+    public Transform cameraPivot;
     private Transform cameraTransform;
     public LayerMask collisionLayers;
-    private float defaultPosition;*/
+    private float defaultPosition;
     private Vector3 cameraFollowVelocity = Vector3.zero;
-    /*private Vector3 cameraVectorPosition;*/
+    private Vector3 cameraVectorPosition;
 
-    /*public float cameraCollisionOffSet = 0.2f;
+    public float cameraCollisionOffSet = 0.2f;
     public float minimumCollisionOffSet = 0.2f;
     public float cameraCollisionRadius = 2;
     public float cameraFollowSpeed = 0.2f;
     public float cameraLookSpeed = 2;
-    public float cameraPivotSpeed = 2;*/
+    public float cameraPivotSpeed = 2;
 
     public float lookAngle;
     public float pivotAngle;
-    /*public float minimumPivotAngle = -35;
-    public float maximumPivotAngle = 35;*/
+    public float minimumPivotAngle = -35;
+    public float maximumPivotAngle = 35;
 
     private void Awake()
     {
         inputManager = FindAnyObjectByType<InputManager>();
         targetTransform = FindAnyObjectByType<PlayerManager>().transform;
-        /*cameraTransform = Camera.main.transform;
-        defaultPosition = cameraTransform.localPosition.z;*/
+        cameraTransform = Camera.main.transform;
+        defaultPosition = cameraTransform.localPosition.z;
     }
 
     public void HandleAllcameraMovement()
     {
-        /*FollowTarget();*/
-        /*RotateCamera();
-        HandleCameraCollisions();*/
+        FollowTarget();
+        RotateCamera();
+        HandleCameraCollisions();
     }
 
-    /*private void FollowTarget()
+    private void FollowTarget()
     {
         Vector3 targetPosition = Vector3.SmoothDamp
             (transform.position, targetTransform.position, ref cameraFollowVelocity, cameraFollowSpeed);
 
         transform.position = targetPosition;
-    }*/
+    }
 
-    /*private void RotateCamera()
+    private void RotateCamera()
     {
         Vector3 rotation;
         Quaternion targetRotation;
@@ -90,6 +90,5 @@ public class CameraManager : MonoBehaviour
 
         cameraVectorPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, targetPosition, 0.2f);
         cameraTransform.localPosition = cameraVectorPosition;
-    }*/
-
+    }
 }
