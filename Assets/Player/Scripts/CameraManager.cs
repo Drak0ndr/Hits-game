@@ -85,7 +85,7 @@ public class CameraManager : MonoBehaviour
 
         if (Mathf.Abs(targetPosition) < minimumCollisionOffSet)
         {
-            targetPosition = targetPosition - minimumCollisionOffSet;
+            targetPosition -= minimumCollisionOffSet;
         }
 
         cameraVectorPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, targetPosition, 0.2f);
