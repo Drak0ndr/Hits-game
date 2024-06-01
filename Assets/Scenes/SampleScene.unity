@@ -175,12 +175,28 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2602178127244263417, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
+      propertyPath: jumpHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602178127244263417, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
+      propertyPath: movementSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602178127244263417, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
+      propertyPath: rotationSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602178127244263417, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
       propertyPath: fallingVelocity
       value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 2602178127244263417, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
       propertyPath: leapingVelocity
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602178127244263417, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
+      propertyPath: grravityIntensity
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 2602178127244263417, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
       propertyPath: groundLayer.m_Bits
@@ -405,6 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInteracting: 0
+  isUsingRootMotion: 0
 --- !u!1 &1089254668
 GameObject:
   m_ObjectHideFlags: 0
