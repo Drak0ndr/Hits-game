@@ -11,7 +11,7 @@ public class PlayerLocomotion : MonoBehaviour
 
     Vector3 moveDirection;
     Transform cameraObject;
-    Rigidbody playerRigidbody;
+    public Rigidbody playerRigidbody;
 
     public float inAirTimer;
     public float leapingVelocity;
@@ -25,12 +25,12 @@ public class PlayerLocomotion : MonoBehaviour
     public bool isGrounded;
     public bool isJumping;
 
-    public float sprintingSpeed = 20f;
-    public float movementSpeed = 7f;
-    public float rotationSpeed = 15f;
+    public float sprintingSpeed = 15f;
+    public float movementSpeed = 10f;
+    public float rotationSpeed = 10f;
 
-    public float grravityIntensity = -15;
-    public float jumpHeight = 3;
+    public float grravityIntensity = -10f;
+    public float jumpHeight = 2f;
 
     private void Awake()
     {
@@ -77,7 +77,6 @@ public class PlayerLocomotion : MonoBehaviour
 
         Vector3 movementVelocity = moveDirection;
         playerRigidbody.velocity = movementVelocity;
-
     }
 
     private void HandleRotation()
@@ -108,7 +107,9 @@ public class PlayerLocomotion : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 rayCastOrigin = transform.position;
+        Vector3 targetPosition;
         rayCastOrigin.y += rayCastHeightOffset;
+        targetPosition = transform.position;
 
         if (!isGrounded && !isJumping)
         {
@@ -129,6 +130,8 @@ public class PlayerLocomotion : MonoBehaviour
                 animatorManager.PlayTargetAnimation("Land", true);
             }
 
+            Vector3 rayCastHitPoint = hit.point;
+            targetPosition.y = rayCastHitPoint.y;
             inAirTimer = 0;
             isGrounded = true;
         }
@@ -136,6 +139,17 @@ public class PlayerLocomotion : MonoBehaviour
         {
             isGrounded = false;
         }  
+
+        if(isGrounded && !isJumping) { 
+            if(playerManager.isInteracting || inputManager.moveAmount > 0)
+            {
+                transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime / 0.1f);
+            }
+            else
+            {
+                transform.position = targetPosition;
+            }
+        }
     }
 
     public void HandleJumping()
@@ -150,5 +164,15 @@ public class PlayerLocomotion : MonoBehaviour
             playerVelocity.y = jumpingVelocity;
             playerRigidbody.velocity = playerVelocity;
         }
+    }
+
+    public void HandleRoll()
+    {
+        if (playerManager.isInteracting)
+        {
+            return;
+        }
+
+        animatorManager.PlayTargetAnimation("Roll", true, true);
     }
 }
