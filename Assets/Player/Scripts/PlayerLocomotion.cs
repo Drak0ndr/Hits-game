@@ -30,7 +30,7 @@ public class PlayerLocomotion : MonoBehaviour
     public float walkingSpeed = 3f;
     public float sprintingSpeed = 12f;
     public float runningSpeed = 7f;
-    public float rotationSpeed = 15f;
+    public float rotationSpeed = 10f;
 
     public float grravityIntensity = -10f;
     public float jumpHeight = 2f;
