@@ -8,7 +8,8 @@ public class ChunkRenderer : MonoBehaviour
 {
     public const int ChunkWidth = 10;
     public const int ChunkHeight = 128;
-    public int[,,] Blocks = new int[ChunkWidth, ChunkHeight, ChunkWidth];
+    public const float BlockScale = 0.5f;
+    public BlockType[,,] Blocks = new BlockType[ChunkWidth, ChunkHeight, ChunkWidth];
     // Start is called before the first frame update
     private List<Vector3> vecticies = new List<Vector3>();
     private List<int> triangles = new List<int>();
@@ -34,10 +35,13 @@ public class ChunkRenderer : MonoBehaviour
         chunkMesh.vertices = vecticies.ToArray();
         chunkMesh.triangles = triangles.ToArray();
 
+        chunkMesh.Optimize();
+
         chunkMesh.RecalculateNormals();
         chunkMesh.RecalculateBounds();
 
         GetComponent<MeshFilter>().mesh = chunkMesh;
+        GetComponent<MeshCollider>().sharedMesh = chunkMesh;
     }
 
     private void GenerateBlock(int x, int y, int z)
@@ -54,7 +58,7 @@ public class ChunkRenderer : MonoBehaviour
         if (GetBlockAtPosition(blockPosition + Vector3Int.down) == 0) GenerateBottomSide(blockPosition);
     }
 
-    private int GetBlockAtPosition(Vector3Int blockPosition)
+    private BlockType GetBlockAtPosition(Vector3Int blockPosition)
     {
         if (blockPosition.x >= 0 && blockPosition.x < ChunkWidth &&
         blockPosition.y >= 0 && blockPosition.y < ChunkHeight &&
@@ -64,15 +68,15 @@ public class ChunkRenderer : MonoBehaviour
         }
         else
         {
-            return 0;
+            return BlockType.Air;
         }
     }
     private void GenerateRightSide(Vector3Int blockPosition)
     {
-        vecticies.Add(new Vector3(1, 0, 0) + blockPosition);
-        vecticies.Add(new Vector3(1, 1, 0) + blockPosition);
-        vecticies.Add(new Vector3(1, 0, 1) + blockPosition);
-        vecticies.Add(new Vector3(1, 1, 1) + blockPosition);
+        vecticies.Add((new Vector3(1, 0, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, 1, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, 0, 1) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, 1, 1) + blockPosition) * BlockScale);
 
         AddLastVerticiesSquare();
 
@@ -80,50 +84,50 @@ public class ChunkRenderer : MonoBehaviour
 
     private void GenerateLeftSide(Vector3Int blockPosition)
     {
-        vecticies.Add(new Vector3(0, 0, 0) + blockPosition);
-        vecticies.Add(new Vector3(0, 0, 1) + blockPosition);
-        vecticies.Add(new Vector3(0, 1, 0) + blockPosition);
-        vecticies.Add(new Vector3(0, 1, 1) + blockPosition);
+        vecticies.Add((new Vector3(0, 0, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(0, 0, 1) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(0, 1, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(0, 1, 1) + blockPosition) * BlockScale);
 
         AddLastVerticiesSquare();
     }
 
     private void GenerateFrontSide(Vector3Int blockPosition)
     {
-        vecticies.Add(new Vector3(0, 0, 1) + blockPosition);
-        vecticies.Add(new Vector3(1, 0, 1) + blockPosition);
-        vecticies.Add(new Vector3(0, 1, 1) + blockPosition);
-        vecticies.Add(new Vector3(1, 1, 1) + blockPosition);
+        vecticies.Add((new Vector3(0, 0, 1) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, 0, 1) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(0, 1, 1) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, 1, 1) + blockPosition) * BlockScale);
 
         AddLastVerticiesSquare();
     }
 
     private void GenerateBackSide(Vector3Int blockPosition)
     {
-        vecticies.Add(new Vector3(0, 0, 0) + blockPosition);
-        vecticies.Add(new Vector3(0, 1, 0) + blockPosition);
-        vecticies.Add(new Vector3(1, 0, 0) + blockPosition);
-        vecticies.Add(new Vector3(1, 1, 0) + blockPosition);
+        vecticies.Add((new Vector3(0, 0, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(0, 1, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, 0, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, 1, 0) + blockPosition) * BlockScale);
 
         AddLastVerticiesSquare();
     }
 
     private void GenerateTopSide(Vector3Int blockPosition)
     {
-        vecticies.Add(new Vector3(0, 1, 0) + blockPosition);
-        vecticies.Add(new Vector3(0, 1, 1) + blockPosition);
-        vecticies.Add(new Vector3(1, 1, 0) + blockPosition);
-        vecticies.Add(new Vector3(1, 1, 1) + blockPosition);
+        vecticies.Add((new Vector3(0, 1, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(0, 1, 1) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, 1, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, 1, 1) + blockPosition) * BlockScale);
 
         AddLastVerticiesSquare();
     }
 
     private void GenerateBottomSide(Vector3Int blockPosition)
     {
-        vecticies.Add(new Vector3(0, 0, 0) + blockPosition);
-        vecticies.Add(new Vector3(1, 0, 0) + blockPosition);
-        vecticies.Add(new Vector3(0, 0, 1) + blockPosition);
-        vecticies.Add(new Vector3(1, 0, 1) + blockPosition);
+        vecticies.Add((new Vector3(0, 0, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, 0, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(0, 0, 1) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, 0, 1) + blockPosition) * BlockScale);
 
         AddLastVerticiesSquare();
     }
