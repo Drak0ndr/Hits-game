@@ -25,8 +25,9 @@ public class PlayerLocomotion : MonoBehaviour
     public bool isGrounded;
     public bool isJumping;
 
-    public float sprintingSpeed = 15f;
-    public float movementSpeed = 10f;
+    public float walkingSpeed = 3f;
+    public float sprintingSpeed = 12f;
+    public float runningSpeed = 7f;
     public float rotationSpeed = 10f;
 
     public float grravityIntensity = -10f;
@@ -72,7 +73,14 @@ public class PlayerLocomotion : MonoBehaviour
         }
         else
         {
-            moveDirection *= movementSpeed;
+            if (inputManager.moveAmount > 0.5f)
+            {
+                moveDirection = moveDirection * runningSpeed;
+            }
+            else
+            {
+                moveDirection = moveDirection * walkingSpeed;
+            }
         }
 
         Vector3 movementVelocity = moveDirection;
@@ -113,7 +121,7 @@ public class PlayerLocomotion : MonoBehaviour
 
         if (!isGrounded && !isJumping)
         {
-            if (playerManager.isInteracting)
+            if (!playerManager.isInteracting)
             {
                 animatorManager.PlayTargetAnimation("Falling", true);
             }

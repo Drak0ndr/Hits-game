@@ -4042,6 +4042,7 @@ GameObject:
   - component: {fileID: 8752360429007179046}
   - component: {fileID: 8011840722678328347}
   - component: {fileID: 2049553731285517655}
+  - component: {fileID: 1690972788347736537}
   m_Layer: 0
   m_Name: HumanMale_Character_Free
   m_TagString: Untagged
@@ -4104,8 +4105,12 @@ MonoBehaviour:
   cameraInput: {x: 0, y: 0}
   cameraInputX: 0
   cameraInputY: 0
+  moveAmount: 0
   verticalInput: 0
   horizontalInput: 0
+  b_Input: 0
+  x_Input: 0
+  jump_Input: 0
 --- !u!114 &2602178127244263417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4118,8 +4123,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bae22660d3e7124b8a2b445ab3b5fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 7
-  rotationSpeed: 15
+  playerRigidbody: {fileID: 0}
+  inAirTimer: 0
+  leapingVelocity: 3
+  fallingVelocity: 300
+  rayCastHeightOffset: 0.5
+  maxDistance: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  isSprinting: 0
+  isGrounded: 1
+  isJumping: 0
+  walkingSpeed: 1.5
+  sprintingSpeed: 7
+  runningSpeed: 5
+  rotationSpeed: 10
+  grravityIntensity: -10
+  jumpHeight: 2
 --- !u!54 &8752360429007179046
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4144,7 +4165,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &8011840722678328347
@@ -4167,9 +4188,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.25
-  m_Height: 2
+  m_Height: 1.8
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &2049553731285517655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4182,6 +4203,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1045bdb7ae5424295139e7e69ed9dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+--- !u!114 &1690972788347736537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252979740554851119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72f0c15a7c9d84c44969e43dc0e98e7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInteracting: 0
+  isUsingRootMotion: 0
 --- !u!1 &7314305305263063640
 GameObject:
   m_ObjectHideFlags: 0

@@ -72,7 +72,7 @@ public class InputManager : MonoBehaviour
 
     private void HandleSprintingInput()
     {
-        if(b_Input)
+        if(b_Input && moveAmount > 0.5f)
         {
             playerLocomotion.isSprinting = true;
         }
