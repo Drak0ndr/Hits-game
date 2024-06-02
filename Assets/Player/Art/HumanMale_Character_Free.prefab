@@ -4123,10 +4123,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bae22660d3e7124b8a2b445ab3b5fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRigidbody: {fileID: 0}
+  playerRigidbody: {fileID: 8752360429007179046}
   inAirTimer: 0
   leapingVelocity: 3
-  fallingVelocity: 30
+  fallingVelocity: 33
   rayCastHeightOffset: 0.5
   maxDistance: 1
   groundLayer:
@@ -4138,7 +4138,7 @@ MonoBehaviour:
   walkingSpeed: 3
   sprintingSpeed: 12
   runningSpeed: 7
-  rotationSpeed: 15
+  rotationSpeed: 10
   grravityIntensity: -10
   jumpHeight: 2
 --- !u!54 &8752360429007179046
@@ -4203,7 +4203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1045bdb7ae5424295139e7e69ed9dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  animator: {fileID: 1753475889523980329}
 --- !u!114 &1690972788347736537
 MonoBehaviour:
   m_ObjectHideFlags: 0
