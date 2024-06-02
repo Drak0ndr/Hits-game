@@ -4126,7 +4126,7 @@ MonoBehaviour:
   playerRigidbody: {fileID: 0}
   inAirTimer: 0
   leapingVelocity: 3
-  fallingVelocity: 300
+  fallingVelocity: 30
   rayCastHeightOffset: 0.5
   maxDistance: 1
   groundLayer:
@@ -4135,10 +4135,10 @@ MonoBehaviour:
   isSprinting: 0
   isGrounded: 1
   isJumping: 0
-  walkingSpeed: 1.5
-  sprintingSpeed: 7
-  runningSpeed: 5
-  rotationSpeed: 10
+  walkingSpeed: 3
+  sprintingSpeed: 12
+  runningSpeed: 7
+  rotationSpeed: 15
   grravityIntensity: -10
   jumpHeight: 2
 --- !u!54 &8752360429007179046
