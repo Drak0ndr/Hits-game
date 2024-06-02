@@ -122,16 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!54 &459460962 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 8752360429007179046, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
-  m_PrefabInstance: {fileID: 667718423}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &459460965 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1753475889523980329, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
-  m_PrefabInstance: {fileID: 667718423}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &468261866
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,34 +215,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2049553731285517655, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 459460965}
-    - target: {fileID: 2602178127244263417, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
-      propertyPath: runningSpeed
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2602178127244263417, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
-      propertyPath: walkingSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2602178127244263417, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
-      propertyPath: rotationSpeed
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2602178127244263417, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
-      propertyPath: sprintingSpeed
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 2602178127244263417, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
-      propertyPath: fallingVelocity
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 2602178127244263417, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
-      propertyPath: playerRigidbody
-      value: 
-      objectReference: {fileID: 459460962}
     - target: {fileID: 7252979740554851119, guid: 91d0fff14114d6340afd1737e47fb61a, type: 3}
       propertyPath: m_Name
       value: Person
