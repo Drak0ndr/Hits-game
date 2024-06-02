@@ -19,7 +19,7 @@ public class InputManager : MonoBehaviour
     public float horizontalInput;
 
     public bool b_Input;
-    public bool x_Input;
+    public bool x_Input = false;
     public bool jump_Input;
     private void Awake()
     {
@@ -34,11 +34,14 @@ public class InputManager : MonoBehaviour
             playerControls = new PlayerControls();
 
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
+
             playerControls.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
 
             playerControls.PlayerActions.B.performed += i => b_Input = true;
             playerControls.PlayerActions.B.canceled += i => b_Input = false;
+
             playerControls.PlayerActions.X.performed += i => x_Input = true;
+
             playerControls.PlayerActions.Jump.performed += i => jump_Input = true;
         }
 

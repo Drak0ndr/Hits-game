@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
     CameraManager cameraManager;
     PlayerLocomotion playerLocomotion;
 
-    public bool isInteracting;
+    public bool isInteracting = false;
     public bool isUsingRootMotion;
 
     private void Awake()

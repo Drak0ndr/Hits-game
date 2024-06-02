@@ -13,6 +13,8 @@ public class PlayerLocomotion : MonoBehaviour
     Transform cameraObject;
     public Rigidbody playerRigidbody;
 
+    private Vector3 rollDirection;
+
     public float inAirTimer;
     public float leapingVelocity;
     public float fallingVelocity;
@@ -28,7 +30,7 @@ public class PlayerLocomotion : MonoBehaviour
     public float walkingSpeed = 3f;
     public float sprintingSpeed = 12f;
     public float runningSpeed = 7f;
-    public float rotationSpeed = 10f;
+    public float rotationSpeed = 15f;
 
     public float grravityIntensity = -10f;
     public float jumpHeight = 2f;
@@ -181,6 +183,14 @@ public class PlayerLocomotion : MonoBehaviour
         {
             return;
         }
+
+        rollDirection = cameraObject.forward * inputManager.verticalInput;
+        rollDirection += cameraObject.right * inputManager.horizontalInput;
+        rollDirection.y = 0;
+        rollDirection.Normalize();
+
+        Quaternion playerRotation = Quaternion.LookRotation(rollDirection);
+        animatorManager.transform.rotation = playerRotation;
 
         animatorManager.PlayTargetAnimation("Roll", true, true);
     }

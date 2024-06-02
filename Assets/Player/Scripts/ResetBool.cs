@@ -14,6 +14,4 @@ public class ResetBool : StateMachineBehaviour
         animator.SetBool(isInteractingBool, isInteractingStatus);
         animator.SetBool(isUsingRootMotionBool, isUsingRootMotionStatus);
     }
-
-  
 }
