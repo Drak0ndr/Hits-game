@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -11,11 +12,26 @@ public class ChunkRenderer : MonoBehaviour
     public const float BlockScale = 0.5f;
     public ChunkData ChunkData;
     public GameWorld ParentWorld;
+
+    private Mesh chunkMesh;
+
     private List<Vector3> vecticies = new List<Vector3>();
     private List<int> triangles = new List<int>();
     void Start()
     {
-        Mesh chunkMesh = new Mesh();
+        chunkMesh = new Mesh();
+
+        RegenerateMesh();
+
+        GetComponent<MeshFilter>().mesh = chunkMesh;
+
+    }
+
+    private void RegenerateMesh()
+    {
+        vecticies.Clear();
+        triangles.Clear();
+
         for (int y = 0; y < ChunkHeight; y++)
         {
             for (int x = 0; x < ChunkWidth; x++)
@@ -29,7 +45,7 @@ public class ChunkRenderer : MonoBehaviour
 
 
 
-
+        chunkMesh.triangles = Array.Empty<int>();
         chunkMesh.vertices = vecticies.ToArray();
         chunkMesh.triangles = triangles.ToArray();
 
@@ -38,10 +54,19 @@ public class ChunkRenderer : MonoBehaviour
         chunkMesh.RecalculateNormals();
         chunkMesh.RecalculateBounds();
 
-        GetComponent<MeshFilter>().mesh = chunkMesh;
         GetComponent<MeshCollider>().sharedMesh = chunkMesh;
     }
 
+    public void SpawnBlock(Vector3Int blockPosition)
+    {
+        ChunkData.Blocks[blockPosition.x, blockPosition.y, blockPosition.z] = BlockType.Grass;
+        RegenerateMesh();
+    }
+        public void DestroyBlock(Vector3Int blockPosition)
+    {
+        ChunkData.Blocks[blockPosition.x, blockPosition.y, blockPosition.z] = BlockType.Air;
+        RegenerateMesh();
+    }
     private void GenerateBlock(int x, int y, int z)
     {
         var blockPosition = new Vector3Int(x, y, z);
@@ -68,37 +93,37 @@ public class ChunkRenderer : MonoBehaviour
         {
             if (blockPosition.y < 0 || blockPosition.y >= ChunkHeight) return BlockType.Air;
             Vector2Int adjacentChunkPosition = ChunkData.ChunkPositoin;
-            if (blockPosition.x < 0) 
+            if (blockPosition.x < 0)
             {
                 adjacentChunkPosition.x--;
                 blockPosition.x += ChunkWidth;
             }
-            else if (blockPosition.x >= ChunkWidth) 
+            else if (blockPosition.x >= ChunkWidth)
             {
                 adjacentChunkPosition.x++;
                 blockPosition.x -= ChunkWidth;
             }
 
-            if (blockPosition.z < 0) 
+            if (blockPosition.z < 0)
             {
                 adjacentChunkPosition.y--;
                 blockPosition.z += ChunkWidth;
             }
-            else if (blockPosition.z >= ChunkWidth) 
+            else if (blockPosition.z >= ChunkWidth)
             {
                 adjacentChunkPosition.y++;
                 blockPosition.z -= ChunkWidth;
             }
 
-            if (ParentWorld.ChunkDatas.TryGetValue(adjacentChunkPosition, out ChunkData adjacentChunk)) 
+            if (ParentWorld.ChunkDatas.TryGetValue(adjacentChunkPosition, out ChunkData adjacentChunk))
             {
                 return adjacentChunk.Blocks[blockPosition.x, blockPosition.y, blockPosition.z];
-            } 
-            else 
+            }
+            else
             {
                 return BlockType.Air;
             }
-            
+
         }
     }
     private void GenerateRightSide(Vector3Int blockPosition)
