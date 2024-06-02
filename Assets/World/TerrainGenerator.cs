@@ -10,7 +10,7 @@ public static class TerrainGenerator
         {
             for (int z = 0; z < ChunkRenderer.ChunkWidth; z++)
             {
-                float height = Mathf.PerlinNoise((x * ChunkRenderer.BlockScale + xOffset) * .2f, (z * ChunkRenderer.BlockScale + zOffset) * .2f) * 25 + 10;
+                float height = Mathf.PerlinNoise((x * ChunkRenderer.BlockScale + xOffset) * .2f, (z * ChunkRenderer.BlockScale + zOffset) * .2f) * 25 + 70;
                 if (height >= ChunkRenderer.ChunkHeight)
                 {
                     height = ChunkRenderer.ChunkHeight - 1;
