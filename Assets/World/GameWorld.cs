@@ -17,10 +17,10 @@ public class GameWorld : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-       StartCoroutine(Generate(false));
+        StartCoroutine(Generate(false));
     }
 
-    private IEnumerator Generate(bool wait) 
+    private IEnumerator Generate(bool wait)
     {
         for (int x = currentPlayerChunk.x - ViewRadius; x < currentPlayerChunk.x + ViewRadius; x++)
         {
@@ -36,9 +36,11 @@ public class GameWorld : MonoBehaviour
     }
 
     [ContextMenu("Regenerate World")]
-    public void Regenerate() {
+    public void Regenerate()
+    {
         Generator.Init();
-        foreach(var chunkData in ChunkDatas) {
+        foreach (var chunkData in ChunkDatas)
+        {
             Destroy(chunkData.Value.Renderer.gameObject);
         }
 
@@ -47,7 +49,8 @@ public class GameWorld : MonoBehaviour
         StartCoroutine(Generate(false));
     }
 
-    private void LoadChunkAt(Vector2Int chunkPosition) {
+    private void LoadChunkAt(Vector2Int chunkPosition)
+    {
 
         int x = chunkPosition.x;
         int z = chunkPosition.y;
@@ -70,7 +73,8 @@ public class GameWorld : MonoBehaviour
         Vector3Int playerWorldPos = Vector3Int.FloorToInt(mainCamera.transform.position / ChunkRenderer.BlockScale);
         Vector2Int playerChunk = GetChunkContainingBlock(playerWorldPos);
 
-        if (playerChunk != currentPlayerChunk) {
+        if (playerChunk != currentPlayerChunk)
+        {
             currentPlayerChunk = playerChunk;
             StartCoroutine(Generate(true));
         }
@@ -78,7 +82,7 @@ public class GameWorld : MonoBehaviour
         CheckInput();
     }
 
-    private void CheckInput() 
+    private void CheckInput()
     {
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
@@ -88,23 +92,33 @@ public class GameWorld : MonoBehaviour
             if (Physics.Raycast(ray, out var hitInfo))
             {
                 Vector3 blockCenter;
-                if (isDestoying) {
+                if (isDestoying)
+                {
                     blockCenter = hitInfo.point - hitInfo.normal * ChunkRenderer.BlockScale / 2;
-                } else {
+                }
+                else
+                {
                     blockCenter = hitInfo.point + hitInfo.normal * ChunkRenderer.BlockScale / 2;
                 }
-                
+
                 Vector3Int blockWorldPos = Vector3Int.FloorToInt(blockCenter / ChunkRenderer.BlockScale);
                 Vector2Int chunkPos = GetChunkContainingBlock(blockWorldPos);
+                if (blockWorldPos.z - chunkPos.y * ChunkRenderer.ChunkWidth < 0) chunkPos.y--;
+                if (blockWorldPos.x - chunkPos.x * ChunkRenderer.ChunkWidth >= ChunkRenderer.ChunkWidth) chunkPos.x++;
                 if (ChunkDatas.TryGetValue(chunkPos, out ChunkData chunkData))
                 {
                     Vector3Int chunkOrigin = new Vector3Int(chunkPos.x, 0, chunkPos.y) * ChunkRenderer.ChunkWidth;
-                    if (isDestoying) {
+                    if (isDestoying)
+                    {
                         chunkData.Renderer.DestroyBlock(blockWorldPos - chunkOrigin);
-                    } else {
+                    }
+                    else
+                    {
+
+                        print(chunkOrigin);
                         chunkData.Renderer.SpawnBlock(blockWorldPos - chunkOrigin);
                     }
-                    
+
                 }
             }
         }
@@ -112,6 +126,12 @@ public class GameWorld : MonoBehaviour
 
     public Vector2Int GetChunkContainingBlock(Vector3Int blockWorldPos)
     {
-        return new Vector2Int(blockWorldPos.x / ChunkRenderer.ChunkWidth, blockWorldPos.z / ChunkRenderer.ChunkWidth);
+        Vector2Int chunkPosition = new Vector2Int(blockWorldPos.x / ChunkRenderer.ChunkWidth, blockWorldPos.z / ChunkRenderer.ChunkWidth);
+
+        if (blockWorldPos.x < 0) chunkPosition.x--;
+        if (blockWorldPos.y < 0) chunkPosition.y--;
+
+        // print(chunkPosition);
+        return chunkPosition;
     }
 }
