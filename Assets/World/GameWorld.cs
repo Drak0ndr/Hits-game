@@ -8,6 +8,7 @@ public class GameWorld : MonoBehaviour
     private const int ViewRadius = 5;
     public Dictionary<Vector2Int, ChunkData> ChunkDatas = new Dictionary<Vector2Int, ChunkData>();
     public ChunkRenderer chunkPrefab;
+    public TerrainGenerator Generator;
 
     private Camera mainCamera;
     private Vector2Int currentPlayerChunk;
@@ -34,6 +35,18 @@ public class GameWorld : MonoBehaviour
         }
     }
 
+    [ContextMenu("Regenerate World")]
+    public void Regenerate() {
+        Generator.Init();
+        foreach(var chunkData in ChunkDatas) {
+            Destroy(chunkData.Value.Renderer.gameObject);
+        }
+
+        ChunkDatas.Clear();
+
+        StartCoroutine(Generate(false));
+    }
+
     private void LoadChunkAt(Vector2Int chunkPosition) {
 
         int x = chunkPosition.x;
@@ -41,7 +54,7 @@ public class GameWorld : MonoBehaviour
         float xPos = x * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
         float zPos = z * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
         ChunkData chunkData = new ChunkData();
-        chunkData.Blocks = TerrainGenerator.GenerateTerrain(xPos, zPos);
+        chunkData.Blocks = Generator.GenerateTerrain(xPos, zPos);
         chunkData.ChunkPositoin = new Vector2Int(x, z);
         ChunkDatas.Add(new Vector2Int(x, z), chunkData);
 
