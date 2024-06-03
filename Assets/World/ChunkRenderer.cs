@@ -7,15 +7,16 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class ChunkRenderer : MonoBehaviour
 {
-    public const int ChunkWidth = 10;
+    public const int ChunkWidth = 20;
     public const int ChunkHeight = 128;
-    public const float BlockScale = 0.5f;
+    public const float BlockScale = 0.25f;
     public ChunkData ChunkData;
     public GameWorld ParentWorld;
 
     private Mesh chunkMesh;
 
     private List<Vector3> vecticies = new List<Vector3>();
+    private List<Vector2> uvs = new List<Vector2>();
     private List<int> triangles = new List<int>();
     void Start()
     {
@@ -31,7 +32,7 @@ public class ChunkRenderer : MonoBehaviour
     {
         vecticies.Clear();
         triangles.Clear();
-
+        uvs.Clear();
         for (int y = 0; y < ChunkHeight; y++)
         {
             for (int x = 0; x < ChunkWidth; x++)
@@ -47,6 +48,7 @@ public class ChunkRenderer : MonoBehaviour
 
         chunkMesh.triangles = Array.Empty<int>();
         chunkMesh.vertices = vecticies.ToArray();
+        chunkMesh.uv = uvs.ToArray();
         chunkMesh.triangles = triangles.ToArray();
 
         chunkMesh.Optimize();
@@ -59,10 +61,10 @@ public class ChunkRenderer : MonoBehaviour
 
     public void SpawnBlock(Vector3Int blockPosition)
     {
-        ChunkData.Blocks[blockPosition.x, blockPosition.y, blockPosition.z] = BlockType.Grass;
+        ChunkData.Blocks[blockPosition.x, blockPosition.y, blockPosition.z] = BlockType.Stone;
         RegenerateMesh();
     }
-        public void DestroyBlock(Vector3Int blockPosition)
+    public void DestroyBlock(Vector3Int blockPosition)
     {
         ChunkData.Blocks[blockPosition.x, blockPosition.y, blockPosition.z] = BlockType.Air;
         RegenerateMesh();
@@ -73,12 +75,36 @@ public class ChunkRenderer : MonoBehaviour
         if (GetBlockAtPosition(blockPosition) == 0) return;
 
 
-        if (GetBlockAtPosition(blockPosition + Vector3Int.right) == 0) GenerateRightSide(blockPosition);
-        if (GetBlockAtPosition(blockPosition + Vector3Int.left) == 0) GenerateLeftSide(blockPosition);
-        if (GetBlockAtPosition(blockPosition + Vector3Int.forward) == 0) GenerateFrontSide(blockPosition);
-        if (GetBlockAtPosition(blockPosition + Vector3Int.back) == 0) GenerateBackSide(blockPosition);
-        if (GetBlockAtPosition(blockPosition + Vector3Int.up) == 0) GenerateTopSide(blockPosition);
-        if (GetBlockAtPosition(blockPosition + Vector3Int.down) == 0) GenerateBottomSide(blockPosition);
+        if (GetBlockAtPosition(blockPosition + Vector3Int.right) == 0)
+        {
+            GenerateRightSide(blockPosition);
+            AddUvs(GetBlockAtPosition(blockPosition));
+        }
+        if (GetBlockAtPosition(blockPosition + Vector3Int.left) == 0)
+        {
+            GenerateLeftSide(blockPosition);
+            AddUvs(GetBlockAtPosition(blockPosition));
+        }
+        if (GetBlockAtPosition(blockPosition + Vector3Int.forward) == 0)
+        {
+            GenerateFrontSide(blockPosition);
+            AddUvs(GetBlockAtPosition(blockPosition));
+        }
+        if (GetBlockAtPosition(blockPosition + Vector3Int.back) == 0)
+        {
+            GenerateBackSide(blockPosition);
+            AddUvs(GetBlockAtPosition(blockPosition));
+        }
+        if (GetBlockAtPosition(blockPosition + Vector3Int.up) == 0)
+        {
+            GenerateTopSide(blockPosition);
+            AddUvs(GetBlockAtPosition(blockPosition));
+        }
+        if (GetBlockAtPosition(blockPosition + Vector3Int.down) == 0)
+        {
+            GenerateBottomSide(blockPosition);
+            AddUvs(GetBlockAtPosition(blockPosition));
+        }
     }
 
     private BlockType GetBlockAtPosition(Vector3Int blockPosition)
@@ -188,6 +214,7 @@ public class ChunkRenderer : MonoBehaviour
     }
     private void AddLastVerticiesSquare()
     {
+
         triangles.Add(vecticies.Count - 4);
         triangles.Add(vecticies.Count - 3);
         triangles.Add(vecticies.Count - 2);
@@ -195,5 +222,24 @@ public class ChunkRenderer : MonoBehaviour
         triangles.Add(vecticies.Count - 3);
         triangles.Add(vecticies.Count - 1);
         triangles.Add(vecticies.Count - 2);
+    }
+
+    private void AddUvs(BlockType blockType)
+    {
+        if (blockType == BlockType.Grass)
+        {
+            uvs.Add(new Vector2(0.1f, 0.1f));
+            uvs.Add(new Vector2(0.1f, 0.9f));
+            uvs.Add(new Vector2(0.4f, 0.1f));
+            uvs.Add(new Vector2(0.4f, 0.9f));
+        }
+        if (blockType == BlockType.Stone)
+        {
+            uvs.Add(new Vector2(0.6f, 0.1f));
+            uvs.Add(new Vector2(0.6f, 0.9f));
+            uvs.Add(new Vector2(0.9f, 0.1f));
+            uvs.Add(new Vector2(0.9f, 0.9f));
+        }
+
     }
 }

@@ -5,36 +5,80 @@ using UnityEngine;
 
 public class GameWorld : MonoBehaviour
 {
+    private const int ViewRadius = 5;
     public Dictionary<Vector2Int, ChunkData> ChunkDatas = new Dictionary<Vector2Int, ChunkData>();
     public ChunkRenderer chunkPrefab;
+    public TerrainGenerator Generator;
 
     private Camera mainCamera;
+    private Vector2Int currentPlayerChunk;
     // Start is called before the first frame update
     void Start()
     {
         mainCamera = Camera.main;
 
-        for (int x = 0; x < 10; x++)
+       StartCoroutine(Generate(false));
+    }
+
+    private IEnumerator Generate(bool wait) 
+    {
+        for (int x = currentPlayerChunk.x - ViewRadius; x < currentPlayerChunk.x + ViewRadius; x++)
         {
-            for (int z = 0; z < 10; z++)
+            for (int z = currentPlayerChunk.y - ViewRadius; z < currentPlayerChunk.y + ViewRadius; z++)
             {
-                float xPos = x * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
-                float zPos = z * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
-                ChunkData chunkData = new ChunkData();
-                chunkData.Blocks = TerrainGenerator.GenerateTerrain(xPos, zPos);
-                chunkData.ChunkPositoin = new Vector2Int(x, z);
-                ChunkDatas.Add(new Vector2Int(x, z), chunkData);
+                var chunkPosition = new Vector2Int(x, z);
+                if (ChunkDatas.ContainsKey(chunkPosition)) continue;
+                LoadChunkAt(chunkPosition);
 
-                var chunk = Instantiate(chunkPrefab, new Vector3(xPos, 0, zPos), Quaternion.identity, transform);
-                chunk.ChunkData = chunkData;
-                chunk.ParentWorld = this;
-
-                chunkData.Renderer = chunk;
+                if (wait) yield return new WaitForSecondsRealtime(0.2f);
             }
         }
     }
 
+    [ContextMenu("Regenerate World")]
+    public void Regenerate() {
+        Generator.Init();
+        foreach(var chunkData in ChunkDatas) {
+            Destroy(chunkData.Value.Renderer.gameObject);
+        }
+
+        ChunkDatas.Clear();
+
+        StartCoroutine(Generate(false));
+    }
+
+    private void LoadChunkAt(Vector2Int chunkPosition) {
+
+        int x = chunkPosition.x;
+        int z = chunkPosition.y;
+        float xPos = x * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
+        float zPos = z * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
+        ChunkData chunkData = new ChunkData();
+        chunkData.Blocks = Generator.GenerateTerrain(xPos, zPos);
+        chunkData.ChunkPositoin = new Vector2Int(x, z);
+        ChunkDatas.Add(new Vector2Int(x, z), chunkData);
+
+        var chunk = Instantiate(chunkPrefab, new Vector3(xPos, 0, zPos), Quaternion.identity, transform);
+        chunk.ChunkData = chunkData;
+        chunk.ParentWorld = this;
+
+        chunkData.Renderer = chunk;
+    }
+
     void Update()
+    {
+        Vector3Int playerWorldPos = Vector3Int.FloorToInt(mainCamera.transform.position / ChunkRenderer.BlockScale);
+        Vector2Int playerChunk = GetChunkContainingBlock(playerWorldPos);
+
+        if (playerChunk != currentPlayerChunk) {
+            currentPlayerChunk = playerChunk;
+            StartCoroutine(Generate(true));
+        }
+
+        CheckInput();
+    }
+
+    private void CheckInput() 
     {
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
