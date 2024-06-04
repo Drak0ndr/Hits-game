@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,13 +10,13 @@ namespace Player
     public class PlayerController : MonoBehaviour
     {
         #region Class Variables
-        [Header("Components")]
+        [Header("Компоненты")]
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private Camera _playerCamera;
         public float RotationMismatch { get; private set; } = 0f;
         public bool IsRotatingToTarget { get; private set; } = false;
 
-        [Header("Base Movement")]
+        [Header("Передвижение")]
         public float walkAcceleration = 25f;
         public float walkSpeed = 2f;
         public float runAcceleration = 35f;
@@ -30,20 +31,23 @@ namespace Player
         public float jumpSpeed = 0.8f;
         public float movingThreshold = 0.01f;
 
-        [Header("Animation")]
+        public float rollSpeed = 0.8f;
+
+        [Header("Анимации")]
         public float playerModelRotationSpeed = 10f;
         public float rotateToTargetTime = 0.67f;
 
-        [Header("Camera Settings")]
+        [Header("Настройки камеры")]
         public float lookSenseH = 0.1f;
         public float lookSenseV = 0.1f;
         public float lookLimitV = 89f;
 
-        [Header("Environment Details")]
+        [Header("Другие объекты")]
         [SerializeField] private LayerMask _groundLayers;
 
         private PlayerLocomotionInput _playerLocomotionInput;
         private PlayerState _playerState;
+        private PlayerActionsInput _playerActionsInput;
 
         private Vector2 _cameraRotation = Vector2.zero;
         private Vector2 _playerTargetRotation = Vector2.zero;
@@ -62,6 +66,7 @@ namespace Player
         private void Awake()
         {
             _playerLocomotionInput = GetComponent<PlayerLocomotionInput>();
+            _playerActionsInput = GetComponent <PlayerActionsInput>();
             _playerState = GetComponent<PlayerState>();
 
             _antiBump = sprintSpeed;
@@ -73,8 +78,6 @@ namespace Player
         private void Update()
         {
             UpdateMovementState();
-            //print(_characterController.velocity);
-
             HandleVerticalMovement();
             HandleLateralMovement();
         }
@@ -84,10 +87,10 @@ namespace Player
             _lastMovementState = _playerState.CurrentPlayerMovementState;
 
             bool canRun = CanRun();
-            bool isMovementInput = _playerLocomotionInput.MovementInput != Vector2.zero;             //order
-            bool isMovingLaterally = IsMovingLaterally();                                            //matters
-            bool isSprinting = _playerLocomotionInput.SprintToggledOn && isMovingLaterally;          //order
-            bool isWalking = isMovingLaterally && (!canRun || _playerLocomotionInput.WalkToggledOn); //matters
+            bool isMovementInput = _playerLocomotionInput.MovementInput != Vector2.zero;            
+            bool isMovingLaterally = IsMovingLaterally();                                           
+            bool isSprinting = _playerLocomotionInput.SprintToggledOn && isMovingLaterally;          
+            bool isWalking = isMovingLaterally && (!canRun || _playerLocomotionInput.WalkToggledOn); 
             bool isGrounded = IsGrounded();
 
             PlayerMovementState lateralState = isWalking ? PlayerMovementState.Walking :
@@ -96,12 +99,13 @@ namespace Player
 
             _playerState.SetPlayerMovementState(lateralState);
 
-            // Control Airborn State
+
+            // Контролируем действия во время прыжка
             if ((!isGrounded || _jumpedLastFrame) && _characterController.velocity.y > 0f)
             {
                 _playerState.SetPlayerMovementState(PlayerMovementState.Jumping);
                 _jumpedLastFrame = false;
-                _characterController.stepOffset = 0f;
+                _characterController.stepOffset = 0f;   
             }
             else if ((!isGrounded || _jumpedLastFrame) && _characterController.velocity.y <= 0f)
             {
@@ -135,7 +139,7 @@ namespace Player
                 _verticalVelocity += _antiBump;
             }
 
-            // Clamp at terminal velocity
+            // Предельная скорость
             if (Mathf.Abs(_verticalVelocity) > Mathf.Abs(terminalVelocity))
             {
                 _verticalVelocity = -1f * Mathf.Abs(terminalVelocity);
@@ -144,12 +148,12 @@ namespace Player
 
         private void HandleLateralMovement()
         {
-            // Create quick references for current state
+            // Ссылки на текущее состояние
             bool isSprinting = _playerState.CurrentPlayerMovementState == PlayerMovementState.Sprinting;
             bool isGrounded = _playerState.InGroundedState();
             bool isWalking = _playerState.CurrentPlayerMovementState == PlayerMovementState.Walking;
 
-            // State dependent acceleration and speed
+            // Ускорение и скорость, зависящие от состояния
             float lateralAcceleration = !isGrounded ? inAirAcceleration :
                                         isWalking ? walkAcceleration :
                                         isSprinting ? sprintAcceleration : runAcceleration;
@@ -165,7 +169,7 @@ namespace Player
             Vector3 movementDelta = movementDirection * lateralAcceleration * Time.deltaTime;
             Vector3 newVelocity = _characterController.velocity + movementDelta;
 
-            // Add drag to player
+            // Добавляем перемещение персонажа
             float dragMagnitude = isGrounded ? drag : inAirDrag;
             Vector3 currentDrag = newVelocity.normalized * dragMagnitude * Time.deltaTime;
             newVelocity = (newVelocity.magnitude > dragMagnitude * Time.deltaTime) ? newVelocity - currentDrag : Vector3.zero;
@@ -173,8 +177,8 @@ namespace Player
             newVelocity.y += _verticalVelocity;
             newVelocity = !isGrounded ? HandleSteepWalls(newVelocity) : newVelocity;
 
-            // Move character (Unity suggests only calling this once per tick)
-            _characterController.Move(newVelocity * Time.deltaTime);
+            // Передвижение персонажа
+            _characterController.Move(newVelocity * Time.deltaTime);  
         }
 
         private Vector3 HandleSteepWalls(Vector3 velocity)
@@ -185,7 +189,6 @@ namespace Player
 
             if (!validAngle && _verticalVelocity < 0f)
                 velocity = Vector3.ProjectOnPlane(velocity, normal);
-
             return velocity;
         }
         #endregion
@@ -207,12 +210,12 @@ namespace Player
             bool isIdling = _playerState.CurrentPlayerMovementState == PlayerMovementState.Idling;
             IsRotatingToTarget = _rotatingToTargetTimer > 0;
 
-            // ROTATE if we're not idling
+            // Поворот, если мы не стоим
             if (!isIdling)
             {
                 RotatePlayerToTarget();
             }
-            // If rotation mismatch not within tolerance, or rotate to target is active, ROTATE
+            // Поворот, когда стоим
             else if (Mathf.Abs(RotationMismatch) > rotationTolerance || IsRotatingToTarget)
             {
                 UpdateIdleRotation(rotationTolerance);
@@ -220,7 +223,7 @@ namespace Player
 
             _playerCamera.transform.rotation = Quaternion.Euler(_cameraRotation.y, _cameraRotation.x, 0f);
 
-            // Get angle between camera and player
+            // Угол между камерой и игроком
             Vector3 camForwardProjectedXZ = new Vector3(_playerCamera.transform.forward.x, 0f, _playerCamera.transform.forward.z).normalized;
             Vector3 crossProduct = Vector3.Cross(transform.forward, camForwardProjectedXZ);
             float sign = Mathf.Sign(Vector3.Dot(crossProduct, transform.up));
@@ -229,7 +232,7 @@ namespace Player
 
         private void UpdateIdleRotation(float rotationTolerance)
         {
-            // Initiate new rotation direction
+            // Новое направление поворота
             if (Mathf.Abs(RotationMismatch) > rotationTolerance)
             {
                 _rotatingToTargetTimer = rotateToTargetTime;
@@ -237,7 +240,7 @@ namespace Player
             }
             _rotatingToTargetTimer -= Time.deltaTime;
 
-            // Rotate player
+            // Поворот игрока
             if (_isRotatingClockwise && RotationMismatch > 0f ||
                 !_isRotatingClockwise && RotationMismatch < 0f)
             {
@@ -287,7 +290,7 @@ namespace Player
 
         private bool CanRun()
         {
-            // This means player is moving diagonally at 45 degrees or forward, if so, we can run
+            // Игрок движется по диагонали под углом 45 градусов или вперед (значит мы можем бежать)
             return _playerLocomotionInput.MovementInput.y >= Mathf.Abs(_playerLocomotionInput.MovementInput.x);
         }
         #endregion

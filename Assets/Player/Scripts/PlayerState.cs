@@ -35,5 +35,6 @@ namespace Player
         Jumping = 4,
         Falling = 5,
         Strafing = 6,
+        Roll = 7,
     }
 }

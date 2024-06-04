@@ -14,6 +14,13 @@ namespace Player
         private PlayerState _playerState;
         public bool GatherPressed { get; private set; }
         public bool AttackPressed { get; private set; }
+        public bool RollPressed { get; private set; }
+
+
+
+
+        public bool BasicMagicPressed { get; private set; }
+        public bool SpecialMagicPressed { get; private set; }
         #endregion
 
         #region Startup
@@ -52,7 +59,8 @@ namespace Player
         {
             if (_playerLocomotionInput.MovementInput != Vector2.zero ||
                 _playerState.CurrentPlayerMovementState == PlayerMovementState.Jumping ||
-                _playerState.CurrentPlayerMovementState == PlayerMovementState.Falling)
+                _playerState.CurrentPlayerMovementState == PlayerMovementState.Falling || 
+                _playerState.CurrentPlayerMovementState == PlayerMovementState.Roll)
             {
                 GatherPressed = false;
             }
@@ -67,7 +75,34 @@ namespace Player
         { 
             AttackPressed = false;
         }
+
+        public void SetRollPressedFalse()
+        {
+            RollPressed = false;
+        }
+
+
+
+
+
+
+
+        public void SetBasicMagicPressedFalse()
+        {
+            BasicMagicPressed = false;
+        }
+
+        public void SetSpecialMagicPressedFalse()
+        {
+            SpecialMagicPressed = false;
+        }
+
+
         #endregion
+
+
+
+
 
         #region Input Callbacks
         public void OnGathering(InputAction.CallbackContext context)
@@ -84,6 +119,35 @@ namespace Player
                 return;
 
             AttackPressed = true;
+        }
+
+        public void OnRoll(InputAction.CallbackContext context)
+        {
+            if (!context.performed)
+                return;
+
+            RollPressed = true;
+        }
+
+
+
+
+
+
+        public void OnBasicMagic(InputAction.CallbackContext context)
+        {
+            if (!context.performed)
+                return;
+
+            BasicMagicPressed = true;
+        }
+
+        public void OnSpecialMagic(InputAction.CallbackContext context)
+        {
+            if (!context.performed)
+                return;
+
+            SpecialMagicPressed = true;
         }
         #endregion
     }

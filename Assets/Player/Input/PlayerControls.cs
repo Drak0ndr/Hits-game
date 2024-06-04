@@ -336,13 +336,40 @@ namespace Player
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BasicMagic"",
+                    ""type"": ""Button"",
+                    ""id"": ""76262359-c953-4b4b-8127-bdf43cbd1cf4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpecialMagic"",
+                    ""type"": ""Button"",
+                    ""id"": ""14d9c5f9-9612-4d4a-a038-631bc31f88a2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Roll"",
+                    ""type"": ""Button"",
+                    ""id"": ""b7c1bc28-f11a-4060-829a-c3bfd21dd2f6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""015ef00d-d639-408a-aa1b-0ce979b7da0a"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/z"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -358,6 +385,39 @@ namespace Player
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Attacking"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a6f910d9-2869-4acb-b221-5acc9abae0cd"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BasicMagic"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ed838bcb-5208-4b51-9906-7fd69d878a29"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpecialMagic"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb6f917a-40f9-4a34-9225-0095c6098ca9"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Roll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -380,6 +440,9 @@ namespace Player
             m_PlayerActionsMap = asset.FindActionMap("PlayerActionsMap", throwIfNotFound: true);
             m_PlayerActionsMap_Gathering = m_PlayerActionsMap.FindAction("Gathering", throwIfNotFound: true);
             m_PlayerActionsMap_Attacking = m_PlayerActionsMap.FindAction("Attacking", throwIfNotFound: true);
+            m_PlayerActionsMap_BasicMagic = m_PlayerActionsMap.FindAction("BasicMagic", throwIfNotFound: true);
+            m_PlayerActionsMap_SpecialMagic = m_PlayerActionsMap.FindAction("SpecialMagic", throwIfNotFound: true);
+            m_PlayerActionsMap_Roll = m_PlayerActionsMap.FindAction("Roll", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -567,12 +630,18 @@ namespace Player
         private List<IPlayerActionsMapActions> m_PlayerActionsMapActionsCallbackInterfaces = new List<IPlayerActionsMapActions>();
         private readonly InputAction m_PlayerActionsMap_Gathering;
         private readonly InputAction m_PlayerActionsMap_Attacking;
+        private readonly InputAction m_PlayerActionsMap_BasicMagic;
+        private readonly InputAction m_PlayerActionsMap_SpecialMagic;
+        private readonly InputAction m_PlayerActionsMap_Roll;
         public struct PlayerActionsMapActions
         {
             private @PlayerControls m_Wrapper;
             public PlayerActionsMapActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Gathering => m_Wrapper.m_PlayerActionsMap_Gathering;
             public InputAction @Attacking => m_Wrapper.m_PlayerActionsMap_Attacking;
+            public InputAction @BasicMagic => m_Wrapper.m_PlayerActionsMap_BasicMagic;
+            public InputAction @SpecialMagic => m_Wrapper.m_PlayerActionsMap_SpecialMagic;
+            public InputAction @Roll => m_Wrapper.m_PlayerActionsMap_Roll;
             public InputActionMap Get() { return m_Wrapper.m_PlayerActionsMap; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -588,6 +657,15 @@ namespace Player
                 @Attacking.started += instance.OnAttacking;
                 @Attacking.performed += instance.OnAttacking;
                 @Attacking.canceled += instance.OnAttacking;
+                @BasicMagic.started += instance.OnBasicMagic;
+                @BasicMagic.performed += instance.OnBasicMagic;
+                @BasicMagic.canceled += instance.OnBasicMagic;
+                @SpecialMagic.started += instance.OnSpecialMagic;
+                @SpecialMagic.performed += instance.OnSpecialMagic;
+                @SpecialMagic.canceled += instance.OnSpecialMagic;
+                @Roll.started += instance.OnRoll;
+                @Roll.performed += instance.OnRoll;
+                @Roll.canceled += instance.OnRoll;
             }
 
             private void UnregisterCallbacks(IPlayerActionsMapActions instance)
@@ -598,6 +676,15 @@ namespace Player
                 @Attacking.started -= instance.OnAttacking;
                 @Attacking.performed -= instance.OnAttacking;
                 @Attacking.canceled -= instance.OnAttacking;
+                @BasicMagic.started -= instance.OnBasicMagic;
+                @BasicMagic.performed -= instance.OnBasicMagic;
+                @BasicMagic.canceled -= instance.OnBasicMagic;
+                @SpecialMagic.started -= instance.OnSpecialMagic;
+                @SpecialMagic.performed -= instance.OnSpecialMagic;
+                @SpecialMagic.canceled -= instance.OnSpecialMagic;
+                @Roll.started -= instance.OnRoll;
+                @Roll.performed -= instance.OnRoll;
+                @Roll.canceled -= instance.OnRoll;
             }
 
             public void RemoveCallbacks(IPlayerActionsMapActions instance)
@@ -631,6 +718,9 @@ namespace Player
         {
             void OnGathering(InputAction.CallbackContext context);
             void OnAttacking(InputAction.CallbackContext context);
+            void OnBasicMagic(InputAction.CallbackContext context);
+            void OnSpecialMagic(InputAction.CallbackContext context);
+            void OnRoll(InputAction.CallbackContext context);
         }
     }
 }

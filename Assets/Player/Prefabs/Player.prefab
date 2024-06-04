@@ -2457,7 +2457,7 @@ Animator:
   m_GameObject: {fileID: 4187362417895900711}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 2255221d850daf642981c1a4eedf85a1, type: 3}
-  m_Controller: {fileID: 9100000, guid: 47d9259d2688bd147978a229db95d580, type: 2}
+  m_Controller: {fileID: 9100000, guid: 677d4400a122b3e4cba29c35fe8a756d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2508,6 +2508,7 @@ MonoBehaviour:
   terminalVelocity: 50
   jumpSpeed: 0.8
   movingThreshold: 0.01
+  rollSpeed: 0.8
   playerModelRotationSpeed: 10
   rotateToTargetTime: 0.68
   lookSenseH: 0.1
@@ -3806,7 +3807,7 @@ Transform:
   m_GameObject: {fileID: 6075611864737827237}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: -2}
+  m_LocalPosition: {x: 0, y: 0.60000384, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5364,7 +5365,7 @@ Transform:
   m_GameObject: {fileID: 8637376464299462454}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: -2}
+  m_LocalPosition: {x: 0, y: 0.60000384, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

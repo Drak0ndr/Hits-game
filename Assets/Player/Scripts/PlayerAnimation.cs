@@ -16,7 +16,7 @@ namespace Player
         private PlayerController _playerController;
         private PlayerActionsInput _playerActionsInput;
 
-        // Locomotion
+        // Передвижение
         private static int inputXHash = Animator.StringToHash("inputX");
         private static int inputYHash = Animator.StringToHash("inputY");
         private static int inputMagnitudeHash = Animator.StringToHash("inputMagnitude");
@@ -24,14 +24,15 @@ namespace Player
         private static int isGroundedHash = Animator.StringToHash("isGrounded");
         private static int isFallingHash = Animator.StringToHash("isFalling");
         private static int isJumpingHash = Animator.StringToHash("isJumping");
-
-        // Actions
+        private static int isRollHash = Animator.StringToHash("isRoll");
+  
+        // Действия
         private static int isAttackingHash = Animator.StringToHash("isAttacking");
         private static int isGatheringHash = Animator.StringToHash("isGathering");
         private static int isPlayingActionHash = Animator.StringToHash("isPlayingAction");
         private int[] actionHashes;
 
-        // Camera/Rotation
+        // Камера, поворот
         private static int isRotatingToTargetHash = Animator.StringToHash("isRotatingToTarget");
         private static int rotationMismatchHash = Animator.StringToHash("rotationMismatch");
 
@@ -74,10 +75,13 @@ namespace Player
 
             _currentBlendInput = Vector3.Lerp(_currentBlendInput, inputTarget, locomotionBlendSpeed * Time.deltaTime);
 
+           
             _animator.SetBool(isGroundedHash, isGrounded);
             _animator.SetBool(isIdlingHash, isIdling);
             _animator.SetBool(isFallingHash, isFalling);
             _animator.SetBool(isJumpingHash, isJumping);
+
+            _animator.SetBool(isRollHash, _playerActionsInput.RollPressed);
             _animator.SetBool(isRotatingToTargetHash, _playerController.IsRotatingToTarget);
             _animator.SetBool(isAttackingHash, _playerActionsInput.AttackPressed);
             _animator.SetBool(isGatheringHash, _playerActionsInput.GatherPressed);
