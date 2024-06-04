@@ -181,17 +181,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58526c493022cb44b0fc84ed0c6f5bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseHeight: 130
+  BaseHeight: 70
   Octaves:
-  - NoiseType: 0
-    Frequency: 0.25
-    Amplitude: 0.5
-  - NoiseType: 0
-    Frequency: 0.015
-    Amplitude: 100
   - NoiseType: 3
-    Frequency: 0.04
-    Amplitude: 3
+    Frequency: 0.01
+    Amplitude: 100
+  - NoiseType: 0
+    Frequency: 0.01
+    Amplitude: 100
   DomainWarp:
     NoiseType: 0
     Frequency: 0.06
