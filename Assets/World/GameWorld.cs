@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameWorld : MonoBehaviour
 {
-    private const int ViewRadius = 5;
+    private const int ViewRadius = 10;
     public Dictionary<Vector2Int, ChunkData> ChunkDatas = new Dictionary<Vector2Int, ChunkData>();
     public ChunkRenderer chunkPrefab;
     public TerrainGenerator Generator;
