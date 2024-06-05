@@ -1,39 +1,20 @@
-using System;
+    using System;
 using UnityEngine;
 
 public class TerrainGenerator : MonoBehaviour
 {
-    public float BaseHeight = 60;
-    public NoiseOctaveSettings[] Octaves;
-    public NoiseOctaveSettings DomainWarp;
-    [Serializable]
-    public class NoiseOctaveSettings
-    {
-        public FastNoiseLite.NoiseType NoiseType;
-        public float Frequency = 0.2f;
-        public float Amplitude = 1f;
-
-    }
-    private FastNoiseLite[] octaveNoises;
-    private FastNoiseLite warpNoise;
+    
+    public Biome[] Biomes = {new FlatLands(), new Mountain()};
     public void Awake()
     {
         Init();
     }
 
     public void Init() {
-        octaveNoises = new FastNoiseLite[Octaves.Length];
-        for (int i = 0; i < Octaves.Length; i++)
+        for (int i = 0; i < Biomes.Length; i++)
         {
-            octaveNoises[i] = new FastNoiseLite();
-            octaveNoises[i].SetNoiseType(Octaves[i].NoiseType);
-            octaveNoises[i].SetFrequency(Octaves[i].Frequency);
+            Biomes[i].Init();
         }
-
-        warpNoise = new FastNoiseLite();
-        warpNoise.SetNoiseType(DomainWarp.NoiseType);
-        warpNoise.SetFrequency(DomainWarp.Frequency);
-        warpNoise.SetDomainWarpAmp(DomainWarp.Amplitude);
     }
     public BlockType[,,] GenerateTerrain(float xOffset, float zOffset)
     {
@@ -66,13 +47,10 @@ public class TerrainGenerator : MonoBehaviour
 
     private float GetHeight(float x, float z)
     {
-        warpNoise.DomainWarp(ref x, ref z);
-        float result = BaseHeight;
-
-        for (int i = 0; i < Octaves.Length; i++)
+        float result = 0;
+        for (int i = 0; i < Biomes.Length; i++)
         {
-            float noise = octaveNoises[i].GetNoise(x, z);
-            result += noise * Octaves[i].Amplitude / 2;
+            result += Biomes[i].GetHeight(x,z);
         }
 
         return result;
