@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
-public class Biome {
-     public float BaseHeight = 60;
+public class Biome
+{
+    public float BaseHeight = 60;
     public NoiseOctaveSettings[] Octaves;
     public NoiseOctaveSettings DomainWarp;
     [Serializable]
@@ -10,11 +11,14 @@ public class Biome {
         public FastNoiseLite.NoiseType NoiseType;
         public float Frequency = 0.2f;
         public float Amplitude = 1f;
-        public NoiseOctaveSettings(FastNoiseLite.NoiseType type, float freq, float amp) 
+        public FastNoiseLite.FractalType fractalType = FastNoiseLite.FractalType.FBm;
+        public int fractalOct = 1;
+        public NoiseOctaveSettings(FastNoiseLite.NoiseType type, float freq, float amp, int oct)
         {
             NoiseType = type;
             Frequency = freq;
             Amplitude = amp;
+            fractalOct = oct;
         }
 
 
@@ -22,13 +26,16 @@ public class Biome {
     public FastNoiseLite[] octaveNoises;
     public FastNoiseLite warpNoise;
 
-    public void Init() {
+    public void Init()
+    {
         octaveNoises = new FastNoiseLite[Octaves.Length];
         for (int i = 0; i < Octaves.Length; i++)
         {
             octaveNoises[i] = new FastNoiseLite();
             octaveNoises[i].SetNoiseType(Octaves[i].NoiseType);
             octaveNoises[i].SetFrequency(Octaves[i].Frequency);
+            octaveNoises[i].SetFractalType(Octaves[i].fractalType);
+            octaveNoises[i].SetFractalOctaves(Octaves[i].fractalOct);
         }
 
         warpNoise = new FastNoiseLite();
@@ -36,7 +43,7 @@ public class Biome {
         warpNoise.SetFrequency(DomainWarp.Frequency);
         warpNoise.SetDomainWarpAmp(DomainWarp.Amplitude);
 
-        
+
     }
 
     public virtual float GetHeight(float x, float z)

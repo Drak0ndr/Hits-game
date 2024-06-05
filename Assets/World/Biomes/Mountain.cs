@@ -4,8 +4,8 @@ public class Mountain : Biome
     public Mountain()
     {
         BaseHeight = 70;
-        Octaves = new NoiseOctaveSettings[] { new NoiseOctaveSettings(FastNoiseLite.NoiseType.OpenSimplex2, 0.01f, 100f), new NoiseOctaveSettings(FastNoiseLite.NoiseType.Perlin, 0.01f, 100f) };
-        DomainWarp = new NoiseOctaveSettings(FastNoiseLite.NoiseType.OpenSimplex2, 0, 0);
+        Octaves = new NoiseOctaveSettings[] { new NoiseOctaveSettings(FastNoiseLite.NoiseType.OpenSimplex2, 0.01f, 100f, 1), new NoiseOctaveSettings(FastNoiseLite.NoiseType.Perlin, 0.01f, 100f, 1) };
+        DomainWarp = new NoiseOctaveSettings(FastNoiseLite.NoiseType.OpenSimplex2, 0, 0, 1);
     }
     public override float GetHeight(float x, float z)
     {
