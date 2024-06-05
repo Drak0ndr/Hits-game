@@ -30,6 +30,7 @@ namespace Player
         private static int isAttackingHash = Animator.StringToHash("isAttacking");
         private static int isGatheringHash = Animator.StringToHash("isGathering");
         private static int isPlayingActionHash = Animator.StringToHash("isPlayingAction");
+        private static int isBasicAttackHash = Animator.StringToHash("isBasicAttack");
         private int[] actionHashes;
 
         // Камера, поворот
@@ -82,6 +83,7 @@ namespace Player
             _animator.SetBool(isJumpingHash, isJumping);
 
             _animator.SetBool(isRollHash, _playerActionsInput.RollPressed);
+            _animator.SetBool(isBasicAttackHash, _playerActionsInput.BasicMagicPressed);
             _animator.SetBool(isRotatingToTargetHash, _playerController.IsRotatingToTarget);
             _animator.SetBool(isAttackingHash, _playerActionsInput.AttackPressed);
             _animator.SetBool(isGatheringHash, _playerActionsInput.GatherPressed);

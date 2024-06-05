@@ -80,17 +80,18 @@ namespace Player
         {
             RollPressed = false;
         }
-
-
-
-
-
-
-
         public void SetBasicMagicPressedFalse()
         {
             BasicMagicPressed = false;
         }
+
+
+
+
+
+
+
+
 
         public void SetSpecialMagicPressedFalse()
         {
@@ -129,11 +130,6 @@ namespace Player
             RollPressed = true;
         }
 
-
-
-
-
-
         public void OnBasicMagic(InputAction.CallbackContext context)
         {
             if (!context.performed)
@@ -141,6 +137,13 @@ namespace Player
 
             BasicMagicPressed = true;
         }
+
+
+
+
+
+
+
 
         public void OnSpecialMagic(InputAction.CallbackContext context)
         {
