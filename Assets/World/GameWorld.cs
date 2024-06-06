@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -8,15 +9,26 @@ public class GameWorld : MonoBehaviour
     private const int ViewRadius = 10;
     public Dictionary<Vector2Int, ChunkData> ChunkDatas = new Dictionary<Vector2Int, ChunkData>();
     public ChunkRenderer chunkPrefab;
+    public MeshRenderer treePrefab;
     public TerrainGenerator Generator;
-
+    private FastNoiseLite precipitation = new FastNoiseLite();
+    private FastNoiseLite temperature = new FastNoiseLite();
     private Camera mainCamera;
     private Vector2Int currentPlayerChunk;
     // Start is called before the first frame update
     void Start()
     {
         mainCamera = Camera.main;
-
+        precipitation.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
+        precipitation.SetFrequency(0.005f);
+        precipitation.SetFractalType(FastNoiseLite.FractalType.FBm);
+        precipitation.SetFractalOctaves(10);
+        precipitation.SetSeed(2);
+        temperature.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
+        temperature.SetFrequency(0.001f);
+        temperature.SetFractalType(FastNoiseLite.FractalType.FBm);
+        temperature.SetFractalOctaves(10);
+        temperature.SetSeed(2);
         StartCoroutine(Generate(false));
     }
 
@@ -56,12 +68,36 @@ public class GameWorld : MonoBehaviour
         int z = chunkPosition.y;
         float xPos = x * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
         float zPos = z * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
+        float chunkCenter = ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 2f;
         ChunkData chunkData = new ChunkData();
         chunkData.Blocks = Generator.GenerateTerrain(xPos, zPos);
         chunkData.ChunkPositoin = new Vector2Int(x, z);
         ChunkDatas.Add(new Vector2Int(x, z), chunkData);
-
         var chunk = Instantiate(chunkPrefab, new Vector3(xPos, 0, zPos), Quaternion.identity, transform);
+
+        var treeHeight = Generator.GetHeight(xPos, zPos) * ChunkRenderer.BlockScale;
+        var precipitationLevel = (precipitation.GetNoise(xPos, zPos) + 1) * 200;
+        var temperatureLevel = temperature.GetNoise(xPos, zPos) * 30;
+        if (temperatureLevel + Mathf.Min(0, 16 - treeHeight) * 0.5 >= 0 && precipitationLevel >= 50)
+        {
+            float bestPrecipitation = (precipitation.GetNoise(xPos, zPos) + 1) * 200;
+            float bestPosX = xPos;
+            float bestPosZ = zPos;
+            for (float i = xPos - ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; i < xPos + ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; i += ChunkRenderer.BlockScale)
+            {
+                for (float j = zPos - ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; j < zPos + ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; j += ChunkRenderer.BlockScale)
+                {
+                    if ((precipitation.GetNoise(i, j) + 1) * 200 > bestPrecipitation)
+                    {
+                        bestPrecipitation = (precipitation.GetNoise(i, j) + 1) * 200;
+                        bestPosX = i;
+                        bestPosZ = j;
+                    }
+                }
+            }
+            Instantiate(treePrefab, new Vector3(bestPosX, treeHeight, bestPosZ), Quaternion.identity, transform);
+        }
+
         chunk.ChunkData = chunkData;
         chunk.ParentWorld = this;
 

@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chunkPrefab: {fileID: 8685294100388026446, guid: 70b3a298a7d3ec64ab32e1525f3fc571, type: 3}
+  treePrefab: {fileID: 6333695320021790440, guid: bb6b9ae6acbc5db40b2451f57b25c964, type: 3}
   Generator: {fileID: 468261869}
 --- !u!4 &468261868
 Transform:
@@ -181,18 +182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58526c493022cb44b0fc84ed0c6f5bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseHeight: 70
-  Octaves:
-  - NoiseType: 3
-    Frequency: 0.01
-    Amplitude: 100
-  - NoiseType: 0
-    Frequency: 0.01
-    Amplitude: 100
-  DomainWarp:
-    NoiseType: 0
-    Frequency: 0.06
-    Amplitude: 10
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
