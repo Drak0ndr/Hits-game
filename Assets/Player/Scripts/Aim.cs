@@ -1,0 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Aim : MonoBehaviour
+{
+    public Image _aim;
+
+    private void Start()
+    {
+        _aim.enabled = false;
+    }
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            _aim.enabled = true;
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            _aim.enabled = false;
+        }
+    }
+}
