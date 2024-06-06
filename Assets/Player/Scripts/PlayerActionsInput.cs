@@ -12,6 +12,7 @@ namespace Player
         #region Class Variables
         private PlayerLocomotionInput _playerLocomotionInput;
         private PlayerState _playerState;
+        private MagicBallController _magicBallController;
         public bool GatherPressed { get; private set; }
         public bool AttackPressed { get; private set; }
         public bool RollPressed { get; private set; }
@@ -28,6 +29,7 @@ namespace Player
         {
             _playerLocomotionInput = GetComponent<PlayerLocomotionInput>();
             _playerState = GetComponent<PlayerState>();
+            _magicBallController = GetComponent<MagicBallController>();
         }
         private void OnEnable()
         {
@@ -83,6 +85,7 @@ namespace Player
         public void SetBasicMagicPressedFalse()
         {
             BasicMagicPressed = false;
+            /*_magicBallController.SpellStart();*/
         }
 
 
