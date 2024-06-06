@@ -158,6 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chunkPrefab: {fileID: 8685294100388026446, guid: 70b3a298a7d3ec64ab32e1525f3fc571, type: 3}
+  treePrefab: {fileID: 6333695320021790440, guid: bb6b9ae6acbc5db40b2451f57b25c964, type: 3}
   Generator: {fileID: 468261869}
 --- !u!4 &468261868
 Transform:

@@ -45,7 +45,7 @@ public class TerrainGenerator : MonoBehaviour
         return result;
     }
 
-    private float GetHeight(float x, float z)
+    public float GetHeight(float x, float z)
     {
         float result = 0;
         for (int i = 0; i < Biomes.Length; i++)
