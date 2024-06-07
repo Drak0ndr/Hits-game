@@ -92,6 +92,7 @@ public class GameWorld : MonoBehaviour
                         bestPrecipitation = (precipitation.GetNoise(i, j) + 1) * 200;
                         bestPosX = i;
                         bestPosZ = j;
+                        treeHeight = Generator.GetHeight(i, j) * ChunkRenderer.BlockScale;
                     }
                 }
             }
