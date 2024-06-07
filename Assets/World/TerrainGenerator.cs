@@ -26,9 +26,9 @@ public class TerrainGenerator : MonoBehaviour
                 // float height = Mathf.PerlinNoise((x * ChunkRenderer.BlockScale + xOffset) * .2f, (z * ChunkRenderer.BlockScale + zOffset) * .2f) * 25 + 70;
                 float height = GetHeight((x * ChunkRenderer.BlockScale + xOffset), (z * ChunkRenderer.BlockScale + zOffset));
                 float grassLayerHeight = 1;
-                if (height >= ChunkRenderer.ChunkHeight)
+                if (height > ChunkRenderer.ChunkHeight)
                 {
-                    height = ChunkRenderer.ChunkHeight - 1;
+                    height = ChunkRenderer.ChunkHeight;
                 }
                 for (int y = 0; y < height; y++)
                 {

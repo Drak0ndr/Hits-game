@@ -78,18 +78,19 @@ public class GameWorld : MonoBehaviour
         var treeHeight = Generator.GetHeight(xPos, zPos) * ChunkRenderer.BlockScale;
         var precipitationLevel = (precipitation.GetNoise(xPos, zPos) + 1) * 200;
         var temperatureLevel = temperature.GetNoise(xPos, zPos) * 30;
-        if (temperatureLevel + Mathf.Min(0, 16 - treeHeight) * 0.5 >= 0 && precipitationLevel >= 50)
+        var temp = temperatureLevel + Mathf.Min(0, 16 - treeHeight) * 0.25;
+        if (temp >= -5 && temp <= 5 && precipitationLevel >= 50 && precipitationLevel <= 300)
         {
-            float bestPrecipitation = (precipitation.GetNoise(xPos, zPos) + 1) * 200;
+            float bestConditions = (precipitation.GetNoise(xPos, zPos) + 1) * 200;
             float bestPosX = xPos;
             float bestPosZ = zPos;
             for (float i = xPos - ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; i < xPos + ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; i += ChunkRenderer.BlockScale)
             {
                 for (float j = zPos - ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; j < zPos + ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; j += ChunkRenderer.BlockScale)
                 {
-                    if ((precipitation.GetNoise(i, j) + 1) * 200 > bestPrecipitation)
+                    if ((precipitation.GetNoise(i, j) + 1) * 200 > bestConditions)
                     {
-                        bestPrecipitation = (precipitation.GetNoise(i, j) + 1) * 200;
+                        bestConditions = (precipitation.GetNoise(i, j) + 1) * 200;
                         bestPosX = i;
                         bestPosZ = j;
                         treeHeight = Generator.GetHeight(i, j) * ChunkRenderer.BlockScale;
