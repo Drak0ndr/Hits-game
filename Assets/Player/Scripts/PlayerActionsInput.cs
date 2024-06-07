@@ -13,6 +13,7 @@ namespace Player
         private PlayerLocomotionInput _playerLocomotionInput;
         private PlayerState _playerState;
         private MagicBallController _magicBallController;
+
         public bool GatherPressed { get; private set; }
         public bool AttackPressed { get; private set; }
         public bool RollPressed { get; private set; }
@@ -70,7 +71,7 @@ namespace Player
 
         public void SetGatherPressedFalse()
         {
-            GatherPressed = false;
+            GatherPressed = false;   
         }
 
         public void SetAttackPressedFalse() 
