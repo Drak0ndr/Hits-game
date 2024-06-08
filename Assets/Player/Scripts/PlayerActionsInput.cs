@@ -17,12 +17,7 @@ namespace Player
         public bool GatherPressed { get; private set; }
         public bool AttackPressed { get; private set; }
         public bool RollPressed { get; private set; }
-
-
-
-
         public bool BasicMagicPressed { get; private set; }
-        public bool SpecialMagicPressed { get; private set; }
         #endregion
 
         #region Startup
@@ -89,25 +84,7 @@ namespace Player
             /*_magicBallController.SpellStart();*/
         }
 
-
-
-
-
-
-
-
-
-        public void SetSpecialMagicPressedFalse()
-        {
-            SpecialMagicPressed = false;
-        }
-
-
         #endregion
-
-
-
-
 
         #region Input Callbacks
         public void OnGathering(InputAction.CallbackContext context)
@@ -140,21 +117,6 @@ namespace Player
                 return;
 
             BasicMagicPressed = true;
-        }
-
-
-
-
-
-
-
-
-        public void OnSpecialMagic(InputAction.CallbackContext context)
-        {
-            if (!context.performed)
-                return;
-
-            SpecialMagicPressed = true;
         }
         #endregion
     }

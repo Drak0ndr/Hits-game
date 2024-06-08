@@ -36,7 +36,7 @@ public class PickUpStaff : MonoBehaviour
                 _currentItem.GetComponent<Collider>().isTrigger = true;
                 _currentItem.transform.parent = transform;
                 _currentItem.transform.localPosition = Vector3.zero;
-                _currentItem.transform.localEulerAngles = new Vector3(68f, 48f, 47f);
+                _currentItem.transform.localEulerAngles = new Vector3(-106f, 83f, -77f);
 
 
                 canPickUp = true;
