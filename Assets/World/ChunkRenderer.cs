@@ -115,7 +115,7 @@ public class ChunkRenderer : MonoBehaviour
             GenerateTopSide(blockPosition);
             AddUvs(GetBlockAtPosition(blockPosition));
         }
-        if (GetBlockAtPosition(blockPosition + Vector3Int.down) == 0)
+        if (blockPosition.y > 0 && GetBlockAtPosition(blockPosition + Vector3Int.down) == 0)
         {
             GenerateBottomSide(blockPosition);
             AddUvs(GetBlockAtPosition(blockPosition));
