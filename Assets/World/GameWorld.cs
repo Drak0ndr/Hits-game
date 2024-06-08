@@ -83,7 +83,7 @@ public class GameWorld : MonoBehaviour
         var temp = temperatureLevel + Mathf.Min(0, 16 - treeHeight) * 0.25;
         if (temp >= -5 && temp <= 5 && precipitationLevel >= 50 && precipitationLevel <= 300)
         {
-            float bestConditions = -1000;
+            float bestConditions = (precipitation.GetNoise(xPos, zPos) + 1) * 200 + temperature.GetNoise(xPos, zPos) * 30;
             float bestPosX = xPos;
             float bestPosZ = zPos;
             for (float i = xPos - ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; i < xPos + ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; i += ChunkRenderer.BlockScale)
