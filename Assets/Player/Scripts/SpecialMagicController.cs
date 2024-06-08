@@ -11,7 +11,7 @@ public class SpecialMagicController : MonoBehaviour
     public Animator _animator;
     public int combonum;
     public float exit;
-    public float exittime;
+    public float exitTime;
 
     public void ResetCombonum()
     {
@@ -31,7 +31,7 @@ public class SpecialMagicController : MonoBehaviour
         {
             exit += Time.deltaTime;
 
-            if(exit > exittime) {
+            if(exit > exitTime) {
                 _animator.SetTrigger("Exit");
                 combonum = 0;
             }
@@ -39,11 +39,11 @@ public class SpecialMagicController : MonoBehaviour
 
         if (combonum == 5)
         {
-            exittime = _animator.GetCurrentAnimatorStateInfo(0).length + 0.5f;
+            exitTime = _animator.GetCurrentAnimatorStateInfo(0).length + 0.5f;
         }
         else
         {
-            exittime = _animator.GetCurrentAnimatorStateInfo(0).length + 0.5f;
+            exitTime = _animator.GetCurrentAnimatorStateInfo(0).length + 0.5f;
         }
     }
 }
