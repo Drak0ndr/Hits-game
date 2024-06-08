@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.Profiling;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
@@ -15,11 +16,21 @@ public class ChunkRenderer : MonoBehaviour
 
     private Mesh chunkMesh;
 
+    private ChunkData leftChunk;
+    private ChunkData rightChunk;
+    private ChunkData fwdChunk;
+    private ChunkData backChunk;
+    private static ProfilerMarker MeshingMarker = new ProfilerMarker(ProfilerCategory.Loading, "Meshing");
     private List<Vector3> vecticies = new List<Vector3>();
     private List<Vector2> uvs = new List<Vector2>();
     private List<int> triangles = new List<int>();
     void Start()
     {
+
+        ParentWorld.ChunkDatas.TryGetValue(ChunkData.ChunkPositoin + Vector2Int.left, out leftChunk);
+        ParentWorld.ChunkDatas.TryGetValue(ChunkData.ChunkPositoin + Vector2Int.right, out rightChunk);
+        ParentWorld.ChunkDatas.TryGetValue(ChunkData.ChunkPositoin + Vector2Int.up, out fwdChunk);
+        ParentWorld.ChunkDatas.TryGetValue(ChunkData.ChunkPositoin + Vector2Int.down, out backChunk);
         chunkMesh = new Mesh();
 
         RegenerateMesh();
@@ -30,6 +41,7 @@ public class ChunkRenderer : MonoBehaviour
 
     private void RegenerateMesh()
     {
+        MeshingMarker.Begin();
         vecticies.Clear();
         triangles.Clear();
         uvs.Clear();
@@ -57,6 +69,7 @@ public class ChunkRenderer : MonoBehaviour
         chunkMesh.RecalculateBounds();
 
         GetComponent<MeshCollider>().sharedMesh = chunkMesh;
+        MeshingMarker.End();
     }
 
     public void SpawnBlock(Vector3Int blockPosition)
@@ -120,37 +133,42 @@ public class ChunkRenderer : MonoBehaviour
         else
         {
             if (blockPosition.y < 0 || blockPosition.y >= ChunkHeight) return BlockType.Air;
-            Vector2Int adjacentChunkPosition = ChunkData.ChunkPositoin;
+
             if (blockPosition.x < 0)
             {
-                adjacentChunkPosition.x--;
+                if (leftChunk == null) {
+                    return BlockType.Air;
+                }
                 blockPosition.x += ChunkWidth;
+                return leftChunk.Blocks[blockPosition.x, blockPosition.y, blockPosition.z];
             }
             else if (blockPosition.x >= ChunkWidth)
             {
-                adjacentChunkPosition.x++;
+                if (rightChunk == null) {
+                    return BlockType.Air;
+                }
                 blockPosition.x -= ChunkWidth;
+                return rightChunk.Blocks[blockPosition.x, blockPosition.y, blockPosition.z];
             }
 
             if (blockPosition.z < 0)
             {
-                adjacentChunkPosition.y--;
+                if (backChunk == null) {
+                    return BlockType.Air;
+                }
                 blockPosition.z += ChunkWidth;
+                return backChunk.Blocks[blockPosition.x, blockPosition.y, blockPosition.z];
             }
             else if (blockPosition.z >= ChunkWidth)
             {
-                adjacentChunkPosition.y++;
+                if (fwdChunk == null) {
+                    return BlockType.Air;
+                }
                 blockPosition.z -= ChunkWidth;
+                return fwdChunk.Blocks[blockPosition.x, blockPosition.y, blockPosition.z];
             }
 
-            if (ParentWorld.ChunkDatas.TryGetValue(adjacentChunkPosition, out ChunkData adjacentChunk))
-            {
-                return adjacentChunk.Blocks[blockPosition.x, blockPosition.y, blockPosition.z];
-            }
-            else
-            {
-                return BlockType.Air;
-            }
+            return BlockType.Air;
 
         }
     }

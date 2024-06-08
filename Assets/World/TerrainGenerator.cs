@@ -1,10 +1,13 @@
     using System;
+using Unity.Profiling;
 using UnityEngine;
 
 public class TerrainGenerator : MonoBehaviour
 {
     
     public Biome[] Biomes = {new FlatLands(), new Mountain()};
+
+    private static ProfilerMarker GeneratingMarker = new ProfilerMarker(ProfilerCategory.Loading, "Generating");
     public void Awake()
     {
         Init();
@@ -18,6 +21,7 @@ public class TerrainGenerator : MonoBehaviour
     }
     public BlockType[,,] GenerateTerrain(float xOffset, float zOffset)
     {
+        GeneratingMarker.Begin();
         var result = new BlockType[ChunkRenderer.ChunkWidth, ChunkRenderer.ChunkHeight, ChunkRenderer.ChunkWidth];
         for (int x = 0; x < ChunkRenderer.ChunkWidth; x++)
         {
@@ -41,7 +45,7 @@ public class TerrainGenerator : MonoBehaviour
                 }
             }
         }
-
+        GeneratingMarker.End();
         return result;
     }
 
