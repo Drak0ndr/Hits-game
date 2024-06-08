@@ -9,7 +9,7 @@ public class GameWorld : MonoBehaviour
     private const int ViewRadius = 10;
     public Dictionary<Vector2Int, ChunkData> ChunkDatas = new Dictionary<Vector2Int, ChunkData>();
     public ChunkRenderer chunkPrefab;
-    public MeshRenderer treePrefab;
+    public MeshRenderer taigaFullTree;
     public TerrainGenerator Generator;
     private FastNoiseLite precipitation = new FastNoiseLite();
     private FastNoiseLite temperature = new FastNoiseLite();
@@ -24,11 +24,13 @@ public class GameWorld : MonoBehaviour
         precipitation.SetFractalType(FastNoiseLite.FractalType.FBm);
         precipitation.SetFractalOctaves(10);
         precipitation.SetSeed(2);
+        precipitation.SetFractalGain(0.6f);
         temperature.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
         temperature.SetFrequency(0.001f);
         temperature.SetFractalType(FastNoiseLite.FractalType.FBm);
         temperature.SetFractalOctaves(10);
         temperature.SetSeed(2);
+        temperature.SetFractalGain(0.6f);
         StartCoroutine(Generate(false));
     }
 
@@ -81,23 +83,24 @@ public class GameWorld : MonoBehaviour
         var temp = temperatureLevel + Mathf.Min(0, 16 - treeHeight) * 0.25;
         if (temp >= -5 && temp <= 5 && precipitationLevel >= 50 && precipitationLevel <= 300)
         {
-            float bestConditions = (precipitation.GetNoise(xPos, zPos) + 1) * 200;
+            float bestConditions = -1000;
             float bestPosX = xPos;
             float bestPosZ = zPos;
             for (float i = xPos - ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; i < xPos + ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; i += ChunkRenderer.BlockScale)
             {
                 for (float j = zPos - ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; j < zPos + ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; j += ChunkRenderer.BlockScale)
                 {
-                    if ((precipitation.GetNoise(i, j) + 1) * 200 > bestConditions)
+                    var tempCond = (precipitation.GetNoise(i, j) + 1) * 200 + temperature.GetNoise(i, j) * 30;
+                    if ( tempCond > bestConditions)
                     {
-                        bestConditions = (precipitation.GetNoise(i, j) + 1) * 200;
+                        bestConditions = tempCond;
                         bestPosX = i;
                         bestPosZ = j;
                         treeHeight = Generator.GetHeight(i, j) * ChunkRenderer.BlockScale;
                     }
                 }
             }
-            Instantiate(treePrefab, new Vector3(bestPosX, treeHeight, bestPosZ), Quaternion.identity, transform);
+            Instantiate(taigaFullTree, new Vector3(bestPosX, treeHeight, bestPosZ), Quaternion.identity, transform);
         }
 
         chunk.ChunkData = chunkData;
