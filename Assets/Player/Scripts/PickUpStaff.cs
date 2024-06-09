@@ -10,7 +10,7 @@ public class PickUpStaff : MonoBehaviour
     public GameObject _camera;
     private GameObject _currentItem;
 
-    public float distance = 50f;
+    public float distance = 30f;
 
     bool canPickUp = false;
 
