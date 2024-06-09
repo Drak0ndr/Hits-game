@@ -10,6 +10,7 @@ public class GameWorld : MonoBehaviour
     public Dictionary<Vector2Int, ChunkData> ChunkDatas = new Dictionary<Vector2Int, ChunkData>();
     public ChunkRenderer chunkPrefab;
     public MeshRenderer taigaFullTree;
+    public MeshRenderer taigaSmallTree;
     public TerrainGenerator Generator;
     private FastNoiseLite precipitation = new FastNoiseLite();
     private FastNoiseLite temperature = new FastNoiseLite();
@@ -101,7 +102,12 @@ public class GameWorld : MonoBehaviour
                     }
                 }
             }
-            Instantiate(taigaFullTree, new Vector3(bestPosX, treeHeight, bestPosZ), Quaternion.identity, transform);
+            if (bestConditions < 150) {
+                Instantiate(taigaSmallTree, new Vector3(bestPosX, treeHeight, bestPosZ), Quaternion.identity, transform);
+            } else {
+                Instantiate(taigaFullTree, new Vector3(bestPosX, treeHeight, bestPosZ), Quaternion.identity, transform);
+            }
+            
         }
 
         chunk.ChunkData = chunkData;
