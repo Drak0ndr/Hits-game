@@ -17,39 +17,42 @@ public class PickUpStaff : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Z)) PickUpAsync();
-        /*if (Input.GetKeyDown(KeyCode.C)) Drop();*/
+        if (Input.GetKeyDown(KeyCode.X)) Drop();
     }
 
-    public async void PickUpAsync()
+    private async void PickUpAsync()
     {
         await Task.Delay(2000);
 
         RaycastHit hit;
+
         if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit, distance))
         {
             if (hit.transform.tag == "Staff")
             {
-                /*if (canPickUp) Drop();*/
+                if (canPickUp) Drop();
 
                 _currentItem = hit.transform.gameObject;
                 _currentItem.GetComponent<Rigidbody>().isKinematic = true;
                 _currentItem.GetComponent<Collider>().isTrigger = true;
                 _currentItem.transform.parent = transform;
                 _currentItem.transform.localPosition = Vector3.zero;
-                _currentItem.transform.localEulerAngles = new Vector3(-106f, 83f, -77f);
-
+                _currentItem.transform.localEulerAngles = new Vector3(22f, -187f, -17f);
 
                 canPickUp = true;
             }
         }
     }
 
-    void Drop()
+    private void Drop()
     {
-        _currentItem.transform.parent = null;
-        _currentItem.GetComponent<Rigidbody>().isKinematic = false;
-        _currentItem.GetComponent<Collider>().isTrigger = false;
-        canPickUp = false;
-        _currentItem = null;
+        if (_currentItem != null)
+        {
+            _currentItem.transform.parent = null;
+            _currentItem.GetComponent<Rigidbody>().isKinematic = false;
+            _currentItem.GetComponent<Collider>().isTrigger = false;
+            canPickUp = false;
+            _currentItem = null;
+        }  
     }
 }

@@ -393,7 +393,7 @@ namespace Player
                 {
                     ""name"": """",
                     ""id"": ""bb6f917a-40f9-4a34-9225-0095c6098ca9"",
-                    ""path"": ""<Keyboard>/x"",
+                    ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

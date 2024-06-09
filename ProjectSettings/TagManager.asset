@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Staff
   - MagicBall
+  - Frog
+  - Crystal
+  - Hedgehog
   layers:
   - Default
   - TransparentFX
