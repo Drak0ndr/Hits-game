@@ -211,6 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chunkPrefab: {fileID: 8685294100388026446, guid: 70b3a298a7d3ec64ab32e1525f3fc571, type: 3}
   taigaFullTree: {fileID: 8758888183434908315, guid: 2caeb99d3229fee4aa4f3bc8c1c8fc07, type: 3}
+  taigaSmallTree: {fileID: 8758888183434908315, guid: b0e9959b9cba48140a0b23bf569fad8b, type: 3}
   Generator: {fileID: 468261869}
 --- !u!4 &468261868
 Transform:
