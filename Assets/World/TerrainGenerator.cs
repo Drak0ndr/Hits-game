@@ -50,10 +50,10 @@ public class TerrainGenerator : MonoBehaviour
     }
 
     public float[,] GenerateHightMap(float xOffset, float zOffset) {
-        var result = new float[ChunkRenderer.ChunkWidth, ChunkRenderer.ChunkWidth];
-        for (int x = 0; x < ChunkRenderer.ChunkWidth; x++)
+        var result = new float[ChunkRenderer.ChunkWidth+1, ChunkRenderer.ChunkWidth+1];
+        for (int x = 0; x < ChunkRenderer.ChunkWidth+1; x++)
         {
-            for (int z = 0; z < ChunkRenderer.ChunkWidth; z++)
+            for (int z = 0; z < ChunkRenderer.ChunkWidth+1; z++)
             {
                 float height = GetHeight((x * ChunkRenderer.BlockScale + xOffset), (z * ChunkRenderer.BlockScale + zOffset));
                 result[x,z] = height;

@@ -45,13 +45,45 @@ public class ChunkRenderer : MonoBehaviour
         vecticies.Clear();
         triangles.Clear();
         uvs.Clear();
-        for (int y = 0; y < ChunkHeight; y++)
+
+        for (int x = 0; x < ChunkWidth; x++)
         {
-            for (int x = 0; x < ChunkWidth; x++)
+            for (int z = 0; z < ChunkWidth; z++)
             {
-                for (int z = 0; z < ChunkWidth; z++)
+                // float blockHeight00 = ChunkData.heightMap[x,z];
+                float blockHeight00 = 0;
+
+                for (int y = 0; y < ChunkHeight; y++)
                 {
-                    GenerateBlock(x, y, z);
+                    if (false && y == (int)blockHeight00) {
+                        float blockHeight01 = ChunkData.heightMap[x,z+1];
+                        float blockHeight10 = ChunkData.heightMap[x+1,z];
+                        float blockHeight11 = ChunkData.heightMap[x+1,z+1];
+                        float bh00 = blockHeight00 - y + 1;
+                        float bh01 = blockHeight01 - y + 1;
+                        float bh10 = blockHeight10 - y + 1;
+                        float bh11 = blockHeight11 - y + 1;
+                        if (bh00 >= 1.5) bh00 = 2;
+                        if (bh00 < 0.5) bh00 = 0;
+                        if (bh01 >= 1.5) bh01 = 2;
+                        if (bh01 < 0.5) bh01 = 0;
+                        if (bh10 >= 1.5) bh10 = 2;
+                        if (bh10 < 0.5) bh10 = 0;
+                        if (bh11 >= 1.5) bh11 = 2;
+                        if (bh11 < 0.5) bh11 = 0;
+                        if (bh00 >= 1 && bh00 < 1.5) bh00 = 1;
+                        if (bh01 >= 1 && bh01 < 1.5) bh01 = 1;
+                        if (bh10 >= 1 && bh10 < 1.5) bh10 = 1;
+                        if (bh11 >= 1 && bh11 < 1.5) bh11 = 1;
+                        if (bh00 >=0.5 && bh00 <=1) bh00 = 1;
+                        if (bh01 >=0.5 && bh01 <=1) bh01 = 1;
+                        if (bh10 >=0.5 && bh10 <=1) bh10 = 1;
+                        if (bh11 >=0.5 && bh11 <=1) bh11 = 1;
+                        GenerateBlock(x, y, z);
+                    } else {
+                        GenerateBlock(x, y, z);
+                    }
+                
                 }
             }
         }
@@ -84,7 +116,7 @@ public class ChunkRenderer : MonoBehaviour
         ChunkData.Blocks[blockPosition.x, blockPosition.y, blockPosition.z] = BlockType.Air;
         RegenerateMesh();
     }
-    private void GenerateBlock(int x, int y, int z)
+    private void GenerateBlock(int x, int y, int z, float blockHeight00 = 1, float blockHeight01 = 1, float blockHeight10 = 1, float blockHeight11 = 1)
     {
         var blockPosition = new Vector3Int(x, y, z);
         if (GetBlockAtPosition(blockPosition) == 0) return;
@@ -92,27 +124,27 @@ public class ChunkRenderer : MonoBehaviour
 
         if (GetBlockAtPosition(blockPosition + Vector3Int.right) == 0)
         {
-            GenerateRightSide(blockPosition);
+            GenerateRightSide(blockPosition, blockHeight10, blockHeight11);
             AddUvs(GetBlockAtPosition(blockPosition));
         }
         if (GetBlockAtPosition(blockPosition + Vector3Int.left) == 0)
         {
-            GenerateLeftSide(blockPosition);
+            GenerateLeftSide(blockPosition, blockHeight00, blockHeight01);
             AddUvs(GetBlockAtPosition(blockPosition));
         }
         if (GetBlockAtPosition(blockPosition + Vector3Int.forward) == 0)
         {
-            GenerateFrontSide(blockPosition);
+            GenerateFrontSide(blockPosition, blockHeight01, blockHeight11);
             AddUvs(GetBlockAtPosition(blockPosition));
         }
         if (GetBlockAtPosition(blockPosition + Vector3Int.back) == 0)
         {
-            GenerateBackSide(blockPosition);
+            GenerateBackSide(blockPosition, blockHeight00, blockHeight10);
             AddUvs(GetBlockAtPosition(blockPosition));
         }
         if (GetBlockAtPosition(blockPosition + Vector3Int.up) == 0)
         {
-            GenerateTopSide(blockPosition);
+            GenerateTopSide(blockPosition, blockHeight00, blockHeight01, blockHeight10, blockHeight11);
             AddUvs(GetBlockAtPosition(blockPosition));
         }
         if (blockPosition.y > 0 && GetBlockAtPosition(blockPosition + Vector3Int.down) == 0)
@@ -172,53 +204,53 @@ public class ChunkRenderer : MonoBehaviour
 
         }
     }
-    private void GenerateRightSide(Vector3Int blockPosition)
+    private void GenerateRightSide(Vector3Int blockPosition, float blockHeight10, float blockHeight11)
     {
         vecticies.Add((new Vector3(1, 0, 0) + blockPosition) * BlockScale);
-        vecticies.Add((new Vector3(1, 1, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, blockHeight10, 0) + blockPosition) * BlockScale);
         vecticies.Add((new Vector3(1, 0, 1) + blockPosition) * BlockScale);
-        vecticies.Add((new Vector3(1, 1, 1) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, blockHeight11, 1) + blockPosition) * BlockScale);
 
         AddLastVerticiesSquare();
 
     }
 
-    private void GenerateLeftSide(Vector3Int blockPosition)
+    private void GenerateLeftSide(Vector3Int blockPosition, float blockHeight00, float blockHeight01)
     {
         vecticies.Add((new Vector3(0, 0, 0) + blockPosition) * BlockScale);
         vecticies.Add((new Vector3(0, 0, 1) + blockPosition) * BlockScale);
-        vecticies.Add((new Vector3(0, 1, 0) + blockPosition) * BlockScale);
-        vecticies.Add((new Vector3(0, 1, 1) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(0, blockHeight00, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(0, blockHeight01, 1) + blockPosition) * BlockScale);
 
         AddLastVerticiesSquare();
     }
 
-    private void GenerateFrontSide(Vector3Int blockPosition)
+    private void GenerateFrontSide(Vector3Int blockPosition, float blockHeight01, float blockHeight11)
     {
         vecticies.Add((new Vector3(0, 0, 1) + blockPosition) * BlockScale);
         vecticies.Add((new Vector3(1, 0, 1) + blockPosition) * BlockScale);
-        vecticies.Add((new Vector3(0, 1, 1) + blockPosition) * BlockScale);
-        vecticies.Add((new Vector3(1, 1, 1) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(0, blockHeight01, 1) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, blockHeight11, 1) + blockPosition) * BlockScale);
 
         AddLastVerticiesSquare();
     }
 
-    private void GenerateBackSide(Vector3Int blockPosition)
+    private void GenerateBackSide(Vector3Int blockPosition, float blockHeight00, float blockHeight10)
     {
         vecticies.Add((new Vector3(0, 0, 0) + blockPosition) * BlockScale);
-        vecticies.Add((new Vector3(0, 1, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(0, blockHeight00, 0) + blockPosition) * BlockScale);
         vecticies.Add((new Vector3(1, 0, 0) + blockPosition) * BlockScale);
-        vecticies.Add((new Vector3(1, 1, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, blockHeight10, 0) + blockPosition) * BlockScale);
 
         AddLastVerticiesSquare();
     }
 
-    private void GenerateTopSide(Vector3Int blockPosition)
+    private void GenerateTopSide(Vector3Int blockPosition, float blockHeight00, float blockHeight01, float blockHeight10, float blockHeight11)
     {
-        vecticies.Add((new Vector3(0, 1, 0) + blockPosition) * BlockScale);
-        vecticies.Add((new Vector3(0, 1, 1) + blockPosition) * BlockScale);
-        vecticies.Add((new Vector3(1, 1, 0) + blockPosition) * BlockScale);
-        vecticies.Add((new Vector3(1, 1, 1) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(0, blockHeight00, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(0, blockHeight01, 1) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, blockHeight10, 0) + blockPosition) * BlockScale);
+        vecticies.Add((new Vector3(1, blockHeight11, 1) + blockPosition) * BlockScale);
 
         AddLastVerticiesSquare();
     }
