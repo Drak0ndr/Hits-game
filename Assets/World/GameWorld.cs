@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -11,6 +12,7 @@ public class GameWorld : MonoBehaviour
     public ChunkRenderer chunkPrefab;
     public MeshRenderer taigaFullTree;
     public MeshRenderer taigaSmallTree;
+    public MeshRenderer polemonium;
     public TerrainGenerator Generator;
     private FastNoiseLite precipitation = new FastNoiseLite();
     private FastNoiseLite temperature = new FastNoiseLite();
@@ -86,8 +88,12 @@ public class GameWorld : MonoBehaviour
         if (temp >= -5 && temp <= 5 && precipitationLevel >= 50 && precipitationLevel <= 300)
         {
             float bestConditions = (precipitation.GetNoise(xPos, zPos) + 1) * 200 + temperature.GetNoise(xPos, zPos) * 30;
-            float bestPosX = xPos;
-            float bestPosZ = zPos;
+            float bestTreePosX = xPos;
+            float bestTreePosZ = zPos;
+            float bestFlowerCond = Math.Abs(100 - (precipitation.GetNoise(xPos, zPos) + 1) * 200);
+            float bestFlPosX = xPos;
+            float bestFlPosZ = zPos;
+            float FlHeight = Generator.GetHeight(xPos, zPos) * ChunkRenderer.BlockScale;
             for (float i = xPos - ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; i < xPos + ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; i += ChunkRenderer.BlockScale)
             {
                 for (float j = zPos - ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; j < zPos + ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; j += ChunkRenderer.BlockScale)
@@ -96,16 +102,26 @@ public class GameWorld : MonoBehaviour
                     if ( tempCond > bestConditions)
                     {
                         bestConditions = tempCond;
-                        bestPosX = i;
-                        bestPosZ = j;
+                        bestTreePosX = i;
+                        bestTreePosZ = j;
                         treeHeight = Generator.GetHeight(i, j) * ChunkRenderer.BlockScale;
+                    }
+                    var tempFlCond = Math.Abs(100 - (precipitation.GetNoise(i, j) + 1) * 200);
+                    if (tempFlCond < bestFlowerCond) {
+                        bestFlowerCond = tempFlCond;
+                        bestFlPosX = i;
+                        bestFlPosZ = j;
+                        FlHeight = Generator.GetHeight(i, j) * ChunkRenderer.BlockScale;
                     }
                 }
             }
             if (bestConditions < 150) {
-                Instantiate(taigaSmallTree, new Vector3(bestPosX, treeHeight, bestPosZ), Quaternion.identity, transform);
+                Instantiate(taigaSmallTree, new Vector3(bestTreePosX, treeHeight, bestTreePosZ), Quaternion.identity, transform);
             } else {
-                Instantiate(taigaFullTree, new Vector3(bestPosX, treeHeight, bestPosZ), Quaternion.identity, transform);
+                Instantiate(taigaFullTree, new Vector3(bestTreePosX, treeHeight, bestTreePosZ), Quaternion.identity, transform);
+            }
+            if (bestFlowerCond <= 50) {
+                Instantiate(polemonium, new Vector3(bestFlPosX, FlHeight, bestFlPosZ), Quaternion.identity, transform);
             }
             
         }
