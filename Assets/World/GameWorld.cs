@@ -75,7 +75,7 @@ public class GameWorld : MonoBehaviour
         ChunkData chunkData = new ChunkData();
         chunkData.Blocks = Generator.GenerateTerrain(xPos, zPos);
         chunkData.ChunkPositoin = new Vector2Int(x, z);
-        // chunkData.heightMap = Generator.GenerateHightMap(xPos,zPos);
+        chunkData.heightMap = Generator.GenerateHightMap(xPos,zPos);
         ChunkDatas.Add(new Vector2Int(x, z), chunkData);
         var chunk = Instantiate(chunkPrefab, new Vector3(xPos, 0, zPos), Quaternion.identity, transform);
 
