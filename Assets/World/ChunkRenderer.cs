@@ -9,7 +9,7 @@ using UnityEngine;
 public class ChunkRenderer : MonoBehaviour
 {
     public const int ChunkWidth = 30;
-    public const int ChunkHeight = 128;
+    public const int ChunkHeight = 150;
     public const float BlockScale = 0.25f;
     public ChunkData ChunkData;
     public GameWorld ParentWorld;
