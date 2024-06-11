@@ -11,7 +11,7 @@ public class RunController : MonoBehaviour
     private float runRange = 8f;
     private float speed = 2f;
 
-    void Update()
+    void FixedUpdate()
     {
         float dist = Vector3.Distance(_player.transform.position, transform.position);
 
