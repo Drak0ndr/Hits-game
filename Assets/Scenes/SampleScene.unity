@@ -14,11 +14,11 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
+  m_Fog: 1
+  m_FogColor: {r: 0.37638298, g: 0.6459258, b: 0.7584905, a: 1}
+  m_FogMode: 1
   m_FogDensity: 0.01
-  m_LinearFogStart: 0
+  m_LinearFogStart: 20
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
@@ -281,6 +281,7 @@ MonoBehaviour:
   chunkPrefab: {fileID: 8685294100388026446, guid: 70b3a298a7d3ec64ab32e1525f3fc571, type: 3}
   taigaFullTree: {fileID: 8758888183434908315, guid: 2caeb99d3229fee4aa4f3bc8c1c8fc07, type: 3}
   taigaSmallTree: {fileID: 8758888183434908315, guid: b0e9959b9cba48140a0b23bf569fad8b, type: 3}
+  polemonium: {fileID: 1810836374238980605, guid: 962996e23ffcbc44d92fb20cd03940cd, type: 3}
   Generator: {fileID: 468261869}
 --- !u!4 &468261868
 Transform:

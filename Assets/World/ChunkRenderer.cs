@@ -9,7 +9,7 @@ using UnityEngine;
 public class ChunkRenderer : MonoBehaviour
 {
     public const int ChunkWidth = 30;
-    public const int ChunkHeight = 128;
+    public const int ChunkHeight = 150;
     public const float BlockScale = 0.25f;
     public ChunkData ChunkData;
     public GameWorld ParentWorld;
@@ -50,15 +50,14 @@ public class ChunkRenderer : MonoBehaviour
         {
             for (int z = 0; z < ChunkWidth; z++)
             {
-                // float blockHeight00 = ChunkData.heightMap[x,z];
-                float blockHeight00 = 0;
-
+                float blockHeight00 = ChunkData.heightMap[x,z];
+                float blockHeight01 = ChunkData.heightMap[x,z+1];
+                float blockHeight10 = ChunkData.heightMap[x+1,z];
+                float blockHeight11 = ChunkData.heightMap[x+1,z+1];
                 for (int y = 0; y < ChunkHeight; y++)
                 {
                     if (false && y == (int)blockHeight00) {
-                        float blockHeight01 = ChunkData.heightMap[x,z+1];
-                        float blockHeight10 = ChunkData.heightMap[x+1,z];
-                        float blockHeight11 = ChunkData.heightMap[x+1,z+1];
+
                         float bh00 = blockHeight00 - y + 1;
                         float bh01 = blockHeight01 - y + 1;
                         float bh10 = blockHeight10 - y + 1;
@@ -79,7 +78,7 @@ public class ChunkRenderer : MonoBehaviour
                         if (bh01 >=0.5 && bh01 <=1) bh01 = 1;
                         if (bh10 >=0.5 && bh10 <=1) bh10 = 1;
                         if (bh11 >=0.5 && bh11 <=1) bh11 = 1;
-                        GenerateBlock(x, y, z);
+                        GenerateBlock(x, y, z, bh00, bh01, bh10, bh11);
                     } else {
                         GenerateBlock(x, y, z);
                     }

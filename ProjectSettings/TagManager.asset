@@ -9,6 +9,7 @@ TagManager:
   - Frog
   - Crystal
   - Hedgehog
+  - Tree
   layers:
   - Default
   - TransparentFX
