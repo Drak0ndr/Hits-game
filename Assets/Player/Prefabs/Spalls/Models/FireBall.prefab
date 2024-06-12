@@ -14548,6 +14548,7 @@ MonoBehaviour:
   _explosion: {fileID: 358637981425055526, guid: 8eb503696b886e04faff8fc0f480d473, type: 3}
   _frog: {fileID: 6631197445292522505, guid: cfcd2397cabcf9146bcd039b019a4b56, type: 3}
   _hedgehog: {fileID: 7266004049619398050, guid: 5b9860dd803f297429a4c2fe2af55971, type: 3}
+  _newDoor: {fileID: 3580751509552955907, guid: ff292d06470b5b24ab9801c1ade22967, type: 3}
   magicBallLife: 3
 --- !u!135 &2998797353358383383
 SphereCollider:

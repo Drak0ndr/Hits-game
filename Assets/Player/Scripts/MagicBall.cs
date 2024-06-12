@@ -1,15 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class MagicBall : MonoBehaviour
 {
     public GameObject _explosion;
     public GameObject _frog;
     public GameObject _hedgehog;
+    public GameObject _newDoor;
 
     public float magicBallLife = 3f;
 
+    private void Start()
+    {
+        var boards = _newDoor.GetComponentsInChildren<Renderer>();
+        foreach (Renderer board in boards)
+        {
+            board.GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
     private void Awake()
     {
         Destroy(gameObject, magicBallLife);
@@ -38,6 +48,19 @@ public class MagicBall : MonoBehaviour
                 Instantiate(_hedgehog, collision.contacts[0].point, Quaternion.identity);
                 Destroy(collision.gameObject);
                 
+            }
+
+            else if (collision.gameObject.tag is "Door")
+            {
+                var boards = _newDoor.GetComponentsInChildren<Renderer>();
+                foreach (Renderer board in boards)
+                {
+                    board.GetComponent<Rigidbody>().isKinematic = false;
+                }
+
+                Instantiate(_newDoor, new Vector3(-0.15f, 0f, -14f), Quaternion.identity);
+
+                Destroy(collision.gameObject);
             }
         }
     }

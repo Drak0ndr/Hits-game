@@ -8,6 +8,9 @@ public class DoorTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        _animator.SetBool("isClose", true);
+        if(_animator != null)
+        {
+            _animator.SetBool("isClose", true);
+        } 
     }
 }
