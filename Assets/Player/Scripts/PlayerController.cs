@@ -77,13 +77,21 @@ namespace Player
             for(int i = 0; i < 2; ++i)
             {
                 GameObject mF1 = GameObject.Find("MagicGround");
-                _magicFloor.Add(mF1);
+
+                if(mF1 != null)
+                {
+                    _magicFloor.Add(mF1);
+                }    
             }
 
             for (int i = 0; i < 2; ++i)
             {
                 GameObject mF2 = GameObject.Find("MagicGround2");
-                _magicFloor2.Add(mF2);
+
+                if(mF2 != null)
+                {
+                    _magicFloor2.Add(mF2);
+                }   
             }
         }
         private void Awake()
@@ -100,8 +108,11 @@ namespace Player
         #region Update Logic
         private void Update()
         {
-            ChangeRotate();
-
+            if(_magicFloor.Count == 2 && _magicFloor2.Count == 2)
+            {
+                ChangeRotate();
+            }
+            
             UpdateMovementState();
             HandleVerticalMovement();
             HandleLateralMovement();
