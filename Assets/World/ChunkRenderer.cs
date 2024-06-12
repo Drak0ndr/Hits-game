@@ -8,7 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class ChunkRenderer : MonoBehaviour
 {
-    public const int ChunkWidth = 30;
+    public const int ChunkWidth = 32;
     public const int ChunkHeight = 150;
     public const float BlockScale = 0.25f;
     public ChunkData ChunkData;
