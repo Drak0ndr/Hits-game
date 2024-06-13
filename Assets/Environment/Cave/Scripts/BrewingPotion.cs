@@ -60,7 +60,7 @@ public class BrewingPotion : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         Vector3 objPosition = player.transform.position;
-        objPosition.z -= 2.5f;
+        objPosition.z += 2.5f;
         objPosition.y += 1.5f;
 
         player.transform.position = objPosition;

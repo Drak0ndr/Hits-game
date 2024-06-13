@@ -20,7 +20,7 @@ namespace Player
                 if(item.icon == this.gameObject.transform.Find("Icon").GetComponent<UnityEngine.UI.Image>().sprite)
                 {
                     Vector3 objPosition = GameObject.Find("Player").transform.position;
-                    objPosition.z += 1.5f;
+                    objPosition.z -= 1.5f;
                     objPosition.y += 1f;
 
                     switch (item.id)

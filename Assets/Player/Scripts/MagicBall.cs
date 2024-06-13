@@ -15,6 +15,7 @@ public class MagicBall : MonoBehaviour
     private void Start()
     {
         var boards = _newDoor.GetComponentsInChildren<Renderer>();
+
         foreach (Renderer board in boards)
         {
             board.GetComponent<Rigidbody>().isKinematic = true;
@@ -53,12 +54,13 @@ public class MagicBall : MonoBehaviour
             else if (collision.gameObject.tag is "Door")
             {
                 var boards = _newDoor.GetComponentsInChildren<Renderer>();
+
                 foreach (Renderer board in boards)
                 {
                     board.GetComponent<Rigidbody>().isKinematic = false;
                 }
 
-                Instantiate(_newDoor, new Vector3(-0.15f, 0f, -14f), Quaternion.identity);
+                Instantiate(_newDoor, new Vector3(-140f, 15.2f, -288f), Quaternion.identity);
 
                 Destroy(collision.gameObject);
             }
