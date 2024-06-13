@@ -371,7 +371,7 @@ namespace Player
                 {
                     ""name"": """",
                     ""id"": ""e6f26d82-02fe-4ade-9b05-d4f8c0a271d2"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
