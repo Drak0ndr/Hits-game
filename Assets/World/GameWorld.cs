@@ -17,7 +17,7 @@ public class GameWorld : MonoBehaviour
     private FastNoiseLite precipitation = new FastNoiseLite();
     private FastNoiseLite temperature = new FastNoiseLite();
     private Camera mainCamera;
-    private Vector2Int currentPlayerChunk;
+    private Vector2Int currentPlayerChunk = new Vector2Int(-18,-35);
     // Start is called before the first frame update
     void Start()
     {
@@ -78,6 +78,96 @@ public class GameWorld : MonoBehaviour
         chunkData.Blocks = Generator.GenerateTerrain(xPos, zPos);
         chunkData.ChunkPositoin = new Vector2Int(x, z);
         chunkData.heightMap = Generator.GenerateHightMap(xPos,zPos);
+        if (xPos == -144 && zPos == -288) {
+            for (int cy = 61; cy < 78; cy++) {
+                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
+                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
+                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
+                    }
+                }
+            }
+        }
+        if (xPos == -144 && zPos == -296) {
+            for (int cy = 61; cy < 78; cy++) {
+                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
+                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
+                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
+                    }
+                }
+            }
+        }
+        if (xPos == -136 && zPos == -296) {
+            for (int cy = 61; cy < 78; cy++) {
+                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
+                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
+                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
+                    }
+                }
+            }
+        }
+        if (xPos == -128 && zPos == -296) {
+            for (int cy = 61; cy < 78; cy++) {
+                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
+                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
+                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
+                    }
+                }
+            }
+        }
+        if (xPos == -120 && zPos == -296) {
+            for (int cy = 61; cy < 78; cy++) {
+                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
+                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
+                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
+                    }
+                }
+            }
+        }
+        if (xPos == -112 && zPos == -304) {
+            for (int cy = 61; cy < 61+33; cy++) {
+                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
+                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
+                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
+                    }
+                }
+            }
+        }
+        if (xPos == -120 && zPos == -304) {
+            for (int cy = 61; cy < 78; cy++) {
+                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
+                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
+                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
+                    }
+                }
+            }
+        }
+        if (xPos == -128 && zPos == -304) {
+            for (int cy = 61; cy < 78; cy++) {
+                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
+                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
+                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
+                    }
+                }
+            }
+        }
+        if (xPos == -136 && zPos == -304) {
+            for (int cy = 61; cy < 78; cy++) {
+                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
+                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
+                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
+                    }
+                }
+            }
+        }
+        if (xPos == -144 && zPos == -304) {
+            for (int cy = 61; cy < 78; cy++) {
+                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
+                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
+                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
+                    }
+                }
+            }
+        }
         ChunkDatas.Add(new Vector2Int(x, z), chunkData);
         var chunk = Instantiate(chunkPrefab, new Vector3(xPos, 0, zPos), Quaternion.identity, transform);
 
