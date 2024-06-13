@@ -114,26 +114,8 @@ public class GameWorld : MonoBehaviour
                 }
             }
         }
-        if (xPos == -120 && zPos == -296) {
-            for (int cy = 61; cy < 78; cy++) {
-                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
-                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
-                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
-                    }
-                }
-            }
-        }
-        if (xPos == -112 && zPos == -304) {
-            for (int cy = 61; cy < 61+33; cy++) {
-                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
-                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
-                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
-                    }
-                }
-            }
-        }
         if (xPos == -120 && zPos == -304) {
-            for (int cy = 61; cy < 78; cy++) {
+            for (int cy = 61; cy < 61+33; cy++) {
                 for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
                     for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
                         chunkData.Blocks[cx,cy,cz] = BlockType.Air;
