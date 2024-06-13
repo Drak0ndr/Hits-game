@@ -46,8 +46,6 @@ namespace Player
 
         [Header("Другие объекты")]
         [SerializeField] private LayerMask _groundLayers;
-        /*[SerializeField] private GameObject _magicFloor;
-        [SerializeField] private GameObject _magicFloor2;*/
 
         private List<GameObject> _magicFloor = new List<GameObject>();
         private List<GameObject> _magicFloor2 = new List<GameObject>();

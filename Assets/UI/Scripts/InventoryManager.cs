@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine.EventSystems;
 using System;
+using Player;
 
 
 namespace Player
@@ -24,13 +25,13 @@ namespace Player
 
         public void Add(Item item)
         {
-            Globals.Items.Add(item);
+            GlobalsVar.Items.Add(item);
             ListItems();
         }
 
         public void Remove(Item item)
         {
-            Globals.Items.Remove(item);
+            GlobalsVar.Items.Remove(item);
             ListItems();
         }
 
@@ -41,7 +42,7 @@ namespace Player
                 Destroy(item.gameObject);
             }
 
-            foreach (var item in Globals.Items)
+            foreach (var item in GlobalsVar.Items)
             {
                 GameObject obj = Instantiate(InventoryItem, ItemContent);
 
@@ -51,10 +52,5 @@ namespace Player
 
             }
         }
-    }
-
-    public static class Globals
-    {
-        public static List<Item> Items = new List<Item>();
     }
 }

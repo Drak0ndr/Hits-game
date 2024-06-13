@@ -81,7 +81,6 @@ namespace Player
         public void SetBasicMagicPressedFalse()
         {
             BasicMagicPressed = false;
-            /*_magicBallController.SpellStart();*/
         }
 
         #endregion
@@ -92,7 +91,10 @@ namespace Player
             if (!context.performed)
                 return;
 
-            GatherPressed = true;
+            if (GlobalsVar.isBasicMagicalAbilities)
+            {
+                GatherPressed = true;
+            }   
         }
 
         public void OnAttacking(InputAction.CallbackContext context)
@@ -116,7 +118,10 @@ namespace Player
             if (!context.performed)
                 return;
 
-            BasicMagicPressed = true;
+            if (GlobalsVar.isBasicMagicalAbilities)
+            {
+                BasicMagicPressed = true;
+            }
         }
         #endregion
     }

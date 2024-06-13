@@ -7,15 +7,15 @@ namespace Player
 {
     public class DropItem : MonoBehaviour, IPointerClickHandler
     {
-        public GameObject pr1;
-        public GameObject pr2;
-        public GameObject pr3;
-        public GameObject pr4;
+        public GameObject prefab1;
+        public GameObject prefab2;
+        public GameObject prefab3;
+        public GameObject prefab4;
 
         public Transform ItemContent;
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            foreach(Item item in Globals.Items)
+            foreach(Item item in GlobalsVar.Items)
             {
                 if(item.icon == this.gameObject.transform.Find("Icon").GetComponent<UnityEngine.UI.Image>().sprite)
                 {
@@ -26,22 +26,22 @@ namespace Player
                     switch (item.id)
                     {
                         case 1:
-                            Instantiate(pr1, objPosition, Quaternion.identity);
+                            Instantiate(prefab1, objPosition, Quaternion.identity);
                             break;
                         case 2:
-                            Instantiate(pr2, objPosition, Quaternion.identity);
+                            Instantiate(prefab2, objPosition, Quaternion.identity);
                             break;
                         case 3:
-                            Instantiate(pr3, objPosition, Quaternion.identity);
+                            Instantiate(prefab3, objPosition, Quaternion.identity);
                             break;
                         case 4:
-                            Instantiate(pr4, objPosition, Quaternion.identity);
+                            Instantiate(prefab4, objPosition, Quaternion.identity);
                             break;
                     }
                     
                     Destroy(this.gameObject);
 
-                    Globals.Items.Remove(item);
+                    GlobalsVar.Items.Remove(item);
 
                     break;
                 }
