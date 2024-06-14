@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class GameWorld : MonoBehaviour
 {
-    private const int ViewRadius = 10;
+    private const int ViewRadius = 9;
     public Dictionary<Vector2Int, ChunkData> ChunkDatas = new Dictionary<Vector2Int, ChunkData>();
     public ChunkRenderer chunkPrefab;
     public MeshRenderer taigaFullTree;
@@ -39,15 +39,32 @@ public class GameWorld : MonoBehaviour
 
     private IEnumerator Generate(bool wait)
     {
-        for (int x = currentPlayerChunk.x - ViewRadius; x < currentPlayerChunk.x + ViewRadius; x++)
+        int loadRadius = ViewRadius+1;
+
+        for (int x = currentPlayerChunk.x - loadRadius; x <= currentPlayerChunk.x + loadRadius; x++)
         {
-            for (int z = currentPlayerChunk.y - ViewRadius; z < currentPlayerChunk.y + ViewRadius; z++)
+            for (int z = currentPlayerChunk.y - loadRadius; z <= currentPlayerChunk.y + loadRadius; z++)
             {
                 var chunkPosition = new Vector2Int(x, z);
                 if (ChunkDatas.ContainsKey(chunkPosition)) continue;
                 LoadChunkAt(chunkPosition);
 
-                if (wait) yield return new WaitForSecondsRealtime(0.2f);
+                if (wait) yield return null;
+            }
+        }
+
+        for (int x = currentPlayerChunk.x - ViewRadius; x <= currentPlayerChunk.x + ViewRadius; x++)
+        {
+            for (int z = currentPlayerChunk.y - ViewRadius; z <= currentPlayerChunk.y + ViewRadius; z++)
+            {
+                var chunkPosition = new Vector2Int(x, z);
+                ChunkData chunkData = ChunkDatas[chunkPosition];
+
+                if (chunkData.Renderer != null) continue;
+
+                SpawnChunkRenderer(chunkData);
+
+                if (wait) yield return new WaitForSecondsRealtime(0.1f);
             }
         }
     }
@@ -151,6 +168,13 @@ public class GameWorld : MonoBehaviour
             }
         }
         ChunkDatas.Add(new Vector2Int(x, z), chunkData);
+        
+    }
+
+    private void SpawnChunkRenderer(ChunkData chunkData) {
+        float xPos = chunkData.ChunkPositoin.x * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
+        float zPos = chunkData.ChunkPositoin.y * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
+
         var chunk = Instantiate(chunkPrefab, new Vector3(xPos, 0, zPos), Quaternion.identity, transform);
 
         var treeHeight = Generator.GetHeight(xPos, zPos) * ChunkRenderer.BlockScale;
@@ -203,7 +227,6 @@ public class GameWorld : MonoBehaviour
 
         chunkData.Renderer = chunk;
     }
-
     void Update()
     {
         Vector3Int playerWorldPos = Vector3Int.FloorToInt(mainCamera.transform.position / ChunkRenderer.BlockScale);
