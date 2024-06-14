@@ -69,5 +69,7 @@ public class BrewingPotion : MonoBehaviour
         _potion.SetActive(false);
 
         GlobalsVar.isBasicMagicalAbilities = true;
+
+        GlobalsVar.HP = 100;
     }
 }
