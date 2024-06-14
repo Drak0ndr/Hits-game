@@ -238,7 +238,7 @@ public class GameWorld : MonoBehaviour
             StartCoroutine(Generate(true));
         }
 
-        CheckInput();
+        // CheckInput();
     }
 
     private void CheckInput()
