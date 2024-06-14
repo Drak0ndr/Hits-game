@@ -47,9 +47,6 @@ namespace Player
         [Header("Другие объекты")]
         [SerializeField] private LayerMask _groundLayers;
 
-        private List<GameObject> _magicFloor = new List<GameObject>();
-        private List<GameObject> _magicFloor2 = new List<GameObject>();
-
         private PlayerLocomotionInput _playerLocomotionInput;
         private PlayerState _playerState;
         private PlayerActionsInput _playerActionsInput;
@@ -63,35 +60,12 @@ namespace Player
         private float _verticalVelocity = 0f;
         private float _antiBump;
         private float _stepOffset;
-        private float _magicRotate = 0f;
 
         private PlayerMovementState _lastMovementState = PlayerMovementState.Falling;
         #endregion
 
         #region Startup
 
-        private void Start()
-        {
-            for(int i = 0; i < 2; ++i)
-            {
-                GameObject mF1 = GameObject.Find("MagicGround");
-
-                if(mF1 != null)
-                {
-                    _magicFloor.Add(mF1);
-                }    
-            }
-
-            for (int i = 0; i < 2; ++i)
-            {
-                GameObject mF2 = GameObject.Find("MagicGround2");
-
-                if(mF2 != null)
-                {
-                    _magicFloor2.Add(mF2);
-                }   
-            }
-        }
         private void Awake()
         {
             _playerLocomotionInput = GetComponent<PlayerLocomotionInput>();
@@ -105,35 +79,10 @@ namespace Player
 
         #region Update Logic
         private void Update()
-        {
-            if(_magicFloor.Count == 2 && _magicFloor2.Count == 2)
-            {
-                ChangeRotate();
-            }
-            
+        { 
             UpdateMovementState();
             HandleVerticalMovement();
             HandleLateralMovement();
-        }
-
-        private void ChangeRotate()
-        {
-            
-            float dist = Math.Min(Vector3.Distance(_magicFloor[0].transform.position, transform.position),
-                Vector3.Distance(_magicFloor[1].transform.position, transform.position));
-
-            float dist2 = Math.Min(Vector3.Distance(_magicFloor2[0].transform.position, transform.position),
-                Vector3.Distance(_magicFloor2[1].transform.position, transform.position));
-
-            if (dist < 4f)
-            {
-                _magicRotate = 180f;
-            }
-
-            else if (dist2 < 4f)
-            {
-                _magicRotate = 0f;
-            }
         }
 
         private void UpdateMovementState()
@@ -275,7 +224,7 @@ namespace Player
                 UpdateIdleRotation(rotationTolerance);
             }
 
-            _playerCamera.transform.rotation = Quaternion.Euler(_cameraRotation.y, _cameraRotation.x, _magicRotate);
+            _playerCamera.transform.rotation = Quaternion.Euler(_cameraRotation.y, _cameraRotation.x, GlobalsVar._magicRotate);
 
             // Угол между камерой и игроком
             Vector3 camForwardProjectedXZ = new Vector3(_playerCamera.transform.forward.x, 0f, _playerCamera.transform.forward.z).normalized;

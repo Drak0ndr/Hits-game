@@ -6,8 +6,10 @@ namespace Player
 {
     public static class GlobalsVar
     {
-        public static int HP = 100;
-        public static int MANA = 0;
+        public static float HP = 100f;
+        public static float MANA = 0f;
+
+        public static float _magicRotate = 0f;
 
         public static List<Item> Items = new List<Item>();
 
