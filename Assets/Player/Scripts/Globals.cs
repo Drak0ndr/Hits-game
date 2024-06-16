@@ -15,6 +15,10 @@ namespace Player
 
         public static bool isBasicMagicalAbilities = false;
 
-    } 
+        public static bool isThirdDialog = false;
+        public static bool isFourthDialog = false;
+
+        public static bool isBirdFlight = false;
+    }
 }
 

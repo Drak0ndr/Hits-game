@@ -9,6 +9,7 @@ public class BrewingPotion : MonoBehaviour
     public GameObject _empty;
     public GameObject _potion;
     public GameObject _slash;
+    public GameObject _dialog;
 
     private int countPotions = 0;
     private bool isMagic = false;
@@ -71,5 +72,9 @@ public class BrewingPotion : MonoBehaviour
         GlobalsVar.isBasicMagicalAbilities = true;
 
         GlobalsVar.HP = 100;
+
+        await Task.Delay(1500);
+
+        _dialog.SetActive(true);
     }
 }

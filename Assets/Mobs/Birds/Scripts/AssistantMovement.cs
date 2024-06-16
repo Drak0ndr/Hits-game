@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Player;
 
 public class AssistantMovement : MonoBehaviour
 {
     public GameObject _player;
+    public GameObject _flightPosition;
 
     private float maxDistance = 3.5f;
     private float movementSpeed = 2f;
 
     void FixedUpdate()
     {
-        if (_player != null)
+        if (_player != null && this.gameObject != null && !GlobalsVar.isBirdFlight)
         {
             float dist = Vector3.Distance(_player.transform.position, transform.position);
 
@@ -24,6 +26,25 @@ public class AssistantMovement : MonoBehaviour
 
                 this.transform.position = Vector3.MoveTowards(transform.position, _player.transform.position + 
                     new Vector3(getRandom(0f, 1.5f), getRandom(1f, 2f), getRandom(-2f, -1.5f)), step);
+            }
+
+            else
+            {
+                transform.LookAt(_player.transform.position);
+            }
+        }
+
+        else if (this.gameObject != null && GlobalsVar.isBirdFlight)
+        {
+            float step = movementSpeed * Time.deltaTime;
+
+            transform.LookAt(_flightPosition.transform.position);
+
+            this.transform.position = Vector3.MoveTowards(transform.position, _flightPosition.transform.position, step);
+
+            if(this.transform.position == _flightPosition.transform.position)
+            {
+                Destroy(this.gameObject);
             }
         }
     }
