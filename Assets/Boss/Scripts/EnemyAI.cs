@@ -14,7 +14,7 @@ public class EnemyAI : MonoBehaviour
     private float harassmentSpeed = 1f;
     private float maxMovementDist = 50f;
     private float maxFightDist = 30f;
-    private float timeBetweenAttacks = 2.5f;
+    private float timeBetweenAttacks = 2f;
     private float shootForce = 20f;
 
     private int index = 0;

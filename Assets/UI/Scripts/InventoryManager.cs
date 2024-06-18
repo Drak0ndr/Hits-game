@@ -1,13 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
-using UnityEngine.UIElements;
-using Microsoft.Unity.VisualStudio.Editor;
-using UnityEngine.EventSystems;
-using System;
-using Player;
-
 
 namespace Player
 {
