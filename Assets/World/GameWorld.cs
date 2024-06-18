@@ -167,6 +167,18 @@ public class GameWorld : MonoBehaviour
                 }
             }
         }
+
+        if (xPos >= 56-56 && xPos<= 56+56 && zPos >= 472 - 56 && zPos <= 472 + 56) {
+            
+            for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
+                for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
+                    int r = (int)(Math.Pow(Math.Pow(xPos+cx*ChunkRenderer.BlockScale - 56,2) + Math.Pow(zPos+cz*ChunkRenderer.BlockScale - 472,2), 0.5) * 1.35);
+                    for (int cy = 1 + r; cy < 150; cy++) {
+                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
+                    }
+                }
+            }
+        }
         ChunkDatas.Add(new Vector2Int(x, z), chunkData);
         
     }
@@ -176,52 +188,59 @@ public class GameWorld : MonoBehaviour
         float zPos = chunkData.ChunkPositoin.y * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
 
         var chunk = Instantiate(chunkPrefab, new Vector3(xPos, 0, zPos), Quaternion.identity, transform);
+        if (xPos >= 56-48 && xPos<= 56+48 && zPos >= 472 - 48 && zPos <= 472 + 48) {
 
-        var treeHeight = Generator.GetHeight(xPos, zPos) * ChunkRenderer.BlockScale;
-        var precipitationLevel = (precipitation.GetNoise(xPos, zPos) + 1) * 200;
-        var temperatureLevel = temperature.GetNoise(xPos, zPos) * 30;
-        var temp = temperatureLevel + Mathf.Min(0, 16 - treeHeight) * 0.25;
-        if (temp >= -5 && temp <= 5 && precipitationLevel >= 50 && precipitationLevel <= 300)
-        {
-            float bestConditions = (precipitation.GetNoise(xPos, zPos) + 1) * 200 + temperature.GetNoise(xPos, zPos) * 30;
-            float bestTreePosX = xPos;
-            float bestTreePosZ = zPos;
-            float bestFlowerCond = Math.Abs(100 - (precipitation.GetNoise(xPos, zPos) + 1) * 200);
-            float bestFlPosX = xPos;
-            float bestFlPosZ = zPos;
-            float FlHeight = Generator.GetHeight(xPos, zPos) * ChunkRenderer.BlockScale;
-            for (float i = xPos - ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; i < xPos + ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; i += ChunkRenderer.BlockScale)
+        } else {
+            var treeHeight = Generator.GetHeight(xPos, zPos) * ChunkRenderer.BlockScale;
+            var precipitationLevel = (precipitation.GetNoise(xPos, zPos) + 1) * 200;
+            var temperatureLevel = temperature.GetNoise(xPos, zPos) * 30;
+            var temp = temperatureLevel + Mathf.Min(0, 16 - treeHeight) * 0.25;
+            if (temp >= -5 && temp <= 5 && precipitationLevel >= 50 && precipitationLevel <= 300)
             {
-                for (float j = zPos - ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; j < zPos + ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; j += ChunkRenderer.BlockScale)
+                float bestConditions = (precipitation.GetNoise(xPos, zPos) + 1) * 200 + temperature.GetNoise(xPos, zPos) * 30;
+                float bestTreePosX = xPos;
+                float bestTreePosZ = zPos;
+                float bestFlowerCond = Math.Abs(100 - (precipitation.GetNoise(xPos, zPos) + 1) * 200);
+                float bestFlPosX = xPos;
+                float bestFlPosZ = zPos;
+                float FlHeight = Generator.GetHeight(xPos, zPos) * ChunkRenderer.BlockScale;
+                for (float i = xPos - ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; i < xPos + ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; i += ChunkRenderer.BlockScale)
                 {
-                    var tempCond = (precipitation.GetNoise(i, j) + 1) * 200 + temperature.GetNoise(i, j) * 30;
-                    if ( tempCond > bestConditions)
+                    for (float j = zPos - ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; j < zPos + ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; j += ChunkRenderer.BlockScale)
                     {
-                        bestConditions = tempCond;
-                        bestTreePosX = i;
-                        bestTreePosZ = j;
-                        treeHeight = Generator.GetHeight(i, j) * ChunkRenderer.BlockScale;
-                    }
-                    var tempFlCond = Math.Abs(100 - (precipitation.GetNoise(i, j) + 1) * 200);
-                    if (tempFlCond < bestFlowerCond) {
-                        bestFlowerCond = tempFlCond;
-                        bestFlPosX = i;
-                        bestFlPosZ = j;
-                        FlHeight = Generator.GetHeight(i, j) * ChunkRenderer.BlockScale;
+                        var tempCond = (precipitation.GetNoise(i, j) + 1) * 200 + temperature.GetNoise(i, j) * 30;
+                        if ( tempCond > bestConditions)
+                        {
+                            bestConditions = tempCond;
+                            bestTreePosX = i;
+                            bestTreePosZ = j;
+                            treeHeight = Generator.GetHeight(i, j) * ChunkRenderer.BlockScale;
+                        }
+                        var tempFlCond = Math.Abs(100 - (precipitation.GetNoise(i, j) + 1) * 200);
+                        if (tempFlCond < bestFlowerCond) {
+                            bestFlowerCond = tempFlCond;
+                            bestFlPosX = i;
+                            bestFlPosZ = j;
+                            FlHeight = Generator.GetHeight(i, j) * ChunkRenderer.BlockScale;
+                        }
                     }
                 }
-            }
-            if (bestConditions < 150) {
-                Instantiate(taigaSmallTree, new Vector3(bestTreePosX, treeHeight, bestTreePosZ), Quaternion.identity, transform);
-            } else {
-                Instantiate(taigaFullTree, new Vector3(bestTreePosX, treeHeight, bestTreePosZ), Quaternion.identity, transform);
-            }
-            if (bestFlowerCond <= 50) {
-                Instantiate(polemonium, new Vector3(bestFlPosX, FlHeight, bestFlPosZ), Quaternion.identity, transform);
-            }
-            
-        }
+                
+                    
+                if (bestConditions < 150) {
+                    Instantiate(taigaSmallTree, new Vector3(bestTreePosX, treeHeight, bestTreePosZ), Quaternion.identity, transform);
+                } else {
+                    Instantiate(taigaFullTree, new Vector3(bestTreePosX, treeHeight, bestTreePosZ), Quaternion.identity, transform);
+                }
+                if (bestFlowerCond <= 50) {
+                    Instantiate(polemonium, new Vector3(bestFlPosX, FlHeight, bestFlPosZ), Quaternion.identity, transform);
+                }
 
+                
+                
+                
+            }
+        }
         chunk.ChunkData = chunkData;
         chunk.ParentWorld = this;
 
