@@ -10,7 +10,7 @@ public class PlatformController : MonoBehaviour
     {
         if ((other.name == "Player" || other.name == "Collider"))
         {
-            _platform.transform.position += new Vector3(0f, 1f, 0f) * Time.deltaTime;
+            _platform.transform.position += new Vector3(0f, 2f, 0f) * Time.deltaTime;
         }
     }
 }
