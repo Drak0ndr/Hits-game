@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Player
 {
@@ -16,11 +14,14 @@ namespace Player
         public static List<Item> Items = new List<Item>();
 
         public static bool isBasicMagicalAbilities = false;
+        public static bool isSpecialMagicalAbilities = false;
 
         public static bool isThirdDialog = false;
         public static bool isFourthDialog = false;
 
         public static bool isBirdFlight = false;
+
+        public static bool isFight = true;
     }
 }
 

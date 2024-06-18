@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
-using UnityEngine.UI;
-using UnityEngine.InputSystem.UI;
 using System.Threading.Tasks;
 
 namespace Player

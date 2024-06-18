@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
-using UnityEngine.InputSystem.HID;
 using Player;
 
 public class BornFire : MonoBehaviour

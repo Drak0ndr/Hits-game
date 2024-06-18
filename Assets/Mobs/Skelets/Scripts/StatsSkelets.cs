@@ -1,11 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
 using System.Threading.Tasks;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
-using Quaternion = UnityEngine.Quaternion;
-using Vector3 = UnityEngine.Vector3;
 
 public class StatsSkelets : MonoBehaviour
 {

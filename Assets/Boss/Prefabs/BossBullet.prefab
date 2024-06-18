@@ -4870,11 +4870,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d62368339809d54da12dc29b0a8e4e2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 147.07489
+      value: 147
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d62368339809d54da12dc29b0a8e4e2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -21.29513
+      value: -21
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d62368339809d54da12dc29b0a8e4e2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4882,7 +4882,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d62368339809d54da12dc29b0a8e4e2, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.49999994
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d62368339809d54da12dc29b0a8e4e2, type: 3}
       propertyPath: m_LocalRotation.x
@@ -4894,7 +4894,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d62368339809d54da12dc29b0a8e4e2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.86602545
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d62368339809d54da12dc29b0a8e4e2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4906,7 +4906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d62368339809d54da12dc29b0a8e4e2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -120
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 1d62368339809d54da12dc29b0a8e4e2, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4915,6 +4915,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1d62368339809d54da12dc29b0a8e4e2, type: 3}
       propertyPath: m_Name
       value: BossBullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1d62368339809d54da12dc29b0a8e4e2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1d62368339809d54da12dc29b0a8e4e2, type: 3}
       propertyPath: m_TagString
@@ -4991,7 +4995,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!64 &409851237689750178
 MeshCollider:
@@ -5027,6 +5031,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f840c1b254c72a4891da2abcb814cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _explosion: {fileID: 2944396702758532163, guid: e190bf97c041e58448af6b043116cba0, type: 3}
+  _animator: {fileID: 0}
 --- !u!4 &1856367011403503094 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d62368339809d54da12dc29b0a8e4e2, type: 3}

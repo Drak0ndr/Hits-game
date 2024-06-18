@@ -425,6 +425,7 @@ GameObject:
   - component: {fileID: 7925599841766356434}
   - component: {fileID: 9033913691762575274}
   - component: {fileID: 6318783132960431035}
+  - component: {fileID: 9038902319336544758}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -665,6 +666,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthBar: {fileID: 8243812182772631903}
   _manaBar: {fileID: 1272921244233473537}
+--- !u!64 &9038902319336544758
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414216566816902033}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &430359106477507483
 GameObject:
   m_ObjectHideFlags: 0
@@ -4567,7 +4590,7 @@ Transform:
   m_GameObject: {fileID: 5903045904448530807}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.49999297, y: -0.00000035762787, z: -2.0000079}
+  m_LocalPosition: {x: 0.5, y: -0.00000035762787, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5632,7 +5655,7 @@ Transform:
   m_GameObject: {fileID: 8028035207618493779}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.49999297, y: -0.00000035762787, z: -2.0000079}
+  m_LocalPosition: {x: 0.5, y: -0.00000035762787, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6231,6 +6254,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6819908410355465897, guid: 49df07382797d84479e0643e25cfa4b0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452527774463276629, guid: 49df07382797d84479e0643e25cfa4b0, type: 3}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
