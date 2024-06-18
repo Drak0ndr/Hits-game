@@ -12,8 +12,8 @@ namespace Player
 
         void Update()
         {
-            _healthBar.value = GlobalsVar.HP;
-            _manaBar.value = GlobalsVar.MANA;
+            _healthBar.value = GlobalsVar.PlayerHP;
+            _manaBar.value = GlobalsVar.PlayerMANA;
         }
     }
 }

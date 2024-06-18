@@ -71,7 +71,7 @@ public class BrewingPotion : MonoBehaviour
 
         GlobalsVar.isBasicMagicalAbilities = true;
 
-        GlobalsVar.HP = 100;
+        GlobalsVar.PlayerHP = 100;
 
         await Task.Delay(1500);
 
