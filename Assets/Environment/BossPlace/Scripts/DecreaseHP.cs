@@ -15,7 +15,15 @@ public class DecreaseHP : MonoBehaviour
         if ((other.name == "Player" || other.name == "Cylinder")
             && gameObject != null)
         {
-            GlobalsVar.PlayerHP -= 5f;
+            if (GlobalsVar.isFirstFight)
+            {
+                GlobalsVar.PlayerHP -= 10f;
+            }
+            else
+            {
+                GlobalsVar.PlayerHP -= 5f;
+            }
+            
             Destroy(this.gameObject);
         }
     }

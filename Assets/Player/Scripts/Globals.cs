@@ -22,6 +22,7 @@ namespace Player
         public static bool isBirdFlight = false;
 
         public static bool isFight = true;
+        public static bool isFirstFight = true;
     }
 }
 

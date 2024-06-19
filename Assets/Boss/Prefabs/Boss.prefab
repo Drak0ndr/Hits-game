@@ -131,7 +131,7 @@ Transform:
   m_GameObject: {fileID: 4927229593004166995}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.285, y: 0, z: 0.077}
+  m_LocalPosition: {x: -0.28500003, y: 0.054999925, z: 0.19699965}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -528,7 +528,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
-  _bullet: {fileID: 0}
+  _bullet: {fileID: 1335584859632291660, guid: 1317aa7787739a442aa01475553cb8f8, type: 3}
+  _bulletPoint: {fileID: 3188029658766219643}
   points:
   - {fileID: 0}
   - {fileID: 0}

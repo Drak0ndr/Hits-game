@@ -1,100 +1,121 @@
+using Player;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
     public List<GameObject> gameObjects;
 
-    private float spawnRadius = 30f;
+    private float spawnRadius = 300f;
 
-    private bool timeBetweenIncreaseHP = false;
-    private bool timeBetweenIncreaseMANA = false;
-    private bool timeBetweenDecreaseHP = false;
+    private bool alreadyIncreaseHP = false;
+    private bool alreadyIncreaseMANA = false;
+    private bool alreadyDecreaseHP = false;
 
 
     private void LateUpdate()
     {
-        var rand1 = Random.Range(0, 100);
-        var rand2 = Random.Range(0, 100);
-        var rand3 = Random.Range(0, 100);
-
-        if (rand1 > 80 && !timeBetweenIncreaseHP)
+        if (GlobalsVar.isFight)
         {
-            timeBetweenIncreaseHP = true;
+            var rand1 = Random.Range(0, 100);
+            var rand2 = Random.Range(0, 100);
+            var rand3 = Random.Range(0, 100);
 
-            ShowIncreaseHP();
-        }
+            if (rand1 > 80 && !alreadyIncreaseHP)
+            {
+                alreadyIncreaseHP = true;
 
-        if (rand2 > 80 && !timeBetweenIncreaseMANA)
-        {
-            timeBetweenIncreaseMANA = true;
+                ShowIncreaseHP();
+            }
 
-            ShowIncreaseMANA();
-        }
+            if (rand2 > 80 && !alreadyIncreaseMANA)
+            {
+                alreadyIncreaseMANA = true;
 
-        if (rand3 > 60 && !timeBetweenDecreaseHP)
-        {
-            timeBetweenDecreaseHP = true;
+                ShowIncreaseMANA();
+            }
 
-            ShowDecreaseMANA();
-        }
+            if (rand3 > 60 && !alreadyDecreaseHP)
+            {
+                alreadyDecreaseHP = true;
+
+                ShowDecreaseMANA();
+            }
+        } 
     }
 
-    private async void ShowIncreaseHP()
+    private void ShowIncreaseHP()
     {
-        var rand = Random.Range(1, 5);
-
-        for(int i = 0; i < rand; ++i)
+        if(this.gameObject != null)
         {
-            var newPoint = this.transform.position;
+            var rand = Random.Range(1, 5);
 
-            newPoint.x += (Random.Range(-spawnRadius, spawnRadius));
-            newPoint.z += (Random.Range(-spawnRadius, spawnRadius));
+            for (int i = 0; i < rand; ++i)
+            {
+                var newPoint = this.transform.position;
 
-            Instantiate(gameObjects[0], newPoint, Quaternion.identity);
+                newPoint.x += (Random.Range(-spawnRadius, spawnRadius) / 10f);
+                newPoint.z += (Random.Range(-spawnRadius, spawnRadius) / 10f);
+
+                Instantiate(gameObjects[0], newPoint, Quaternion.identity);
+            }
         }
 
-        await Task.Delay(40000);
-
-        timeBetweenIncreaseHP = false;
+        Invoke(nameof(ResetIncreaseHP), 40f);
     }
 
-    private async void ShowIncreaseMANA()
+    private void ShowIncreaseMANA()
     {
-        var rand = Random.Range(1, 5);
-
-        for (int i = 0; i < rand; ++i)
+        if(this.gameObject != null)
         {
-            var newPoint = this.transform.position;
+            var rand = Random.Range(1, 5);
 
-            newPoint.x += (Random.Range(-spawnRadius, spawnRadius));
-            newPoint.z += (Random.Range(-spawnRadius, spawnRadius));
+            for (int i = 0; i < rand; ++i)
+            {
+                var newPoint = this.transform.position;
 
-            Instantiate(gameObjects[1], newPoint, Quaternion.identity);
+                newPoint.x += (Random.Range(-spawnRadius, spawnRadius) / 10f);
+                newPoint.z += (Random.Range(-spawnRadius, spawnRadius) / 10f);
+
+                Instantiate(gameObjects[1], newPoint, Quaternion.identity);
+            } 
         }
 
-        await Task.Delay(38000);
-
-        timeBetweenIncreaseMANA = false;
+        Invoke(nameof(ResetIncreaseMANA), 38f);
     }
 
-    private async void ShowDecreaseMANA()
+    private void ShowDecreaseMANA()
     {
-        var rand = Random.Range(1, 5);
-
-        for (int i = 0; i < rand; ++i)
+        if (this.gameObject != null)
         {
-            var newPoint = this.transform.position;
+            var rand = Random.Range(1, 5);
 
-            newPoint.x += (Random.Range(-spawnRadius, spawnRadius));
-            newPoint.z += (Random.Range(-spawnRadius, spawnRadius));
+            for (int i = 0; i < rand; ++i)
+            {
+                var newPoint = this.transform.position;
 
-            Instantiate(gameObjects[2], newPoint, Quaternion.identity);
+                newPoint.x += (Random.Range(-spawnRadius, spawnRadius) / 10f);
+                newPoint.z += (Random.Range(-spawnRadius, spawnRadius) / 10f);
+
+                Instantiate(gameObjects[2], newPoint, Quaternion.identity);
+            } 
         }
 
-        await Task.Delay(30000);
+        Invoke(nameof(ResetDecreaseHP), 30f);
+    }
 
-        timeBetweenDecreaseHP = false;
+    private void ResetDecreaseHP()
+    {
+        alreadyDecreaseHP = false;
+    }
+
+    private void ResetIncreaseHP()
+    {
+        alreadyIncreaseHP = false;
+    }
+
+    private void ResetIncreaseMANA()
+    {
+        alreadyIncreaseMANA = false;
     }
 }

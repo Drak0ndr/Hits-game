@@ -14,7 +14,7 @@ public class EnemyAI : MonoBehaviour
     private float harassmentSpeed = 1f;
     private float maxMovementDist = 50f;
     private float maxFightDist = 30f;
-    private float timeBetweenAttacks = 2f;
+    private float timeBetweenAttacks = 2.5f;
     private float shootForce = 20f;
 
     private int index = 0;
@@ -25,7 +25,7 @@ public class EnemyAI : MonoBehaviour
     private bool alreadyAttacked = false;
 
 
-    private async void LateUpdate()
+    private void LateUpdate()
     {
         if(GlobalsVar.isFight)
         {
@@ -81,10 +81,7 @@ public class EnemyAI : MonoBehaviour
                     index = Random.Range(0, 4);
                     transform.LookAt(points[index].transform.position);
                     isMovement = true;
-
-                    Task.Delay(2000);
                 }
-
                 else
                 {
                     Movement();

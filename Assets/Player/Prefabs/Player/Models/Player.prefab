@@ -666,6 +666,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthBar: {fileID: 8243812182772631903}
   _manaBar: {fileID: 1272921244233473537}
+  _animator: {fileID: 708104257106496313}
+  _explosion: {fileID: 3153472991145048103, guid: 43738201e6e0e0841912b8ea5eba4daa, type: 3}
 --- !u!64 &9038902319336544758
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6259,6 +6261,10 @@ PrefabInstance:
     - target: {fileID: 7452527774463276629, guid: 49df07382797d84479e0643e25cfa4b0, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8440990039486819231, guid: 49df07382797d84479e0643e25cfa4b0, type: 3}
+      propertyPath: m_Value
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
