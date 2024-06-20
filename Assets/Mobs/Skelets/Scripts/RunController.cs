@@ -5,7 +5,7 @@ public class RunController : MonoBehaviour
     public GameObject _player;
     public Animator _animator;
 
-    private float attackRange = 0.9f;
+    private float attackRange = 0.8f;
     private float runRange = 8f;
     private float speed = 2f;
 

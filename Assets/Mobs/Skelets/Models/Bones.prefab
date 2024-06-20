@@ -545,10 +545,7 @@ PrefabInstance:
       addedObject: {fileID: 6241360650436094523}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 15ba59e9363b8264fbe8700a5db6b3e3, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4227480889373796716}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 15ba59e9363b8264fbe8700a5db6b3e3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2945441554496031313}
+      addedObject: {fileID: 7660873623070285092}
     - targetCorrespondingSourceObject: {fileID: 8513859187771203891, guid: 15ba59e9363b8264fbe8700a5db6b3e3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2087335181643669193}
@@ -646,7 +643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0faea891ad2c5b848aa9409c47cbe69e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4227480889373796716
+--- !u!114 &7660873623070285092
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -658,32 +655,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 329965d9722c2464a9b346e2c25bceeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hand: {fileID: 0}
-  _animator: {fileID: 0}
   _explosion: {fileID: 1758473627833946668, guid: 9b21333b068a5084ba09535839bee3c8, type: 3}
---- !u!136 &2945441554496031313
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4161131608267054775}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Height: 5
-  m_Direction: 1
-  m_Center: {x: 0, y: 4, z: 0}
+  _player: {fileID: 0}
 --- !u!1 &4853027883895554773 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8513859187771203891, guid: 15ba59e9363b8264fbe8700a5db6b3e3, type: 3}

@@ -80,6 +80,8 @@ namespace Player
             GlobalsVar.isThirdDialog = true;
 
             isFrog = false;
+
+            Cursor.visible = true;
         }
     }
 }

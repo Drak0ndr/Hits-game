@@ -1,23 +1,47 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ShowFirstDialog : MonoBehaviour
 {
     public GameObject _dialog;
     public GameObject _canvas;
+    public GameObject _player;
+    public List<GameObject> _images;
 
     private bool isShow = false;
 
-    private void OnMouseDown()
+    private void Update()
     {
         if (!isShow)
         {
-            _dialog.SetActive(true);
+            float dist = Vector3.Distance(_player.transform.position, transform.position);
 
-            isShow = true;
+            if (dist < 2.5f)
+            {
+                _images[0].SetActive(false);
+                _images[1].SetActive(true);
+            }
 
-            Destroy(_canvas);
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                _dialog.SetActive(true);
 
-            this.GetComponent<SphereCollider>().enabled = false;
+                isShow = true;
+
+                Destroy(_canvas);
+
+                Cursor.visible = true;
+            }
         }
+    }
+
+    public void SetCursorVisibleFalse()
+    {
+        Cursor.visible = false;
+    }
+
+    public void SetCursorVisibleTrue()
+    {
+        Cursor.visible = true;
     }
 }

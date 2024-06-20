@@ -24,7 +24,9 @@ public class ShowFourthDialog : MonoBehaviour
     {
         await Task.Delay(2000);
 
-        _fourthDialog.SetActive(true);      
+        _fourthDialog.SetActive(true);    
+        
+        Cursor.visible = true;
     }
 
     public void Flight()

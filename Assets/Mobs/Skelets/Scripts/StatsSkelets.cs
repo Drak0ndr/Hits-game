@@ -1,24 +1,23 @@
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class StatsSkelets : MonoBehaviour
 {
-    public GameObject _hand;
-    public Animator _animator;
     public GameObject _explosion;
+    public GameObject _player;
 
     private float HP = 100f;
     private bool isDeath = false;
+    private bool alreadyAttacked = false;
 
-    private async void OnCollisionEnter(Collision col)
+    private void Update()
     {
-        if (this.gameObject != null && (col.collider.name == "Player" || col.collider.name == "Collider"))
-        {
-            float dist = Vector3.Distance(_hand.transform.position, transform.position);
+        float dist = Vector3.Distance(_player.transform.position, transform.position);
 
-            if (dist < 1.5f && _animator.GetBool("isAttacking") && this.gameObject != null && !isDeath)
+        if(this.gameObject != null && dist <= 0.8f)
+        {
+            if (Input.GetMouseButtonDown(1) && !isDeath  && !alreadyAttacked)
             {
-                HP -= 7.5f;
+                HP -= 10f;
 
                 if (this.gameObject != null && !isDeath)
                 {
@@ -35,22 +34,29 @@ public class StatsSkelets : MonoBehaviour
                 {
                     isDeath = true;
 
-                    await Task.Delay(800);
+                    Invoke(nameof(DestroySkelet), 0.8f);
+                }
+            }
 
-                    if(this.gameObject != null)
-                    {
-                        Vector3 objPosition = this.transform.position;
+            alreadyAttacked = true;
 
-                        GameObject newExplotion = Instantiate(_explosion, objPosition, Quaternion.identity);
+            Invoke(nameof(ResetAttack), 1.5f);
+        }
+    }
 
-                        Destroy(this.gameObject);
+    private void ResetAttack()
+    {
+        alreadyAttacked = false;
+    }
 
-                        await Task.Delay(800);
+    private void DestroySkelet()
+    {
+        Vector3 objPosition = this.transform.position;
 
-                        Destroy(newExplotion);
-                    } 
-                } 
-            }  
-        } 
+        GameObject newExplotion = Instantiate(_explosion, objPosition, Quaternion.identity);
+
+        Destroy(this.gameObject);
+
+        Destroy(newExplotion, 0.8f);
     }
 }

@@ -74,5 +74,7 @@ public class BrewingPotion : MonoBehaviour
         await Task.Delay(1500);
 
         _dialog.SetActive(true);
+
+        Cursor.visible = true;
     }
 }

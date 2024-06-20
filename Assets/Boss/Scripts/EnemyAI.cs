@@ -1,6 +1,5 @@
 using Player;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour

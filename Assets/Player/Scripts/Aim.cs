@@ -5,20 +5,30 @@ public class Aim : MonoBehaviour
 {
     public Image _aim;
 
+    private bool isShow = false;
+
     private void Start()
     {
         _aim.enabled = false;
+
+        Cursor.visible = false;
     }
     void Update()
     {
         if (Input.GetMouseButtonDown(2))
         {
-            _aim.enabled = true;
-        }
+            if(!isShow)
+            {
+                _aim.enabled = true;
 
-        if (Input.GetMouseButtonUp(2))
-        {
-            _aim.enabled = false;
+                isShow = true;
+            }
+            else
+            {
+                _aim.enabled = false;
+
+                isShow = false;
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Player
     {
         public void DamageToPlayer()
         {
-            GlobalsVar.PlayerHP -= 1f;
+            GlobalsVar.PlayerHP -= 0.5f;
         }
     }
 }
