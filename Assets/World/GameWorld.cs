@@ -49,7 +49,7 @@ public class GameWorld : MonoBehaviour
                 var chunkPosition = new Vector2Int(x, z);
                 if (ChunkDatas.ContainsKey(chunkPosition)) continue;
                 LoadChunkAt(chunkPosition);
-                if (wait) yield return null;
+                if (wait) yield return new WaitForSecondsRealtime(0.01f);
             }
         }
 
