@@ -8,6 +8,7 @@ public class GameWorld : MonoBehaviour
 {
     private const int ViewRadius = 9;
     public Dictionary<Vector2Int, ChunkData> ChunkDatas = new Dictionary<Vector2Int, ChunkData>();
+    public Dictionary<Vector2Int, ChunkRenderer> Chunks = new Dictionary<Vector2Int, ChunkRenderer>();
     public ChunkRenderer chunkPrefab;
     public MeshRenderer taigaFullTree;
     public MeshRenderer taigaSmallTree;
@@ -60,10 +61,13 @@ public class GameWorld : MonoBehaviour
                 ChunkData chunkData = ChunkDatas[chunkPosition];
 
                 if (chunkData.Renderer != null) continue;
-
-                SpawnChunkRenderer(chunkData);
-
-                if (wait) yield return new WaitForSecondsRealtime(0.1f);
+                var dist = Math.Pow(Math.Pow(currentPlayerChunk.x - x,2) + Math.Pow(currentPlayerChunk.y - z,2),0.5);
+                if (dist <= ViewRadius) {
+                    SpawnChunkRenderer(chunkData);
+                    if (wait) yield return new WaitForSecondsRealtime(0.1f);
+                }
+                
+                
             }
         }
     }
@@ -187,6 +191,7 @@ public class GameWorld : MonoBehaviour
         float zPos = chunkData.ChunkPositoin.y * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
 
         var chunk = Instantiate(chunkPrefab, new Vector3(xPos, 0, zPos), Quaternion.identity, transform);
+        // Chunks.Add(new Vector2Int(chunkData.ChunkPositoin.x, chunkData.ChunkPositoin.y), chunk);
         if (xPos >= 56-48 && xPos<= 56+48 && zPos >= 472 - 48 && zPos <= 472 + 48) {
 
         } else {
