@@ -40,6 +40,7 @@ public class GameWorld : MonoBehaviour
     private IEnumerator Generate(bool wait)
     {
         int loadRadius = ViewRadius+1;
+        int chunkDist = loadRadius+2;
 
         for (int x = currentPlayerChunk.x - loadRadius; x <= currentPlayerChunk.x + loadRadius; x++)
         {
@@ -48,7 +49,6 @@ public class GameWorld : MonoBehaviour
                 var chunkPosition = new Vector2Int(x, z);
                 if (ChunkDatas.ContainsKey(chunkPosition)) continue;
                 LoadChunkAt(chunkPosition);
-
                 if (wait) yield return null;
             }
         }
@@ -58,15 +58,42 @@ public class GameWorld : MonoBehaviour
             for (int z = currentPlayerChunk.y - ViewRadius; z <= currentPlayerChunk.y + ViewRadius; z++)
             {
                 var chunkPosition = new Vector2Int(x, z);
+                if (!ChunkDatas.ContainsKey(chunkPosition)) continue;
+
                 ChunkData chunkData = ChunkDatas[chunkPosition];
 
                 if (chunkData.Renderer != null) continue;
                 var dist = Math.Pow(Math.Pow(currentPlayerChunk.x - x,2) + Math.Pow(currentPlayerChunk.y - z,2),0.5);
                 if (dist <= ViewRadius) {
                     SpawnChunkRenderer(chunkData);
+                    // print("чанк заспавнен" + x.ToString() + " " + z.ToString());
                     if (wait) yield return new WaitForSecondsRealtime(0.1f);
                 }
                 
+                
+            }
+        }
+
+        for (int x = currentPlayerChunk.x - chunkDist; x <= currentPlayerChunk.x + chunkDist; x++)
+        {
+            for (int z = currentPlayerChunk.y - chunkDist; z <= currentPlayerChunk.y + chunkDist; z++)
+            {
+                var chunkPosition = new Vector2Int(x, z);
+                ChunkRenderer tempChunk;
+                Chunks.TryGetValue(chunkPosition, out tempChunk);
+
+                var dist = Math.Pow(Math.Pow(currentPlayerChunk.x - x,2) + Math.Pow(currentPlayerChunk.y - z,2),0.5);
+                if (dist > ViewRadius && tempChunk != null) {
+                    for(int i = 0; i < Chunks[chunkPosition].ChunkData.vegetation.Count; i++) {
+                        Destroy(Chunks[chunkPosition].ChunkData.vegetation[i].gameObject);
+                    }
+                    Destroy(Chunks[chunkPosition].gameObject);
+                    Chunks.Remove(chunkPosition);
+                    ChunkDatas.Remove(chunkPosition);
+                    // print("чанк удалён" + x.ToString() + " " + z.ToString());
+                    if (wait) yield return new WaitForSecondsRealtime(0.1f);
+                }
+
                 
             }
         }
@@ -191,7 +218,7 @@ public class GameWorld : MonoBehaviour
         float zPos = chunkData.ChunkPositoin.y * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
 
         var chunk = Instantiate(chunkPrefab, new Vector3(xPos, 0, zPos), Quaternion.identity, transform);
-        // Chunks.Add(new Vector2Int(chunkData.ChunkPositoin.x, chunkData.ChunkPositoin.y), chunk);
+        
         if (xPos >= 56-48 && xPos<= 56+48 && zPos >= 472 - 48 && zPos <= 472 + 48) {
 
         } else {
@@ -232,12 +259,15 @@ public class GameWorld : MonoBehaviour
                 
                     
                 if (bestConditions < 150) {
-                    Instantiate(taigaSmallTree, new Vector3(bestTreePosX, treeHeight, bestTreePosZ), Quaternion.identity, transform);
+                    var instTree = Instantiate(taigaSmallTree, new Vector3(bestTreePosX, treeHeight, bestTreePosZ), Quaternion.identity, transform);
+                    chunkData.vegetation.Add(instTree);
                 } else {
-                    Instantiate(taigaFullTree, new Vector3(bestTreePosX, treeHeight, bestTreePosZ), Quaternion.identity, transform);
+                   var instFlTree = Instantiate(taigaFullTree, new Vector3(bestTreePosX, treeHeight, bestTreePosZ), Quaternion.identity, transform);
+                   chunkData.vegetation.Add(instFlTree);
                 }
                 if (bestFlowerCond <= 50) {
-                    Instantiate(polemonium, new Vector3(bestFlPosX, FlHeight, bestFlPosZ), Quaternion.identity, transform);
+                  var instFlower = Instantiate(polemonium, new Vector3(bestFlPosX, FlHeight, bestFlPosZ), Quaternion.identity, transform);
+                  chunkData.vegetation.Add(instFlower);
                 }
 
                 
@@ -249,6 +279,7 @@ public class GameWorld : MonoBehaviour
         chunk.ParentWorld = this;
 
         chunkData.Renderer = chunk;
+        Chunks.Add(new Vector2Int(chunkData.ChunkPositoin.x, chunkData.ChunkPositoin.y), chunk);
     }
     void Update()
     {
