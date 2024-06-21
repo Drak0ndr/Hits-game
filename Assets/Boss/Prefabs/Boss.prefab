@@ -303,15 +303,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0abc33400daa9a144afcd9ce14b8aa51, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 131
+      value: 25.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0abc33400daa9a144afcd9ce14b8aa51, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -21
+      value: 107.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0abc33400daa9a144afcd9ce14b8aa51, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -95.2
+      value: 464.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0abc33400daa9a144afcd9ce14b8aa51, type: 3}
       propertyPath: m_LocalRotation.w
@@ -542,8 +542,8 @@ MonoBehaviour:
   _player: {fileID: 0}
   _bullet: {fileID: 1335584859632291660, guid: 1317aa7787739a442aa01475553cb8f8, type: 3}
   _bulletPoint: {fileID: 3188029658766219643}
-  _explosion: {fileID: 0}
-  _crystal: {fileID: 0}
+  _explosion: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
+  _crystal: {fileID: 5500570590708858383, guid: aac2531d630b5a24e91e7e3152f242f7, type: 3}
   points:
   - {fileID: 0}
   - {fileID: 0}

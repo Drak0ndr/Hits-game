@@ -9,6 +9,7 @@ namespace Player
         public Slider _healthBar;
         public Slider _manaBar;
         public Animator _animator;
+        public GameObject _value;
         public GameObject _explosion;
         public GameObject _uiCanvas;
         public GameObject _firstDeathCanvas;
@@ -16,11 +17,10 @@ namespace Player
         private bool isDeath = false;
         private bool isGetHit = false;
         private bool isStart = false;
+        private bool alreadyIcrease = false;
 
         void Update()
         {
-            /*print(_healthBar.value);*/
-
             if(_healthBar.value != GlobalsVar.PlayerHP && GlobalsVar.PlayerHP > 0)
             {
                 if (_healthBar.value > GlobalsVar.PlayerHP)
@@ -48,6 +48,22 @@ namespace Player
             }
            
             _manaBar.value = GlobalsVar.PlayerMANA <= 100 ? GlobalsVar.PlayerMANA : 100;
+
+            if (_manaBar.value == 100)
+            {
+                _value.GetComponent<Image>().color = new Color32(0, 70, 225, 255);
+            }
+            else
+            {
+                _value.GetComponent<Image>().color = new Color32(0, 170, 225, 255);
+            }
+
+            if(GlobalsVar.isSpecialMagicalAbilities && !alreadyIcrease)
+            {
+                alreadyIcrease = true;
+
+                Invoke(nameof(IncreaseMana), 0.5f);
+            }
         }
 
         public void ResetGetHit()
@@ -76,6 +92,13 @@ namespace Player
 
                 _firstDeathCanvas.SetActive(true);
             } 
+        }
+
+        private void IncreaseMana()
+        {
+            GlobalsVar.PlayerMANA += 1f;
+
+            alreadyIcrease = false;
         }
     }
 }

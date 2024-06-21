@@ -1,3 +1,4 @@
+using Player;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,14 +12,17 @@ public class MagicSpall : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag is not "Player" && collision.gameObject.tag is not "MagicBall" 
-            && collision.collider.name is not "Collider" && !isHit)
+            && collision.collider.name is not "Collider")
         {
-            isHit = true;
+            if(_colliderNames.Contains(collision.collider.name) && !isHit)
+            {
+                isHit = true;
 
+                GlobalsVar.EnemyHP -= 12f;
+            }
+            
             GameObject newExplosion = Instantiate(_explosion, collision.contacts[0].point, Quaternion.identity);
             Destroy(newExplosion, 0.8f);
-
-            print(collision.collider.name);
 
             Destroy(gameObject); 
         }

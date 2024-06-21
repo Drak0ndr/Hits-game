@@ -15,6 +15,7 @@ namespace Player
         private List<string> _colliderNames = new List<string>() { "Body", "Crystals", "Eye" };
         private float magicBallLife = 3f;
         private bool isFrog = true;
+        private bool isHit = false;
 
         private void Start()
         {
@@ -71,6 +72,13 @@ namespace Player
                     Instantiate(_newDoor, new Vector3(-140f, 15.2f, -288f), Quaternion.identity);
 
                     Destroy(collision.gameObject);
+                }
+
+                else if (_colliderNames.Contains(collision.collider.name) && !isHit)
+                {
+                    isHit = true;
+
+                    GlobalsVar.EnemyHP -= 4f;
                 }
             }
         }

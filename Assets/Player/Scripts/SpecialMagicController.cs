@@ -1,3 +1,4 @@
+using Player;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public class SpecialMagicController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && GlobalsVar.PlayerMANA >= 100f && GlobalsVar.isSpecialMagicalAbilities)
         {
             foreach (GameObject _spike in _spikes)
             {
@@ -26,6 +27,8 @@ public class SpecialMagicController : MonoBehaviour
             circlePosition = Instantiate(_circle, _player.transform.position, Quaternion.identity);
 
             _animator.SetTrigger("isSpecialMagic");
+
+            GlobalsVar.PlayerMANA = 0f;
         }
     }
 

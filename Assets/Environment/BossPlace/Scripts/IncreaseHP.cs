@@ -13,7 +13,7 @@ public class IncreaseHP : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.name == "Player" || other.name == "Cylinder")
+        if ((other.name == "Player" || other.name == "Collider")
             && gameObject != null)
         {
             if (GlobalsVar.isFirstFight)

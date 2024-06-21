@@ -1,5 +1,4 @@
 using Player;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class BossBullet : MonoBehaviour

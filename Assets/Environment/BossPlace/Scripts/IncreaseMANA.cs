@@ -12,7 +12,7 @@ public class IncreaseMANA : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.name == "Player" || other.name == "Cylinder")
+        if ((other.name == "Player" || other.name == "Collider")
             && gameObject != null && GlobalsVar.isSpecialMagicalAbilities)
         {
             GlobalsVar.PlayerMANA += 5f;
