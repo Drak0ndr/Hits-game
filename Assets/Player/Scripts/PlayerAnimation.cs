@@ -25,10 +25,8 @@ namespace Player
   
         // Действия
         private static int isAttackingHash = Animator.StringToHash("isAttacking");
-        private static int isGatheringHash = Animator.StringToHash("isGathering");
         private static int isPlayingActionHash = Animator.StringToHash("isPlayingAction");
         private static int isBasicAttackHash = Animator.StringToHash("isBasicAttack");
-        private int[] actionHashes;
 
         // Камера, поворот
         private static int isRotatingToTargetHash = Animator.StringToHash("isRotatingToTarget");
@@ -46,8 +44,6 @@ namespace Player
             _playerState = GetComponent<PlayerState>();
             _playerController = GetComponent<PlayerController>();
             _playerActionsInput = GetComponent<PlayerActionsInput>();
-
-            actionHashes = new int[] { isGatheringHash };
         }
 
         private void Update()
@@ -63,7 +59,6 @@ namespace Player
             bool isJumping = _playerState.CurrentPlayerMovementState == PlayerMovementState.Jumping;
             bool isFalling = _playerState.CurrentPlayerMovementState == PlayerMovementState.Falling;
             bool isGrounded = _playerState.InGroundedState();
-            bool isPlayingAction = actionHashes.Any(hash => _animator.GetBool(hash));
 
             bool isRunBlendValue = isRunning || isJumping || isFalling;
 
@@ -83,8 +78,6 @@ namespace Player
             _animator.SetBool(isBasicAttackHash, _playerActionsInput.BasicMagicPressed);
             _animator.SetBool(isRotatingToTargetHash, _playerController.IsRotatingToTarget);
             _animator.SetBool(isAttackingHash, _playerActionsInput.AttackPressed);
-            _animator.SetBool(isGatheringHash, _playerActionsInput.GatherPressed);
-            _animator.SetBool(isPlayingActionHash, isPlayingAction);
 
             _animator.SetFloat(inputXHash, _currentBlendInput.x);
             _animator.SetFloat(inputYHash, _currentBlendInput.y);

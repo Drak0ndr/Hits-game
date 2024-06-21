@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Player
 {
@@ -11,6 +12,7 @@ namespace Player
         public GameObject _newDoor;
         public GameObject _dialog;
 
+        private List<string> _colliderNames = new List<string>() { "Body", "Crystals", "Eye" };
         private float magicBallLife = 3f;
         private bool isFrog = true;
 

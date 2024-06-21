@@ -7,6 +7,8 @@ public class EnemyAI : MonoBehaviour
     public GameObject _player;
     public GameObject _bullet;
     public Transform _bulletPoint;
+    public GameObject _explosion;
+    public GameObject _crystal;
     public List<Transform> points = new List<Transform>();
 
     private float movementSpeed = 1.5f;
@@ -23,7 +25,20 @@ public class EnemyAI : MonoBehaviour
     private bool isAttack = false;
     private bool alreadyAttacked = false;
 
+    private void Update()
+    {
+        if(GlobalsVar.EnemyHP <= 0)
+        {
+            Vector3 position = this.gameObject.transform.position;
 
+            GameObject newExplosion = Instantiate(_explosion, position, Quaternion.identity);
+            Destroy(newExplosion, 1.8f);
+
+            Instantiate(_crystal, position, Quaternion.identity);
+
+            Destroy(gameObject);
+        }
+    }
     private void LateUpdate()
     {
         if(GlobalsVar.isFight)

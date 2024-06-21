@@ -320,15 +320,6 @@ namespace Player
             ""id"": ""e757dc11-d0c6-4741-abac-4eed7052bd1f"",
             ""actions"": [
                 {
-                    ""name"": ""Gathering"",
-                    ""type"": ""Button"",
-                    ""id"": ""d9ba9315-bc1d-4791-ad3e-9601169f85de"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Attacking"",
                     ""type"": ""Button"",
                     ""id"": ""42c2e099-ae12-4034-aaba-bb528b4d1e46"",
@@ -357,17 +348,6 @@ namespace Player
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""015ef00d-d639-408a-aa1b-0ce979b7da0a"",
-                    ""path"": ""<Keyboard>/z"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Gathering"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""e6f26d82-02fe-4ade-9b05-d4f8c0a271d2"",
@@ -418,7 +398,6 @@ namespace Player
             m_ThirdPersonMap_ScrollCamera = m_ThirdPersonMap.FindAction("ScrollCamera", throwIfNotFound: true);
             // PlayerActionsMap
             m_PlayerActionsMap = asset.FindActionMap("PlayerActionsMap", throwIfNotFound: true);
-            m_PlayerActionsMap_Gathering = m_PlayerActionsMap.FindAction("Gathering", throwIfNotFound: true);
             m_PlayerActionsMap_Attacking = m_PlayerActionsMap.FindAction("Attacking", throwIfNotFound: true);
             m_PlayerActionsMap_BasicMagic = m_PlayerActionsMap.FindAction("BasicMagic", throwIfNotFound: true);
             m_PlayerActionsMap_Roll = m_PlayerActionsMap.FindAction("Roll", throwIfNotFound: true);
@@ -607,7 +586,6 @@ namespace Player
         // PlayerActionsMap
         private readonly InputActionMap m_PlayerActionsMap;
         private List<IPlayerActionsMapActions> m_PlayerActionsMapActionsCallbackInterfaces = new List<IPlayerActionsMapActions>();
-        private readonly InputAction m_PlayerActionsMap_Gathering;
         private readonly InputAction m_PlayerActionsMap_Attacking;
         private readonly InputAction m_PlayerActionsMap_BasicMagic;
         private readonly InputAction m_PlayerActionsMap_Roll;
@@ -615,7 +593,6 @@ namespace Player
         {
             private @PlayerControls m_Wrapper;
             public PlayerActionsMapActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Gathering => m_Wrapper.m_PlayerActionsMap_Gathering;
             public InputAction @Attacking => m_Wrapper.m_PlayerActionsMap_Attacking;
             public InputAction @BasicMagic => m_Wrapper.m_PlayerActionsMap_BasicMagic;
             public InputAction @Roll => m_Wrapper.m_PlayerActionsMap_Roll;
@@ -628,9 +605,6 @@ namespace Player
             {
                 if (instance == null || m_Wrapper.m_PlayerActionsMapActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_PlayerActionsMapActionsCallbackInterfaces.Add(instance);
-                @Gathering.started += instance.OnGathering;
-                @Gathering.performed += instance.OnGathering;
-                @Gathering.canceled += instance.OnGathering;
                 @Attacking.started += instance.OnAttacking;
                 @Attacking.performed += instance.OnAttacking;
                 @Attacking.canceled += instance.OnAttacking;
@@ -644,9 +618,6 @@ namespace Player
 
             private void UnregisterCallbacks(IPlayerActionsMapActions instance)
             {
-                @Gathering.started -= instance.OnGathering;
-                @Gathering.performed -= instance.OnGathering;
-                @Gathering.canceled -= instance.OnGathering;
                 @Attacking.started -= instance.OnAttacking;
                 @Attacking.performed -= instance.OnAttacking;
                 @Attacking.canceled -= instance.OnAttacking;
@@ -687,7 +658,6 @@ namespace Player
         }
         public interface IPlayerActionsMapActions
         {
-            void OnGathering(InputAction.CallbackContext context);
             void OnAttacking(InputAction.CallbackContext context);
             void OnBasicMagic(InputAction.CallbackContext context);
             void OnRoll(InputAction.CallbackContext context);

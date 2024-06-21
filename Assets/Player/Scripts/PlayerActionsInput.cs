@@ -11,7 +11,6 @@ namespace Player
         private PlayerState _playerState;
         private MagicBallController _magicBallController;
 
-        public bool GatherPressed { get; private set; }
         public bool AttackPressed { get; private set; }
         public bool RollPressed { get; private set; }
         public bool BasicMagicPressed { get; private set; }
@@ -50,22 +49,6 @@ namespace Player
         #endregion
 
         #region Update
-        private void Update()
-        {
-            if (_playerLocomotionInput.MovementInput != Vector2.zero ||
-                _playerState.CurrentPlayerMovementState == PlayerMovementState.Jumping ||
-                _playerState.CurrentPlayerMovementState == PlayerMovementState.Falling || 
-                _playerState.CurrentPlayerMovementState == PlayerMovementState.Roll)
-            {
-                GatherPressed = false;
-            }
-        }
-
-        public void SetGatherPressedFalse()
-        {
-            GatherPressed = false;   
-        }
-
         public void SetAttackPressedFalse() 
         { 
             AttackPressed = false;
@@ -83,17 +66,6 @@ namespace Player
         #endregion
 
         #region Input Callbacks
-        public void OnGathering(InputAction.CallbackContext context)
-        {
-            if (!context.performed)
-                return;
-
-            if (GlobalsVar.isBasicMagicalAbilities)
-            {
-                GatherPressed = true;
-            }   
-        }
-
         public void OnAttacking(InputAction.CallbackContext context)
         {
             if (!context.performed)
