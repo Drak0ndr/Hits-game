@@ -83,6 +83,16 @@ public class GameWorld : MonoBehaviour
                 Chunks.TryGetValue(chunkPosition, out tempChunk);
 
                 var dist = Math.Pow(Math.Pow(currentPlayerChunk.x - x,2) + Math.Pow(currentPlayerChunk.y - z,2),0.5);
+                if (dist < ViewRadius) {
+                    var tempR = z - currentPlayerChunk.y;
+                    if (tempR < 0) {
+                        // print("было " + z.ToString());
+                        z = currentPlayerChunk.y - tempR;
+                        // print("стало " + z.ToString());
+                        dist = Math.Pow(Math.Pow(currentPlayerChunk.x - x,2) + Math.Pow(currentPlayerChunk.y - z,2),0.5);
+                    }
+                    
+                }
                 if (dist > ViewRadius && tempChunk != null) {
                     for(int i = 0; i < Chunks[chunkPosition].ChunkData.vegetation.Count; i++) {
                         Destroy(Chunks[chunkPosition].ChunkData.vegetation[i].gameObject);
