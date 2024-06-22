@@ -25,10 +25,15 @@ public class ShowBook : MonoBehaviour
 
                 isShow = true;
 
-                Destroy(_canvas);
+                _canvas.SetActive(false);
 
                 Cursor.visible = true;
             }
         }
+    }
+
+    public void SetIsShowFalse()
+    {
+        isShow = false;
     }
 }

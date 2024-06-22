@@ -11,10 +11,9 @@ namespace Player
         public Animator _animator;
         public GameObject _value;
         public GameObject _explosion;
-        public GameObject _uiCanvas;
         public GameObject _firstDeathCanvas;
+        public GameObject _deathCanvas;
 
-        private bool isDeath = false;
         private bool isGetHit = false;
         private bool isStart = false;
         private bool alreadyIcrease = false;
@@ -40,11 +39,12 @@ namespace Player
                 _healthBar.value = GlobalsVar.PlayerHP <= 100 ? GlobalsVar.PlayerHP : 100;
             }
 
-            else if(GlobalsVar.PlayerHP <= 0 && !isDeath)
+            else if(GlobalsVar.PlayerHP <= 0 && !GlobalsVar.isDeath)
             {
-                isDeath = true;
+                GlobalsVar.isDeath = true;
                 _healthBar.value = 0;
                 _animator.SetTrigger("isDeath");
+                _animator.SetBool("isDeathNow", true);
             }
            
             _manaBar.value = GlobalsVar.PlayerMANA <= 100 ? GlobalsVar.PlayerMANA : 100;
@@ -90,8 +90,21 @@ namespace Player
                 GlobalsVar.isFight = false;
                 GlobalsVar.isFirstFight = false;
 
-                _firstDeathCanvas.SetActive(true);
+                _firstDeathCanvas.SetActive(true); 
+            }
+            else
+            {
+                Invoke(nameof(Death), 3f);
             } 
+        }
+
+        private void Death()
+        {
+            GlobalsVar.isFight = false;
+
+            _deathCanvas.SetActive(true);
+
+            _animator.SetBool("isDeathNow", false);
         }
 
         private void IncreaseMana()

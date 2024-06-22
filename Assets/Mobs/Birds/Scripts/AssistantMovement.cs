@@ -11,7 +11,7 @@ public class AssistantMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!GlobalsVar.isFirstFight)
+        if (GlobalsVar.isWasInCamp)
         {
             if (_player != null && this.gameObject != null && !GlobalsVar.isBirdFlight)
             {

@@ -13,6 +13,10 @@ namespace Player
         private PlayerController _playerController;
         private PlayerActionsInput _playerActionsInput;
 
+        private float lastPositionY;
+        private GameObject _player;
+        private bool isWasInCamp = false;
+
         // Передвижение
         private static int inputXHash = Animator.StringToHash("inputX");
         private static int inputYHash = Animator.StringToHash("inputY");
@@ -44,6 +48,8 @@ namespace Player
             _playerState = GetComponent<PlayerState>();
             _playerController = GetComponent<PlayerController>();
             _playerActionsInput = GetComponent<PlayerActionsInput>();
+
+            _player = GameObject.FindGameObjectWithTag("Player");
         }
 
         private void Update()
@@ -83,6 +89,25 @@ namespace Player
             _animator.SetFloat(inputYHash, _currentBlendInput.y);
             _animator.SetFloat(inputMagnitudeHash, _currentBlendInput.magnitude);
             _animator.SetFloat(rotationMismatchHash, _playerController.RotationMismatch);
+
+            if(GlobalsVar.isWasInCamp && !isWasInCamp)
+            {
+                lastPositionY = _player.transform.position.y;
+
+                isWasInCamp = true;
+            }
+
+            if (isGrounded && GlobalsVar.isWasInCamp)
+            {
+                float currPosition = _player.transform.position.y;
+
+                if(lastPositionY - currPosition > 20f)
+                {
+                    GlobalsVar.PlayerHP = 0;
+                }
+
+                lastPositionY = currPosition;
+            }
         }
     }
 }

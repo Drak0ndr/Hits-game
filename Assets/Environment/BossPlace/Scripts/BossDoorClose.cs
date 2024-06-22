@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BossDoorClose : MonoBehaviour
 {
     public Animator _animator;
     public GameObject _player;
+    public List<GameObject> _doors;
 
     private void Update()
     {
@@ -12,6 +14,11 @@ public class BossDoorClose : MonoBehaviour
         {
             _animator.SetBool("isClose", true);
             _animator.SetBool("isOpen", false);
+
+            foreach (GameObject door in _doors)
+            {
+                door.SetActive(true);
+            }
 
             Invoke(nameof(ResetDoorClose), 2f);
         }

@@ -9,6 +9,7 @@ namespace Player
         [Header("Компоненты")]
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private Camera _playerCamera;
+        [SerializeField] private Animator _animator;
         public float RotationMismatch { get; private set; } = 0f;
         public bool IsRotatingToTarget { get; private set; } = false;
 
@@ -118,28 +119,31 @@ namespace Player
 
         private void HandleVerticalMovement()
         {
-            bool isGrounded = _playerState.InGroundedState();
-
-            _verticalVelocity -= gravity * Time.deltaTime;
-
-            if (isGrounded && _verticalVelocity < 0)
-                _verticalVelocity = -_antiBump;
-
-            if (_playerLocomotionInput.JumpPressed && isGrounded)
+            if (!_animator.GetBool("isDeathNow"))
             {
-                _verticalVelocity += Mathf.Sqrt(jumpSpeed * 3 * gravity);
-                _jumpedLastFrame = true;
-            }
+                bool isGrounded = _playerState.InGroundedState();
 
-            if (_playerState.IsStateGroundedState(_lastMovementState) && !isGrounded)
-            {
-                _verticalVelocity += _antiBump;
-            }
+                _verticalVelocity -= gravity * Time.deltaTime;
 
-            // Предельная скорость
-            if (Mathf.Abs(_verticalVelocity) > Mathf.Abs(terminalVelocity))
-            {
-                _verticalVelocity = -1f * Mathf.Abs(terminalVelocity);
+                if (isGrounded && _verticalVelocity < 0)
+                    _verticalVelocity = -_antiBump;
+
+                if (_playerLocomotionInput.JumpPressed && isGrounded)
+                {
+                    _verticalVelocity += Mathf.Sqrt(jumpSpeed * 3 * gravity);
+                    _jumpedLastFrame = true;
+                }
+
+                if (_playerState.IsStateGroundedState(_lastMovementState) && !isGrounded)
+                {
+                    _verticalVelocity += _antiBump;
+                }
+
+                // Предельная скорость
+                if (Mathf.Abs(_verticalVelocity) > Mathf.Abs(terminalVelocity))
+                {
+                    _verticalVelocity = -1f * Mathf.Abs(terminalVelocity);
+                }
             }
         }
 
@@ -167,15 +171,17 @@ namespace Player
             Vector3 newVelocity = _characterController.velocity + movementDelta;
 
             // Добавляем перемещение персонажа
-            float dragMagnitude = isGrounded ? drag : inAirDrag;
-            Vector3 currentDrag = newVelocity.normalized * dragMagnitude * Time.deltaTime;
-            newVelocity = (newVelocity.magnitude > dragMagnitude * Time.deltaTime) ? newVelocity - currentDrag : Vector3.zero;
-            newVelocity = Vector3.ClampMagnitude(new Vector3(newVelocity.x, 0f, newVelocity.z), clampLateralMagnitude);
-            newVelocity.y += _verticalVelocity;
-            newVelocity = !isGrounded ? HandleSteepWalls(newVelocity) : newVelocity;
+            if (!_animator.GetBool("isDeathNow")) { 
+                float dragMagnitude = isGrounded ? drag : inAirDrag;
+                Vector3 currentDrag = newVelocity.normalized * dragMagnitude * Time.deltaTime;
+                newVelocity = (newVelocity.magnitude > dragMagnitude * Time.deltaTime) ? newVelocity - currentDrag : Vector3.zero;
+                newVelocity = Vector3.ClampMagnitude(new Vector3(newVelocity.x, 0f, newVelocity.z), clampLateralMagnitude);
+                newVelocity.y += _verticalVelocity;
+                newVelocity = !isGrounded ? HandleSteepWalls(newVelocity) : newVelocity;
 
-            // Передвижение персонажа
-            _characterController.Move(newVelocity * Time.deltaTime);  
+                // Передвижение персонажа
+                _characterController.Move(newVelocity * Time.deltaTime);
+            }     
         }
 
         private Vector3 HandleSteepWalls(Vector3 velocity)

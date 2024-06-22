@@ -10,7 +10,8 @@ public class BossDoorTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if ((other.name == "Player" || other.name == "Collider" || other.name == "Cylinder") && !GlobalsVar.isFirstFight)
+        if ((other.name == "Player" || other.name == "Collider" || other.name == "Cylinder") 
+            && !GlobalsVar.isFirstFight && !GlobalsVar.isFight)
         {
             _animator.SetBool("isOpen", true);
 

@@ -23,6 +23,9 @@ namespace Player
 
         public static bool isFight = true;
         public static bool isFirstFight = true;
+
+        public static bool isDeath = false;
+        public static bool isWasInCamp = false;
     }
 }
 

@@ -1,21 +1,21 @@
 using Player;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Darkening : MonoBehaviour
 {
-    public GameObject UICanvas;
-    public GameObject DeathCanvas;
+    public GameObject _uiCanvas;
+    public GameObject _deathCanvas;
     public GameObject _player;
     public Animator _animator;
+
     private float darkeningSpeed = 0.2f;
 
 
     IEnumerator Start()
     {
-        UICanvas.SetActive(false);
+        _uiCanvas.SetActive(false);
 
         RawImage darkeningImage = GetComponent<RawImage>();
         Color color = darkeningImage.color;
@@ -34,11 +34,15 @@ public class Darkening : MonoBehaviour
     {
         _player.transform.position = new Vector3(-147.9f, 15.76f, -264.7f);
 
-        UICanvas.SetActive(true);
-        DeathCanvas.SetActive(false);
+        _uiCanvas.SetActive(true);
+        _deathCanvas.SetActive(false);
 
         GlobalsVar.PlayerHP = 100f;
 
         _animator.SetTrigger("isNewPosition");
+        _animator.SetBool("isDeathNow", false);
+
+        GlobalsVar.isDeath = false;
+        GlobalsVar.isWasInCamp = true;
     }
 }
