@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Darkening : MonoBehaviour
 {
     public GameObject _uiCanvas;
+    public GameObject _hint;
     public GameObject _deathCanvas;
     public GameObject _player;
     public Animator _animator;
@@ -15,6 +16,8 @@ public class Darkening : MonoBehaviour
 
     IEnumerator Start()
     {
+        Destroy(_hint);
+
         _uiCanvas.SetActive(false);
 
         RawImage darkeningImage = GetComponent<RawImage>();

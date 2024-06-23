@@ -235,7 +235,7 @@ namespace Player
 
         private void UpdateIdleRotation(float rotationTolerance)
         {
-            // Новое направление поворота
+                // Новое направление поворота
             if (Mathf.Abs(RotationMismatch) > rotationTolerance)
             {
                 _rotatingToTargetTimer = rotateToTargetTime;
@@ -253,8 +253,11 @@ namespace Player
 
         private void RotatePlayerToTarget()
         {
-            Quaternion targetRotationX = Quaternion.Euler(0f, _playerTargetRotation.x, 0f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotationX, playerModelRotationSpeed * Time.deltaTime);
+            if (!_animator.GetBool("isDeathNow"))
+            {
+                Quaternion targetRotationX = Quaternion.Euler(0f, _playerTargetRotation.x, 0f);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotationX, playerModelRotationSpeed * Time.deltaTime);
+            } 
         }
         #endregion
 
