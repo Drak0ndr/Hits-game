@@ -40,7 +40,7 @@ public class GameWorld : MonoBehaviour
     private IEnumerator Generate(bool wait)
     {
         int loadRadius = ViewRadius+1;
-        int chunkDist = loadRadius+2;
+        int chunkDist = loadRadius+3;
 
         for (int x = currentPlayerChunk.x - loadRadius; x <= currentPlayerChunk.x + loadRadius; x++)
         {
@@ -67,7 +67,7 @@ public class GameWorld : MonoBehaviour
                 if (dist <= ViewRadius) {
                     SpawnChunkRenderer(chunkData);
                     // print("чанк заспавнен" + x.ToString() + " " + z.ToString());
-                    if (wait) yield return new WaitForSecondsRealtime(0.1f);
+                    if (wait) yield return new WaitForSecondsRealtime(0.15f);
                 }
                 
                 
