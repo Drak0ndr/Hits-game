@@ -5,7 +5,7 @@ public class MovementColumn : MonoBehaviour
     public Animator _animator;
 
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         _animator.SetBool("isMovement", true);
     }

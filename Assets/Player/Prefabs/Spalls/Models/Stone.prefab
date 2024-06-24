@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 8057039246241260443}
   - component: {fileID: 8769800617302588451}
   - component: {fileID: 5442094086565952345}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stone
-  m_TagString: Untagged
+  m_TagString: MagicBall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

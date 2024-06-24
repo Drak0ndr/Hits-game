@@ -42,9 +42,12 @@ public class ThrowController : MonoBehaviour
 
         currentBullet.transform.forward = dirWithoutSpread.normalized;
 
-        _stoneInHand.SetActive(false);
+        if (currentBullet != null)
+        {
+            _stoneInHand.SetActive(false);
 
-        currentBullet.GetComponent<Rigidbody>().AddForce(dirWithoutSpread.normalized * shootForce, ForceMode.Impulse);
+            currentBullet.GetComponent<Rigidbody>().AddForce(dirWithoutSpread.normalized * shootForce, ForceMode.Impulse);
+        } 
     }
 
     public void SetIsThrowFalse()
