@@ -18,7 +18,7 @@ public class Stone : MonoBehaviour
             {
                 isHit = true;
 
-                GlobalsVar.EnemyHP -= 0.2f;
+                GlobalsVar.EnemyHP -= 100f;
             }
 
             GameObject newExplosion = Instantiate(_explosion, collision.contacts[0].point, Quaternion.identity);
