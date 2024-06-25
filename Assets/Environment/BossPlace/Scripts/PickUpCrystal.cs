@@ -6,7 +6,7 @@ public class PickUpCrystal : MonoBehaviour
 
     private GameObject _crystal;
 
-    private float pickUpRange = 0.6f;
+    private float pickUpRange = 1f;
 
     private void Update()
     {

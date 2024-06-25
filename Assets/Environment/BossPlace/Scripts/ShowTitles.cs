@@ -1,3 +1,4 @@
+using Player;
 using UnityEditorInternal;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class ShowTitles : MonoBehaviour
         if (other.name == "Player" || other.name == "Collider")
         {
             _finalTitles.SetActive(true);
+
+            GlobalsVar.isTitles = true;
         }
     }
 }

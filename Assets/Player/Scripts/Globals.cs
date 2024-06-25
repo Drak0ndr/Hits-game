@@ -26,6 +26,8 @@ namespace Player
 
         public static bool isDeath = false;
         public static bool isWasInCamp = false;
+
+        public static bool isTitles = false;
     }
 }
 
