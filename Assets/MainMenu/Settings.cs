@@ -9,8 +9,7 @@ public class Settings : MonoBehaviour
 
     public void Start() {
         loadSettings();
-        qualityDropdown.value = 6;
-        PlayerPrefs.SetInt("QualitySettingPreference", qualityDropdown.value);
+        setQuality();
     }
     public void setQuality() {
         QualitySettings.SetQualityLevel(qualityDropdown.value);
