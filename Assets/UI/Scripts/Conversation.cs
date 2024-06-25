@@ -7,7 +7,7 @@ public class Conversation : MonoBehaviour
     public GameObject _deathCanvas;
     public GameObject _player;
     public Animator _animator;
-    public Transform _revivalPosition;
+    public Transform _revivalPosition; 
 
     private void LateUpdate()
     {

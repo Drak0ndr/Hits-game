@@ -7,6 +7,7 @@ public class BossDoorTrigger : MonoBehaviour
     public Animator _animator;
     public GameObject _player;
     public List<GameObject> _doors;
+    public GameObject _invisibleDoor;
 
     private void OnTriggerStay(Collider other)
     {
@@ -14,6 +15,8 @@ public class BossDoorTrigger : MonoBehaviour
             && !GlobalsVar.isFirstFight && !GlobalsVar.isFight)
         {
             _animator.SetBool("isOpen", true);
+
+            _invisibleDoor.SetActive(true);
 
             GlobalsVar.isFight = true;
 

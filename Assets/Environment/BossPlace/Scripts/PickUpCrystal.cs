@@ -4,14 +4,12 @@ public class PickUpCrystal : MonoBehaviour
 {
     public GameObject _portal;
 
-    private GameObject _crystal;
+    public GameObject _crystal;
 
     private float pickUpRange = 1f;
 
     private void Update()
     {
-        _crystal = GameObject.FindGameObjectWithTag("Crystal");
-
         if (_crystal != null)
         {
             float dist = Vector3.Distance(_crystal.transform.position, transform.position);

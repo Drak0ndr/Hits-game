@@ -34,7 +34,9 @@ public class EnemyAI : MonoBehaviour
             GameObject newExplosion = Instantiate(_explosion, position, Quaternion.identity);
             Destroy(newExplosion, 1.8f);
 
-            Instantiate(_crystal, position, Quaternion.identity);
+            _crystal.transform.position = new Vector3(position.x, 102f, position.z);
+
+            _crystal.SetActive(true);
 
             Destroy(gameObject);
         }

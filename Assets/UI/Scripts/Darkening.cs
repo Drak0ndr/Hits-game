@@ -9,6 +9,7 @@ public class Darkening : MonoBehaviour
     public GameObject _hint;
     public GameObject _deathCanvas;
     public GameObject _player;
+    public GameObject _stone;
     public Animator _animator;
 
     private float darkeningSpeed = 0.2f;
@@ -35,6 +36,8 @@ public class Darkening : MonoBehaviour
 
     private void ShowSecondPosition()
     {
+        _stone.SetActive(false);
+
         _player.transform.position = new Vector3(-147.9f, 15.76f, -264.7f);
 
         _uiCanvas.SetActive(true);
