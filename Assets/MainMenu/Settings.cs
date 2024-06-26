@@ -10,6 +10,7 @@ public class Settings : MonoBehaviour
     public void Start() {
         loadSettings();
         setQuality();
+        saveSettings();
     }
     public void setQuality() {
         QualitySettings.SetQualityLevel(qualityDropdown.value);

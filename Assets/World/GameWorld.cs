@@ -219,6 +219,7 @@ public class GameWorld : MonoBehaviour
                 }
             }
         }
+        chunkData = spawnTrail(chunkData);
         ChunkDatas.Add(new Vector2Int(x, z), chunkData);
         
     }
@@ -304,7 +305,43 @@ public class GameWorld : MonoBehaviour
 
         // CheckInput();
     }
-
+    private ChunkData spawnTrail(ChunkData chunkData) {
+        float xPos = chunkData.ChunkPositoin.x * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
+        float zPos = chunkData.ChunkPositoin.y * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
+        System.Random rnd = new System.Random();
+        int posX1 = rnd.Next(0, ChunkRenderer.ChunkWidth);
+        int posZ1 = rnd.Next(0, ChunkRenderer.ChunkWidth);
+        if (xPos == -144 && zPos >= -280 && zPos <= -200) {
+            for (int y = 1; y < ChunkRenderer.ChunkHeight; y++) {
+                if (chunkData.Blocks[posX1,y, posZ1] == BlockType.Air && chunkData.Blocks[posX1,y-1, posZ1] != BlockType.Air) {
+                    chunkData.Blocks[posX1,y-1, posZ1] = BlockType.Stone;
+                    break;
+                }
+            }
+        } else if ((xPos == -136 && zPos == -192) || (xPos == -128 && zPos == -184)|| (xPos == -120 && zPos == -176) || (xPos == -112 && zPos == -168) || (xPos == -104 && zPos == -160) || (xPos == -96 && zPos == -152) || (xPos == -88 && zPos == -144) || (xPos == -80 && zPos == -136) || (xPos == -72 && zPos == -128) || (xPos == -64 && zPos == -120) || (xPos == -56 && zPos == -112) || (xPos == -48 && zPos == -104)) {
+            for (int y = 1; y < ChunkRenderer.ChunkHeight; y++) {
+                if (chunkData.Blocks[posX1,y, posZ1] == BlockType.Air && chunkData.Blocks[posX1,y-1, posZ1] != BlockType.Air) {
+                    chunkData.Blocks[posX1,y-1, posZ1] = BlockType.Stone;
+                    break;
+                }
+            }
+        } else if (xPos == -40 && zPos <= -56 && zPos >= -96) {
+            for (int y = 1; y < ChunkRenderer.ChunkHeight; y++) {
+                if (chunkData.Blocks[posX1,y, posZ1] == BlockType.Air && chunkData.Blocks[posX1,y-1, posZ1] != BlockType.Air) {
+                    chunkData.Blocks[posX1,y-1, posZ1] = BlockType.Stone;
+                    break;
+                }
+            }
+        } else if (xPos == -32 && zPos >=-48 && zPos <= 24 ) {
+            for (int y = 1; y < ChunkRenderer.ChunkHeight; y++) {
+                if (chunkData.Blocks[posX1,y, posZ1] == BlockType.Air && chunkData.Blocks[posX1,y-1, posZ1] != BlockType.Air) {
+                    chunkData.Blocks[posX1,y-1, posZ1] = BlockType.Stone;
+                    break;
+                }
+            }
+        }
+        return chunkData;
+    }
     private void CheckInput()
     {
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
