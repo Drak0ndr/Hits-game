@@ -147,25 +147,7 @@ public class GameWorld : MonoBehaviour
                 }
             }
         }
-        if (xPos == -144 && zPos == -296) {
-            for (int cy = 61; cy < 78; cy++) {
-                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
-                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
-                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
-                    }
-                }
-            }
-        }
-        if (xPos == -136 && zPos == -296) {
-            for (int cy = 61; cy < 78; cy++) {
-                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
-                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
-                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
-                    }
-                }
-            }
-        }
-        if (xPos == -128 && zPos == -296) {
+        if (xPos >= -144 && xPos <= -128 && zPos == -296) {
             for (int cy = 61; cy < 78; cy++) {
                 for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
                     for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
@@ -183,25 +165,7 @@ public class GameWorld : MonoBehaviour
                 }
             }
         }
-        if (xPos == -128 && zPos == -304) {
-            for (int cy = 61; cy < 78; cy++) {
-                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
-                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
-                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
-                    }
-                }
-            }
-        }
-        if (xPos == -136 && zPos == -304) {
-            for (int cy = 61; cy < 78; cy++) {
-                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
-                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
-                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
-                    }
-                }
-            }
-        }
-        if (xPos == -144 && zPos == -304) {
+        if (xPos <= -128 &&  xPos>=-144 && zPos == -304) {
             for (int cy = 61; cy < 78; cy++) {
                 for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
                     for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
@@ -321,21 +285,14 @@ public class GameWorld : MonoBehaviour
                     break;
                 }
             }
-        } else if ((xPos == -136 && zPos == -192) || (xPos == -128 && zPos == -184)|| (xPos == -120 && zPos == -176) || (xPos == -112 && zPos == -168) || (xPos == -104 && zPos == -160) || (xPos == -96 && zPos == -152) || (xPos == -88 && zPos == -144) || (xPos == -80 && zPos == -136) || (xPos == -72 && zPos == -128) || (xPos == -64 && zPos == -120) || (xPos == -56 && zPos == -112) || (xPos == -48 && zPos == -104)) {
+        }  else if ((xPos == -40 && zPos <= -56 && zPos >= -96) || (xPos == -32 && zPos >=-48 && zPos <= 24 )) {
             for (int y = 1; y < ChunkRenderer.ChunkHeight; y++) {
                 if (chunkData.Blocks[posX1,y, posZ1] == BlockType.Air && chunkData.Blocks[posX1,y-1, posZ1] != BlockType.Air) {
                     chunkData.Blocks[posX1,y-1, posZ1] = BlockType.Stone;
                     break;
                 }
             }
-        } else if (xPos == -40 && zPos <= -56 && zPos >= -96) {
-            for (int y = 1; y < ChunkRenderer.ChunkHeight; y++) {
-                if (chunkData.Blocks[posX1,y, posZ1] == BlockType.Air && chunkData.Blocks[posX1,y-1, posZ1] != BlockType.Air) {
-                    chunkData.Blocks[posX1,y-1, posZ1] = BlockType.Stone;
-                    break;
-                }
-            }
-        } else if (xPos == -32 && zPos >=-48 && zPos <= 24 ) {
+        } else if (xPos >= -136 && zPos >= -192 && xPos <= -48 && zPos <= -104 && (-136 - xPos == -192 - zPos)) {
             for (int y = 1; y < ChunkRenderer.ChunkHeight; y++) {
                 if (chunkData.Blocks[posX1,y, posZ1] == BlockType.Air && chunkData.Blocks[posX1,y-1, posZ1] != BlockType.Air) {
                     chunkData.Blocks[posX1,y-1, posZ1] = BlockType.Stone;
