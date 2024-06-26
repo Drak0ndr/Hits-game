@@ -7,6 +7,7 @@ public class ThrowController : MonoBehaviour
     public GameObject _player;
     public GameObject _stone;
     public GameObject _stoneInHand;
+    public GameObject _hint;
     public Camera _mainCamera;
     public Transform _hand;
 
@@ -18,6 +19,8 @@ public class ThrowController : MonoBehaviour
         {
             _animator.SetBool("isThrow", true);
             _stoneInHand.SetActive(true);   
+
+            _hint.SetActive(false);
         }
     }
 
