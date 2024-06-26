@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GameWorld : MonoBehaviour
 {
-    private const int ViewRadius = 9;
+    private int ViewRadius = 9;
     public Dictionary<Vector2Int, ChunkData> ChunkDatas = new Dictionary<Vector2Int, ChunkData>();
     public Dictionary<Vector2Int, ChunkRenderer> Chunks = new Dictionary<Vector2Int, ChunkRenderer>();
     public ChunkRenderer chunkPrefab;
@@ -17,10 +17,13 @@ public class GameWorld : MonoBehaviour
     private FastNoiseLite precipitation = new FastNoiseLite();
     private FastNoiseLite temperature = new FastNoiseLite();
     private Camera mainCamera;
-    private Vector2Int currentPlayerChunk = new Vector2Int(-18,-35);
+    private Vector2Int currentPlayerChunk = new Vector2Int(-19,-33);
     // Start is called before the first frame update
     void Start()
     {
+        if(PlayerPrefs.HasKey("RenderVal")) {
+            ViewRadius = PlayerPrefs.GetInt("RenderVal");
+        }
         mainCamera = Camera.main;
         precipitation.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
         precipitation.SetFrequency(0.005f);
