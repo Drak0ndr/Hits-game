@@ -197,7 +197,7 @@ public class GameWorld : MonoBehaviour
 
         var chunk = Instantiate(chunkPrefab, new Vector3(xPos, 0, zPos), Quaternion.identity, transform);
         
-        if (xPos >= 56-48 && xPos<= 56+48 && zPos >= 472 - 48 && zPos <= 472 + 48) {
+        if ((xPos >= 56-48 && xPos<= 56+48 && zPos >= 472 - 48 && zPos <= 472 + 48) || (xPos >=0 && xPos <=16 && zPos >= -320 && zPos <= -304) ) {
 
         } else {
             var treeHeight = Generator.GetHeight(xPos, zPos) * ChunkRenderer.BlockScale;

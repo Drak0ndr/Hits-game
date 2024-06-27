@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -5,10 +6,7 @@ namespace Player
 {
     public class DropItem : MonoBehaviour, IPointerClickHandler
     {
-        public GameObject prefab1;
-        public GameObject prefab2;
-        public GameObject prefab3;
-        public GameObject prefab4;
+        public List<GameObject> Items;
 
         public Transform ItemContent;
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
@@ -24,16 +22,19 @@ namespace Player
                     switch (item.id)
                     {
                         case 1:
-                            Instantiate(prefab1, objPosition, Quaternion.identity);
+                            Instantiate(Items[0], objPosition, Quaternion.identity);
                             break;
                         case 2:
-                            Instantiate(prefab2, objPosition, Quaternion.identity);
+                            Instantiate(Items[1], objPosition, Quaternion.identity);
                             break;
                         case 3:
-                            Instantiate(prefab3, objPosition, Quaternion.identity);
+                            Instantiate(Items[2], objPosition, Quaternion.identity);
                             break;
                         case 4:
-                            Instantiate(prefab4, objPosition, Quaternion.identity);
+                            Instantiate(Items[3], objPosition, Quaternion.identity);
+                            break;
+                        case 5:
+                            Instantiate(Items[4], objPosition, Quaternion.identity);
                             break;
                     }
                     

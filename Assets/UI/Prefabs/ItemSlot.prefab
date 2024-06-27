@@ -211,10 +211,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6af9870ec8f6ef24690359df0677a686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab1: {fileID: 3568398053166638294, guid: b6f9b587034166549809f3a9c6c33262, type: 3}
-  prefab2: {fileID: 392489427087728442, guid: e8300462cc969dc4c82430a0eab04fbd, type: 3}
-  prefab3: {fileID: 4742420181833836513, guid: dce278a18cc98aa41a4185c95e564f6f, type: 3}
-  prefab4: {fileID: 374151818356740834, guid: 0c837400ef1130c4196d20ee30637d9c, type: 3}
+  Items:
+  - {fileID: 3568398053166638294, guid: b6f9b587034166549809f3a9c6c33262, type: 3}
+  - {fileID: 392489427087728442, guid: e8300462cc969dc4c82430a0eab04fbd, type: 3}
+  - {fileID: 4742420181833836513, guid: dce278a18cc98aa41a4185c95e564f6f, type: 3}
+  - {fileID: 374151818356740834, guid: 0c837400ef1130c4196d20ee30637d9c, type: 3}
+  - {fileID: 7395515012528727773, guid: 367b3b7ef1890bc4ca46d8c23f2f3ae8, type: 3}
   ItemContent: {fileID: 4488132252861922882, guid: f0652f605caac2b409c6af22765ee60a, type: 3}
 --- !u!1 &6957152091246095764
 GameObject:
