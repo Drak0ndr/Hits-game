@@ -204,7 +204,7 @@ public class GameWorld : MonoBehaviour
             var precipitationLevel = (precipitation.GetNoise(xPos, zPos) + 1) * 200;
             var temperatureLevel = temperature.GetNoise(xPos, zPos) * 30;
             var temp = temperatureLevel + Mathf.Min(0, 16 - treeHeight) * 0.25;
-            if (temp >= -5 && temp <= 5 && precipitationLevel >= 50 && precipitationLevel <= 300)
+            if (temp >= -6 && temp <= 6 && precipitationLevel >= 50 && precipitationLevel <= 300)
             {
                 float bestConditions = (precipitation.GetNoise(xPos, zPos) + 1) * 200 + temperature.GetNoise(xPos, zPos) * 30;
                 float bestTreePosX = xPos;
