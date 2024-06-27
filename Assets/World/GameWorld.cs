@@ -300,6 +300,30 @@ public class GameWorld : MonoBehaviour
                 }
             }
         }
+
+
+        if ((zPos == -272 && xPos >= -136 && xPos <= -56) || (xPos == -56 && zPos <= -280 && zPos >= -312) || (zPos == -312 && xPos >= -56 && xPos <= -8)) {
+            int posX2 = rnd.Next(0, ChunkRenderer.ChunkWidth);
+            int posZ2 = rnd.Next(0, ChunkRenderer.ChunkWidth);
+            int posX3 = rnd.Next(0, ChunkRenderer.ChunkWidth);
+            int posZ3 = rnd.Next(0, ChunkRenderer.ChunkWidth);
+            int posX4 = rnd.Next(0, ChunkRenderer.ChunkWidth);
+            int posZ4 = rnd.Next(0, ChunkRenderer.ChunkWidth);
+            for (int y = 1; y < ChunkRenderer.ChunkHeight; y++) {
+                if (chunkData.Blocks[posX1,y, posZ1] == BlockType.Air && chunkData.Blocks[posX1,y-1, posZ1] != BlockType.Air) {
+                    chunkData.Blocks[posX1,y-1, posZ1] = BlockType.Stone;
+                }
+                if (chunkData.Blocks[posX2,y, posZ2] == BlockType.Air && chunkData.Blocks[posX2,y-1, posZ2] != BlockType.Air) {
+                    chunkData.Blocks[posX2,y-1, posZ2] = BlockType.Stone;
+                }
+                if (chunkData.Blocks[posX3,y, posZ3] == BlockType.Air && chunkData.Blocks[posX3,y-1, posZ3] != BlockType.Air) {
+                    chunkData.Blocks[posX3,y-1, posZ3] = BlockType.Stone;
+                }
+                if (chunkData.Blocks[posX4,y, posZ4] == BlockType.Air && chunkData.Blocks[posX4,y-1, posZ4] != BlockType.Air) {
+                    chunkData.Blocks[posX4,y-1, posZ4] = BlockType.Stone;
+                }
+            }
+        }
         return chunkData;
     }
     private void CheckInput()
