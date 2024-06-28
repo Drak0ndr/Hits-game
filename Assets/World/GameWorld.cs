@@ -302,7 +302,7 @@ public class GameWorld : MonoBehaviour
         }
 
 
-        if ((zPos == -272 && xPos >= -136 && xPos <= -56) || (xPos == -56 && zPos <= -280 && zPos >= -312) || (zPos == -312 && xPos >= -56 && xPos <= -8)) {
+        if ((zPos == -272 && xPos >= -136 && xPos <= -56) || (xPos == -56 && zPos <= -280 && zPos >= -312) || (zPos == -312 && xPos >= -56 && xPos <= -8) ||(xPos == -40 && zPos <= -320 && zPos >= -416) || (zPos == -424 && xPos <=-40 && xPos >= -88)) {
             int posX2 = rnd.Next(0, ChunkRenderer.ChunkWidth);
             int posZ2 = rnd.Next(0, ChunkRenderer.ChunkWidth);
             int posX3 = rnd.Next(0, ChunkRenderer.ChunkWidth);
