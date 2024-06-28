@@ -14550,6 +14550,7 @@ MonoBehaviour:
   _hedgehog: {fileID: 7266004049619398050, guid: 5b9860dd803f297429a4c2fe2af55971, type: 3}
   _newDoor: {fileID: 3580751509552955907, guid: ff292d06470b5b24ab9801c1ade22967, type: 3}
   _dialog: {fileID: 6344486928990196833, guid: 3fa14f08a263ea446aeb9ae58d216fcc, type: 3}
+  _envelope: {fileID: 3948916975830861290, guid: 8abe9ca119a4fa549982ba0dd56ac933, type: 3}
 --- !u!135 &2998797353358383383
 SphereCollider:
   m_ObjectHideFlags: 0

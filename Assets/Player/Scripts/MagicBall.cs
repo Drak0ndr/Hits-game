@@ -77,16 +77,18 @@ namespace Player
 
                 else if (collision.gameObject.tag is "Pumpkin")
                 {
+                    Vector3 position = gameObject.transform.position;
+
                     Destroy(collision.gameObject);
 
-                    _envelope.SetActive(true);
+                    Instantiate(_envelope, position, Quaternion.identity);
                 }
 
                 else if (_colliderNames.Contains(collision.collider.name) && !isHit)
                 {
                     isHit = true;
 
-                    GlobalsVar.EnemyHP -= 3f;
+                    GlobalsVar.EnemyHP -= 3.5f;
                 }
             }
         }

@@ -82,7 +82,7 @@ public class EnemyAI : MonoBehaviour
 
                     alreadyAttacked = true;
 
-                    timeBetweenAttacks = Random.Range(23, 35) / 10f;
+                    timeBetweenAttacks = Random.Range(20, 35) / 10f;
 
                     Invoke(nameof(ResetAttack), timeBetweenAttacks);
                 }
