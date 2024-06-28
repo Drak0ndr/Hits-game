@@ -18,7 +18,7 @@ public class MagicSpall : MonoBehaviour
             {
                 isHit = true;
 
-                GlobalsVar.EnemyHP -= 12f;
+                GlobalsVar.EnemyHP -= 10f;
             }
             
             GameObject newExplosion = Instantiate(_explosion, collision.contacts[0].point, Quaternion.identity);

@@ -3,12 +3,15 @@ using UnityEngine;
 using System;
 using TMPro;
 using System.Threading.Tasks;
+using Player;
 
 public class Password : MonoBehaviour
 {
     public GameObject _password;
     public GameObject _player;
     public GameObject _lock;
+    public GameObject _oldFier;
+    public GameObject _newFier;
     public List<GameObject> Doors = new List<GameObject>();
 
     private List<String> Keys = new List<String>() { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
@@ -53,6 +56,12 @@ public class Password : MonoBehaviour
 
                     Doors[1].transform.localPosition = new Vector3(0.028f, 0.0554455f, -0.0557f);
                     Doors[1].transform.Rotate(0, -90, 0);
+
+                    Vector3 position = _oldFier.transform.position;
+
+                    Destroy( _oldFier);
+
+                    Instantiate(_newFier, position, Quaternion.identity);
                 }
                 else
                 {

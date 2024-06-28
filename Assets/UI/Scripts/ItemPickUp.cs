@@ -20,6 +20,11 @@ namespace Player
 
         private void PickUp()
         {
+            if (Item.id == 5)
+            {
+                GlobalsVar.Items.Clear();
+            }
+
             InventoryManager.Instance.Add(Item);
             Destroy(gameObject);
         }
