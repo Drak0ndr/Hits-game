@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Player;
 
 public class ShowFirstDialog : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class ShowFirstDialog : MonoBehaviour
                 _images[1].SetActive(true);
             }
 
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.O) && GlobalsVar.isWasInCamp)
             {
                 _dialog.SetActive(true);
 

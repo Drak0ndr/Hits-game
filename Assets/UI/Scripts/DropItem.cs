@@ -9,6 +9,9 @@ namespace Player
         public List<GameObject> Items;
 
         public Transform ItemContent;
+
+        private List<int> EnvelopesId = new List<int>() { 6, 7, 8, 9, 10, 11 };
+
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
             foreach(Item item in GlobalsVar.Items)
@@ -36,11 +39,32 @@ namespace Player
                         case 5:
                             Instantiate(Items[4], objPosition, Quaternion.identity);
                             break;
+                        case 6:
+                            GlobalsVar.currEnvelope = 1;
+                            break;
+                        case 7:
+                            GlobalsVar.currEnvelope = 2;
+                            break;
+                        case 8:
+                            GlobalsVar.currEnvelope = 3;
+                            break;
+                        case 9:
+                            GlobalsVar.currEnvelope = 4;
+                            break;
+                        case 10:
+                            GlobalsVar.currEnvelope = 5;
+                            break;
+                        case 11:
+                            GlobalsVar.currEnvelope = 6;
+                            break;
                     }
-                    
-                    Destroy(this.gameObject);
 
-                    GlobalsVar.Items.Remove(item);
+                    if (!EnvelopesId.Contains(item.id))
+                    {
+                        Destroy(this.gameObject);
+
+                        GlobalsVar.Items.Remove(item);
+                    }
 
                     break;
                 }

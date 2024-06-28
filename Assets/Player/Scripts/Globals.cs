@@ -27,6 +27,8 @@ namespace Player
         public static bool isWasInCamp = false;
 
         public static bool isTitles = false;
+
+        public static int currEnvelope = -1;
     }
 }
 

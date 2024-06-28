@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Color: {r: 0, g: 0, b: 0, a: 0.38431373}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -217,6 +217,19 @@ MonoBehaviour:
   - {fileID: 4742420181833836513, guid: dce278a18cc98aa41a4185c95e564f6f, type: 3}
   - {fileID: 374151818356740834, guid: 0c837400ef1130c4196d20ee30637d9c, type: 3}
   - {fileID: 7395515012528727773, guid: 367b3b7ef1890bc4ca46d8c23f2f3ae8, type: 3}
+  - {fileID: 3948916975830861290, guid: a79f3eeea4a8bee43bb483a00beeb3e8, type: 3}
+  - {fileID: 3948916975830861290, guid: 145f156851d64554a93d8b6312d2afcc, type: 3}
+  - {fileID: 3948916975830861290, guid: b05570ff22657fd41aa24b027b6a2234, type: 3}
+  - {fileID: 3948916975830861290, guid: 3d3216d5a4655b14ba4db7ca0ce0b4c1, type: 3}
+  - {fileID: 3948916975830861290, guid: 2c5aee2d7ff862449991576a22225b0e, type: 3}
+  - {fileID: 3948916975830861290, guid: 8abe9ca119a4fa549982ba0dd56ac933, type: 3}
+  Envelopes:
+  - {fileID: 2167984832569032432, guid: 6db2aebe282f21b498c11993744c4386, type: 3}
+  - {fileID: 623243985065709802, guid: dd907986a91e4514dabd3ff0072ecfc7, type: 3}
+  - {fileID: 6525865747349835253, guid: 620aebd78d5394847926da12717a98d7, type: 3}
+  - {fileID: 4741176980046468646, guid: 1c46e5cbc73db004aaf3a62591bebc7a, type: 3}
+  - {fileID: 926833747529048742, guid: aa120fccd28f0ea428812a337e0063aa, type: 3}
+  - {fileID: 295602140894419624, guid: a200217d9101e024fa1c1809d45e0d4f, type: 3}
   ItemContent: {fileID: 4488132252861922882, guid: f0652f605caac2b409c6af22765ee60a, type: 3}
 --- !u!1 &6957152091246095764
 GameObject:
