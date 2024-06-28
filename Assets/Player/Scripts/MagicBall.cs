@@ -78,7 +78,7 @@ namespace Player
                 {
                     isHit = true;
 
-                    GlobalsVar.EnemyHP -= 4f;
+                    GlobalsVar.EnemyHP -= 3f;
                 }
             }
         }

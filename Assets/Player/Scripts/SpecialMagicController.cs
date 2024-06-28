@@ -9,9 +9,10 @@ public class SpecialMagicController : MonoBehaviour
     public GameObject _spall;
     public GameObject _circle;
     public Camera _mainCamera;
+    public GameObject _canvas;
     public List<GameObject> _spikes;
     public List<Transform> _hands;
-
+    
     private GameObject circlePosition;
     private float shootForce = 10f;
 
@@ -19,6 +20,8 @@ public class SpecialMagicController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q) && GlobalsVar.PlayerMANA >= 100f && GlobalsVar.isSpecialMagicalAbilities)
         {
+            _canvas.SetActive(false);
+
             foreach (GameObject _spike in _spikes)
             {
                 _spike.SetActive(true);
