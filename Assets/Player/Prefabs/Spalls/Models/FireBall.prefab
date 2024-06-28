@@ -14480,7 +14480,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0f39f9e616c605d479207b4e5978bd9d, type: 2}
+  - {fileID: 2100000, guid: 7d089b43042841048a3d1fcd41c05382, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19455,6 +19455,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1132682859770984631}
     m_Modifications:
+    - target: {fileID: 290336203409468675, guid: e260c7b3ddc04d440b4f0317f756aaeb, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7d089b43042841048a3d1fcd41c05382, type: 2}
     - target: {fileID: 5951126907611790846, guid: e260c7b3ddc04d440b4f0317f756aaeb, type: 3}
       propertyPath: m_Name
       value: FireBall2
