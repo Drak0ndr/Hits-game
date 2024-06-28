@@ -81,6 +81,9 @@ public class EnemyAI : MonoBehaviour
                     currentBullet.GetComponent<Rigidbody>().AddForce(dirWithSpread.normalized * shootForce, ForceMode.Impulse);
 
                     alreadyAttacked = true;
+
+                    timeBetweenAttacks = Random.Range(23, 35) / 10f;
+
                     Invoke(nameof(ResetAttack), timeBetweenAttacks);
                 }
             }

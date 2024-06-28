@@ -11,6 +11,7 @@ namespace Player
         public GameObject _hedgehog;
         public GameObject _newDoor;
         public GameObject _dialog;
+        public GameObject _envelope;
 
         private List<string> _colliderNames = new List<string>() { "Body", "Crystals", "Eye" };
         private float magicBallLife = 3f;
@@ -72,6 +73,13 @@ namespace Player
                     Instantiate(_newDoor, new Vector3(-140f, 15.2f, -288f), Quaternion.identity);
 
                     Destroy(collision.gameObject);
+                }
+
+                else if (collision.gameObject.tag is "Pumpkin")
+                {
+                    Destroy(collision.gameObject);
+
+                    _envelope.SetActive(true);
                 }
 
                 else if (_colliderNames.Contains(collision.collider.name) && !isHit)

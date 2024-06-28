@@ -20,11 +20,6 @@ public class SkeletonAI : MonoBehaviour
         }
     }
 
-    /*private void OnCollisionStay(Collision collision)
-    {    
-        print(collision.collider.name);
-    }*/
-
     private void OnTriggerStay(Collider other)
     {
         if (other.name == "MagicBall" || other.name == "MagicBall(Clone)" || other.name == "Stone(Clone)")

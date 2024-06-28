@@ -13,6 +13,7 @@ TagManager:
   - Door
   - Potion
   - Enemy
+  - Pumpkin
   layers:
   - Default
   - TransparentFX
