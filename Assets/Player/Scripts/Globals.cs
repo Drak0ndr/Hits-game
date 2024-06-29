@@ -28,6 +28,8 @@ namespace Player
 
         public static bool isTitles = false;
 
+        public static bool isFrog = true;
+
         public static int currEnvelope = -1;
     }
 }

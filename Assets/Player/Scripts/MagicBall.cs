@@ -15,7 +15,6 @@ namespace Player
 
         private List<string> _colliderNames = new List<string>() { "Body", "Crystals", "Eye" };
         private float magicBallLife = 3f;
-        private bool isFrog = true;
         private bool isHit = false;
 
         private void Start()
@@ -55,7 +54,7 @@ namespace Player
                     Instantiate(_hedgehog, collision.contacts[0].point, Quaternion.identity);
                     Destroy(collision.gameObject);
 
-                    if (isFrog)
+                    if (GlobalsVar.isFrog)
                     {
                         StartDialog();
                     }
@@ -99,7 +98,7 @@ namespace Player
 
             GlobalsVar.isThirdDialog = true;
 
-            isFrog = false;
+            GlobalsVar.isFrog = false;
 
             Cursor.visible = true;
         }
