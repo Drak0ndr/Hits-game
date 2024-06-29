@@ -1,5 +1,4 @@
 using Player;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class ShowTitles : MonoBehaviour

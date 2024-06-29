@@ -14,5 +14,6 @@ public class BackInMenu : MonoBehaviour
     private void EndOfGame()
     {
         SceneManager.LoadScene("Menu");
+        Cursor.visible = true;
     }
 }
