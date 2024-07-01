@@ -1,6 +1,7 @@
 using Player;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class EnemyAI : MonoBehaviour
     public Transform _bulletPoint;
     public GameObject _explosion;
     public GameObject _crystal;
+    public Slider _healthBar;
     public List<Transform> points = new List<Transform>();
 
     private float movementSpeed = 1.5f;
@@ -27,6 +29,8 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
+        _healthBar.value = GlobalsVar.EnemyHP >= 0 ? GlobalsVar.EnemyHP : 0;
+
         if(GlobalsVar.EnemyHP <= 0)
         {
             Vector3 position = this.gameObject.transform.position;
@@ -82,7 +86,7 @@ public class EnemyAI : MonoBehaviour
 
                     alreadyAttacked = true;
 
-                    timeBetweenAttacks = Random.Range(20, 35) / 10f;
+                    timeBetweenAttacks = Random.Range(15, 35) / 10f;
 
                     Invoke(nameof(ResetAttack), timeBetweenAttacks);
                 }
