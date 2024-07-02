@@ -17,11 +17,12 @@ public class GameWorld : MonoBehaviour
     private FastNoiseLite precipitation = new FastNoiseLite();
     private FastNoiseLite temperature = new FastNoiseLite();
     private Camera mainCamera;
-    private Vector2Int currentPlayerChunk = new Vector2Int(-19,-33);
+    private Vector2Int currentPlayerChunk = new Vector2Int(-19, -33);
     // Start is called before the first frame update
     void Start()
     {
-        if(PlayerPrefs.HasKey("RenderVal")) {
+        if (PlayerPrefs.HasKey("RenderVal"))
+        {
             ViewRadius = PlayerPrefs.GetInt("RenderVal");
         }
         mainCamera = Camera.main;
@@ -42,8 +43,8 @@ public class GameWorld : MonoBehaviour
 
     private IEnumerator Generate(bool wait)
     {
-        int loadRadius = ViewRadius+1;
-        int chunkDist = loadRadius+3;
+        int loadRadius = ViewRadius + 1;
+        int chunkDist = loadRadius + 3;
 
         for (int x = currentPlayerChunk.x - loadRadius; x <= currentPlayerChunk.x + loadRadius; x++)
         {
@@ -66,14 +67,15 @@ public class GameWorld : MonoBehaviour
                 ChunkData chunkData = ChunkDatas[chunkPosition];
 
                 if (chunkData.Renderer != null) continue;
-                var dist = Math.Pow(Math.Pow(currentPlayerChunk.x - x,2) + Math.Pow(currentPlayerChunk.y - z,2),0.5);
-                if (dist <= ViewRadius) {
+                var dist = Math.Pow(Math.Pow(currentPlayerChunk.x - x, 2) + Math.Pow(currentPlayerChunk.y - z, 2), 0.5);
+                if (dist <= ViewRadius)
+                {
                     SpawnChunkRenderer(chunkData);
                     // print("чанк заспавнен" + x.ToString() + " " + z.ToString());
                     if (wait) yield return new WaitForSecondsRealtime(0.15f);
                 }
-                
-                
+
+
             }
         }
 
@@ -85,19 +87,23 @@ public class GameWorld : MonoBehaviour
                 ChunkRenderer tempChunk;
                 Chunks.TryGetValue(chunkPosition, out tempChunk);
 
-                var dist = Math.Pow(Math.Pow(currentPlayerChunk.x - x,2) + Math.Pow(currentPlayerChunk.y - z,2),0.5);
-                if (dist < ViewRadius) {
+                var dist = Math.Pow(Math.Pow(currentPlayerChunk.x - x, 2) + Math.Pow(currentPlayerChunk.y - z, 2), 0.5);
+                if (dist < ViewRadius)
+                {
                     var tempR = z - currentPlayerChunk.y;
-                    if (tempR < 0) {
+                    if (tempR < 0)
+                    {
                         // print("было " + z.ToString());
                         z = currentPlayerChunk.y - tempR;
                         // print("стало " + z.ToString());
-                        dist = Math.Pow(Math.Pow(currentPlayerChunk.x - x,2) + Math.Pow(currentPlayerChunk.y - z,2),0.5);
+                        dist = Math.Pow(Math.Pow(currentPlayerChunk.x - x, 2) + Math.Pow(currentPlayerChunk.y - z, 2), 0.5);
                     }
-                    
+
                 }
-                if (dist > ViewRadius && tempChunk != null) {
-                    for(int i = 0; i < Chunks[chunkPosition].ChunkData.vegetation.Count; i++) {
+                if (dist > ViewRadius && tempChunk != null)
+                {
+                    for (int i = 0; i < Chunks[chunkPosition].ChunkData.vegetation.Count; i++)
+                    {
                         Destroy(Chunks[chunkPosition].ChunkData.vegetation[i].gameObject);
                     }
                     Destroy(Chunks[chunkPosition].gameObject);
@@ -107,7 +113,7 @@ public class GameWorld : MonoBehaviour
                     if (wait) yield return new WaitForSecondsRealtime(0.1f);
                 }
 
-                
+
             }
         }
     }
@@ -137,69 +143,93 @@ public class GameWorld : MonoBehaviour
         ChunkData chunkData = new ChunkData();
         chunkData.Blocks = Generator.GenerateTerrain(xPos, zPos);
         chunkData.ChunkPositoin = new Vector2Int(x, z);
-        chunkData.heightMap = Generator.GenerateHightMap(xPos,zPos);
-        if (xPos == -144 && zPos == -288) {
-            for (int cy = 61; cy < 78; cy++) {
-                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
-                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
-                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
+        chunkData.heightMap = Generator.GenerateHightMap(xPos, zPos);
+        if (xPos == -144 && zPos == -288)
+        {
+            for (int cy = 61; cy < 78; cy++)
+            {
+                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++)
+                {
+                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++)
+                    {
+                        chunkData.Blocks[cx, cy, cz] = BlockType.Air;
                     }
                 }
             }
         }
-        if (xPos >= -144 && xPos <= -128 && zPos == -296) {
-            for (int cy = 61; cy < 78; cy++) {
-                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
-                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
-                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
+        if (xPos >= -144 && xPos <= -128 && zPos == -296)
+        {
+            for (int cy = 61; cy < 78; cy++)
+            {
+                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++)
+                {
+                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++)
+                    {
+                        chunkData.Blocks[cx, cy, cz] = BlockType.Air;
                     }
                 }
             }
         }
-        if (xPos == -120 && zPos == -304) {
-            for (int cy = 61; cy < 61+33; cy++) {
-                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
-                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
-                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
+        if (xPos == -120 && zPos == -304)
+        {
+            for (int cy = 61; cy < 61 + 33; cy++)
+            {
+                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++)
+                {
+                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++)
+                    {
+                        chunkData.Blocks[cx, cy, cz] = BlockType.Air;
                     }
                 }
             }
         }
-        if (xPos <= -128 &&  xPos>=-144 && zPos == -304) {
-            for (int cy = 61; cy < 78; cy++) {
-                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
-                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
-                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
+        if (xPos <= -128 && xPos >= -144 && zPos == -304)
+        {
+            for (int cy = 61; cy < 78; cy++)
+            {
+                for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++)
+                {
+                    for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++)
+                    {
+                        chunkData.Blocks[cx, cy, cz] = BlockType.Air;
                     }
                 }
             }
         }
 
-        if (xPos >= 56-56 && xPos<= 56+56 && zPos >= 472 - 56 && zPos <= 472 + 56) {
-            
-            for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++) {
-                for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++) {
-                    int r = (int)(Math.Pow(Math.Pow(xPos+cx*ChunkRenderer.BlockScale - 56,2) + Math.Pow(zPos+cz*ChunkRenderer.BlockScale - 472,2), 0.5) * 1.35);
-                    for (int cy = 1 + r; cy < 150; cy++) {
-                        chunkData.Blocks[cx,cy,cz] = BlockType.Air;
+        if (xPos >= 56 - 56 && xPos <= 56 + 56 && zPos >= 472 - 56 && zPos <= 472 + 56)
+        {
+
+            for (int cx = 0; cx < ChunkRenderer.ChunkWidth; cx++)
+            {
+                for (int cz = 0; cz < ChunkRenderer.ChunkWidth; cz++)
+                {
+                    int r = (int)(Math.Pow(Math.Pow(xPos + cx * ChunkRenderer.BlockScale - 56, 2) + Math.Pow(zPos + cz * ChunkRenderer.BlockScale - 472, 2), 0.5) * 1.35);
+                    for (int cy = 1 + r; cy < 150; cy++)
+                    {
+                        chunkData.Blocks[cx, cy, cz] = BlockType.Air;
                     }
                 }
             }
         }
         chunkData = spawnTrail(chunkData);
         ChunkDatas.Add(new Vector2Int(x, z), chunkData);
-        
+
     }
 
-    private void SpawnChunkRenderer(ChunkData chunkData) {
+    private void SpawnChunkRenderer(ChunkData chunkData)
+    {
         float xPos = chunkData.ChunkPositoin.x * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
         float zPos = chunkData.ChunkPositoin.y * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
 
         var chunk = Instantiate(chunkPrefab, new Vector3(xPos, 0, zPos), Quaternion.identity, transform);
-        
-        if ((xPos >= 56-48 && xPos<= 56+48 && zPos >= 472 - 48 && zPos <= 472 + 48) || (xPos >=0 && xPos <=16 && zPos >= -320 && zPos <= -304) ) {
 
-        } else {
+        if ((xPos >= 56 - 48 && xPos <= 56 + 48 && zPos >= 472 - 48 && zPos <= 472 + 48) || (xPos >= 0 && xPos <= 16 && zPos >= -320 && zPos <= -304))
+        {
+
+        }
+        else
+        {
             var treeHeight = Generator.GetHeight(xPos, zPos) * ChunkRenderer.BlockScale;
             var precipitationLevel = (precipitation.GetNoise(xPos, zPos) + 1) * 200;
             var temperatureLevel = temperature.GetNoise(xPos, zPos) * 30;
@@ -218,7 +248,7 @@ public class GameWorld : MonoBehaviour
                     for (float j = zPos - ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; j < zPos + ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale / 3f; j += ChunkRenderer.BlockScale)
                     {
                         var tempCond = (precipitation.GetNoise(i, j) + 1) * 200 + temperature.GetNoise(i, j) * 30;
-                        if ( tempCond > bestConditions)
+                        if (tempCond > bestConditions)
                         {
                             bestConditions = tempCond;
                             bestTreePosX = i;
@@ -226,7 +256,8 @@ public class GameWorld : MonoBehaviour
                             treeHeight = Generator.GetHeight(i, j) * ChunkRenderer.BlockScale;
                         }
                         var tempFlCond = Math.Abs(100 - (precipitation.GetNoise(i, j) + 1) * 200);
-                        if (tempFlCond < bestFlowerCond) {
+                        if (tempFlCond < bestFlowerCond)
+                        {
                             bestFlowerCond = tempFlCond;
                             bestFlPosX = i;
                             bestFlPosZ = j;
@@ -234,23 +265,27 @@ public class GameWorld : MonoBehaviour
                         }
                     }
                 }
-                
-                    
-                if (bestConditions < 150) {
+
+
+                if (bestConditions < 150)
+                {
                     var instTree = Instantiate(taigaSmallTree, new Vector3(bestTreePosX, treeHeight, bestTreePosZ), Quaternion.identity, transform);
                     chunkData.vegetation.Add(instTree);
-                } else {
-                   var instFlTree = Instantiate(taigaFullTree, new Vector3(bestTreePosX, treeHeight, bestTreePosZ), Quaternion.identity, transform);
-                   chunkData.vegetation.Add(instFlTree);
                 }
-                if (bestFlowerCond <= 50) {
-                  var instFlower = Instantiate(polemonium, new Vector3(bestFlPosX, FlHeight, bestFlPosZ), Quaternion.identity, transform);
-                  chunkData.vegetation.Add(instFlower);
+                else
+                {
+                    var instFlTree = Instantiate(taigaFullTree, new Vector3(bestTreePosX, treeHeight, bestTreePosZ), Quaternion.identity, transform);
+                    chunkData.vegetation.Add(instFlTree);
+                }
+                if (bestFlowerCond <= 50)
+                {
+                    var instFlower = Instantiate(polemonium, new Vector3(bestFlPosX, FlHeight, bestFlPosZ), Quaternion.identity, transform);
+                    chunkData.vegetation.Add(instFlower);
                 }
 
-                
-                
-                
+
+
+
             }
         }
         chunk.ChunkData = chunkData;
@@ -272,57 +307,66 @@ public class GameWorld : MonoBehaviour
 
         // CheckInput();
     }
-    private ChunkData spawnTrail(ChunkData chunkData) {
+    private ChunkData spawnTrail(ChunkData chunkData)
+    {
         float xPos = chunkData.ChunkPositoin.x * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
         float zPos = chunkData.ChunkPositoin.y * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
         System.Random rnd = new System.Random();
         int posX1 = rnd.Next(0, ChunkRenderer.ChunkWidth);
         int posZ1 = rnd.Next(0, ChunkRenderer.ChunkWidth);
-        if (xPos == -144 && zPos >= -280 && zPos <= -200) {
-            for (int y = 1; y < ChunkRenderer.ChunkHeight; y++) {
-                if (chunkData.Blocks[posX1,y, posZ1] == BlockType.Air && chunkData.Blocks[posX1,y-1, posZ1] != BlockType.Air) {
-                    chunkData.Blocks[posX1,y-1, posZ1] = BlockType.Stone;
+        if (xPos == -144 && zPos >= -280 && zPos <= -200)
+        {
+            for (int y = 1; y < ChunkRenderer.ChunkHeight; y++)
+            {
+                if (chunkData.Blocks[posX1, y, posZ1] == BlockType.Air && chunkData.Blocks[posX1, y - 1, posZ1] != BlockType.Air)
+                {
+                    chunkData.Blocks[posX1, y - 1, posZ1] = BlockType.Stone;
                     break;
                 }
             }
-        }  else if ((xPos == -40 && zPos <= -56 && zPos >= -96) || (xPos == -32 && zPos >=-48 && zPos <= 24 )) {
-            for (int y = 1; y < ChunkRenderer.ChunkHeight; y++) {
-                if (chunkData.Blocks[posX1,y, posZ1] == BlockType.Air && chunkData.Blocks[posX1,y-1, posZ1] != BlockType.Air) {
-                    chunkData.Blocks[posX1,y-1, posZ1] = BlockType.Stone;
+        }
+        else if ((xPos == -40 && zPos <= -56 && zPos >= -96) || (xPos == -32 && zPos >= -48 && zPos <= 24))
+        {
+            for (int y = 1; y < ChunkRenderer.ChunkHeight; y++)
+            {
+                if (chunkData.Blocks[posX1, y, posZ1] == BlockType.Air && chunkData.Blocks[posX1, y - 1, posZ1] != BlockType.Air)
+                {
+                    chunkData.Blocks[posX1, y - 1, posZ1] = BlockType.Stone;
                     break;
                 }
             }
-        } else if (xPos >= -136 && zPos >= -192 && xPos <= -48 && zPos <= -104 && (-136 - xPos == -192 - zPos)) {
-            for (int y = 1; y < ChunkRenderer.ChunkHeight; y++) {
-                if (chunkData.Blocks[posX1,y, posZ1] == BlockType.Air && chunkData.Blocks[posX1,y-1, posZ1] != BlockType.Air) {
-                    chunkData.Blocks[posX1,y-1, posZ1] = BlockType.Stone;
+        }
+        else if (xPos >= -136 && zPos >= -192 && xPos <= -48 && zPos <= -104 && (-136 - xPos == -192 - zPos))
+        {
+            for (int y = 1; y < ChunkRenderer.ChunkHeight; y++)
+            {
+                if (chunkData.Blocks[posX1, y, posZ1] == BlockType.Air && chunkData.Blocks[posX1, y - 1, posZ1] != BlockType.Air)
+                {
+                    chunkData.Blocks[posX1, y - 1, posZ1] = BlockType.Stone;
                     break;
                 }
             }
         }
 
 
-        if ((zPos == -272 && xPos >= -136 && xPos <= -56) || (xPos == -56 && zPos <= -280 && zPos >= -312) || (zPos == -312 && xPos >= -56 && xPos <= -8) ||(xPos == -40 && zPos <= -320 && zPos >= -416) || (zPos == -424 && xPos <=-40 && xPos >= -88)) {
-            int posX2 = rnd.Next(0, ChunkRenderer.ChunkWidth);
-            int posZ2 = rnd.Next(0, ChunkRenderer.ChunkWidth);
-            int posX3 = rnd.Next(0, ChunkRenderer.ChunkWidth);
-            int posZ3 = rnd.Next(0, ChunkRenderer.ChunkWidth);
-            int posX4 = rnd.Next(0, ChunkRenderer.ChunkWidth);
-            int posZ4 = rnd.Next(0, ChunkRenderer.ChunkWidth);
-            for (int y = 1; y < ChunkRenderer.ChunkHeight; y++) {
-                if (chunkData.Blocks[posX1,y, posZ1] == BlockType.Air && chunkData.Blocks[posX1,y-1, posZ1] != BlockType.Air) {
-                    chunkData.Blocks[posX1,y-1, posZ1] = BlockType.Stone;
-                }
-                if (chunkData.Blocks[posX2,y, posZ2] == BlockType.Air && chunkData.Blocks[posX2,y-1, posZ2] != BlockType.Air) {
-                    chunkData.Blocks[posX2,y-1, posZ2] = BlockType.Stone;
-                }
-                if (chunkData.Blocks[posX3,y, posZ3] == BlockType.Air && chunkData.Blocks[posX3,y-1, posZ3] != BlockType.Air) {
-                    chunkData.Blocks[posX3,y-1, posZ3] = BlockType.Stone;
-                }
-                if (chunkData.Blocks[posX4,y, posZ4] == BlockType.Air && chunkData.Blocks[posX4,y-1, posZ4] != BlockType.Air) {
-                    chunkData.Blocks[posX4,y-1, posZ4] = BlockType.Stone;
+        if ((zPos == -272 && xPos >= -136 && xPos <= -56) || (xPos == -56 && zPos <= -280 && zPos >= -312) || (zPos == -312 && xPos >= -56 && xPos <= -8) || (xPos == -40 && zPos <= -320 && zPos >= -416) || (zPos == -424 && xPos <= -40 && xPos >= -88))
+        {
+            int posX2 = 0;
+            int posZ2 = 0;
+            for (int i = 0; i < 50; i++)
+            {
+                posX2 = rnd.Next(0, ChunkRenderer.ChunkWidth);
+                posZ2 = rnd.Next(0, ChunkRenderer.ChunkWidth);
+                for (int y = 1; y < ChunkRenderer.ChunkHeight; y++)
+                {
+                    if (chunkData.Blocks[posX2, y, posZ2] == BlockType.Air && chunkData.Blocks[posX2, y - 1, posZ2] != BlockType.Air)
+                    {
+                        chunkData.Blocks[posX2, y - 1, posZ2] = BlockType.Stone;
+                    }
                 }
             }
+
+
         }
         return chunkData;
     }
