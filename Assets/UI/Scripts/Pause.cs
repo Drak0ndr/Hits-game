@@ -1,26 +1,36 @@
+using Player;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Pause : MonoBehaviour
 {
     public List<GameObject> _images;
+    public GameObject _escImage;
 
-    private bool isPause = false;   
+    private bool isPause = false;
+    private bool isAlreadyPause = false;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && !isPause)
+        if (Input.GetKeyDown(KeyCode.Escape) && !GlobalsVar.isTitles && !isPause)
         {
             SetPause();
 
             isPause = true;
+
+            if (!isAlreadyPause)
+            {
+                _escImage.SetActive(false);
+
+                isAlreadyPause = true;
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.Z))
+        else if (Input.GetKeyDown(KeyCode.Escape) && !GlobalsVar.isTitles && isPause)
         {
             SetPlay();
 
             isPause = false;
-        }
+        } 
     }
 
     private void SetPause()
