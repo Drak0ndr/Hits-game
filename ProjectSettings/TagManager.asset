@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Staff
+  - MagicBall
+  - Frog
+  - Crystal
+  - Hedgehog
+  - Tree
+  - Door
+  - Potion
+  - Enemy
+  - Pumpkin
   layers:
   - Default
   - TransparentFX
@@ -11,11 +21,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - MagicBall
+  - Staff
+  - Enemy
+  - Post Processing
   - 
   - 
   - 
